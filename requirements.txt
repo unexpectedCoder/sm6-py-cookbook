@@ -1,0 +1,6 @@
+numpy
+scipy
+matplotlib
+plotly
+jupyter-notebook
+jupyter-book
