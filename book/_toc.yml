@@ -5,7 +5,7 @@ format: jb-book
 root: intro
 chapters:
 # Plotting chapter
-- file: plotting/plotting
+- file: plotting
   sections:
   - file: plotting/ch1-basics
   - file: plotting/ch2-improved-matplotlib

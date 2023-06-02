@@ -3,7 +3,7 @@
 
 title: SM6 Cookbook
 author: Vadim Fedulov
-logo: logo.png
+# logo: logo.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
