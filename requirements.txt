@@ -2,5 +2,7 @@ numpy
 scipy
 matplotlib
 plotly
-jupyter-notebook
+seaborn
 jupyter-book
+ipykernel
+ghp-import
