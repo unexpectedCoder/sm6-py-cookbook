@@ -139,8 +139,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
-    <p class="title logo__title">SM6 Cookbook</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -149,7 +155,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    <no title>
+                    Python-справочник кафедры СМ6 МГТУ им. Н.Э. Баумана
                 </a>
             </li>
         </ul>
@@ -355,8 +361,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Данные для визуализации</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">matplotlib</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Неявный подход</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Явный подход</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matlab">Стиль Matlab</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Объектно-ориентированный стиль</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotly">plotly</a></li>
@@ -374,22 +380,46 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>Основы построения графиков<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
-<p>Для построения графиков в Python разработано целое множество инструментов (библиотек): <a class="reference external" href="https://matplotlib.org/">matplotlib</a>, <a class="reference external" href="https://plotly.com/python/">plotly</a>, <a class="reference external" href="https://seaborn.pydata.org/">seaborn</a> и другие.</p>
-<p>Каждый из указанных инструментов разработан для решения определённых задач. Например, библиотека <a class="reference external" href="https://matplotlib.org/">matplotlib</a>, разработанная в конце XX века в NASA, является универсальным инструментом построения графиков в окнах операционной системы: с её помощью можно строить самые разнообразные двухмерные и <a class="reference external" href="https://matplotlib.org/stable/gallery/mplot3d/index.html">трёхмерные графики</a> и даже создавать <a class="reference external" href="https://matplotlib.org/stable/gallery/animation/index.html">анимированные визуализации</a>.</p>
-<p>Остальные библиотеки визуализации данных вдохновлены <a class="reference external" href="https://matplotlib.org/">matplotlib</a> и упрощают создание сложных и красивых графиков. Так, с помощью <a class="reference external" href="https://plotly.com/python/">plotly</a> строят графики, с которыми можно взаимодействовать в браузере, так как данная библиотека основана на JavaScript: такой подход значительно упрощает и совершенствует обмен результатами обработки данных между различными учёными, инженерами и их группами. Инструмент <a class="reference external" href="https://seaborn.pydata.org/">seaborn</a> заточен под визуализацию статистических данных, поэтому нашёл широкое применение в науке о данных, машинном обучении и т.п.</p>
-<p>Рассмотрим основы создания простого графика рассмотренными тремя инструментами. Будем графически изображать функцию <span class="math notranslate nohighlight">\(y = x^3\)</span> в пределах <span class="math notranslate nohighlight">\(x \in [-2, 2]\)</span>.</p>
+<p>Для построения графиков в Python разработано целое множество инструментов (библиотек):
+<a class="reference external" href="https://matplotlib.org/">matplotlib</a>, <a class="reference external" href="https://plotly.com/python/">plotly</a>, <a class="reference external" href="https://seaborn.pydata.org/">seaborn</a> и др.</p>
+<p>Каждый из указанных инструментов разработан для решения определённых задач.
+Например, библиотека <a class="reference external" href="https://matplotlib.org/">matplotlib</a>, разработанная в конце XX века в NASA, является универсальным инструментом построения графиков в окнах операционной системы:
+с её помощью можно строить самые разнообразные двухмерные и <a class="reference external" href="https://matplotlib.org/stable/gallery/mplot3d/index.html">трёхмерные графики</a>
+и даже создавать <a class="reference external" href="https://matplotlib.org/stable/gallery/animation/index.html">анимированные визуализации</a>.</p>
+<p>Остальные библиотеки визуализации данных вдохновлены <a class="reference external" href="https://matplotlib.org/">matplotlib</a> и упрощают создание сложных и красивых графиков.
+Так, с помощью <a class="reference external" href="https://plotly.com/python/">plotly</a> строят графики, с которыми можно взаимодействовать в браузере, так как данная библиотека основана на JavaScript.
+Такой подход значительно упрощает и совершенствует обмен результатами обработки данных между различными учёными, инженерами и их группами.
+Инструмент <a class="reference external" href="https://seaborn.pydata.org/">seaborn</a> заточен под визуализацию статистических данных, поэтому нашёл широкое применение в науке о данных, машинном обучении и т.п.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Всю необходимую информацию по наиболее распространённым способам визуализации данных
+вы можете найти в книге <a class="reference external" href="https://www.ozon.ru/product/python-dlya-slozhnyh-zadach-nauka-o-dannyh-i-mashinnoe-obuchenie-vander-plas-dzh-211433316/?sh=KZ1LwfQryQ">“Python для сложных задач”</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Исчерпывающим источником информации по различным python-библиотекам
+является их документация.</p>
+</div>
+<p>В данном разделе мы рассмотрим основы создания графика тремя инструментами:
+<a class="reference external" href="https://matplotlib.org/">matplotlib</a>, <a class="reference external" href="https://plotly.com/python/">plotly</a> и <a class="reference external" href="https://seaborn.pydata.org/">seaborn</a>.</p>
+<p>В качестве функции будем использовать кубическую параболу</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = x^3,
+\]</div>
+<p>которую изобразим в пределах <span class="math notranslate nohighlight">\(x \in [-2, 2]\)</span>.</p>
 <section id="id2">
 <h2>Данные для визуализации<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<p>Прежде чем построить какой-либо график, что-либо визуализировать, и не важно каким конкретно инструментом это самое <em>что-либо</em> нужно рассчитать или загрузить из базы данных. Мы будем рассчитывать. Опишем нашу функцию <span class="math notranslate nohighlight">\(y = x^3\)</span>, которую собираемся визуализировать:</p>
+<p>Прежде чем построить какой-либо график, что-либо визуализировать, и не важно каким конкретно инструментом это самое <em>что-либо</em> нужно рассчитать или загрузить из базы данных. Мы будем рассчитывать. Опишем нашу функцию <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_cubic</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Теперь инициализируем массив значений <code class="docutils literal notranslate"><span class="pre">x</span></code> (используя библиотеку <a class="reference external" href="https://numpy.org/">numpy</a>) в указанных выше пределах <span class="math notranslate nohighlight">\(x \in [-2, 2]\)</span>:</p>
+<p>Теперь инициализируем <a class="reference external" href="https://numpy.org/">numpy</a>-массив <code class="docutils literal notranslate"><span class="pre">x</span></code> из 101 значения в указанных выше пределах <span class="math notranslate nohighlight">\(x \in [-2, 2]\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -399,10 +429,10 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Вызываем <code class="docutils literal notranslate"><span class="pre">func(...)</span></code> и получаем массив <code class="docutils literal notranslate"><span class="pre">y</span></code>:</p>
+<p>Вызываем <code class="docutils literal notranslate"><span class="pre">f_cubic(...)</span></code> и получаем массив <code class="docutils literal notranslate"><span class="pre">y</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">f_cubic</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -411,7 +441,8 @@ document.write(`
 </section>
 <section id="matplotlib">
 <h2>matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this heading">#</a></h2>
-<p>Для начала импортируем соответствующий инструмент. Это принято делать так:</p>
+<p>Для начала импортируем соответствующий инструмент - модуль <a class="reference external" href="https://matplotlib.org/stable/tutorials/introductory/pyplot.html">pyplot</a>.
+Это принято делать так:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -421,37 +452,44 @@ document.write(`
 </div>
 <p>В пакете <a class="reference external" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html">pyplot</a> реализованы классы и функции построения графиков в Matlab-стиле.</p>
 <p><a class="reference external" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html">pyplot</a> построен в парадигме объектно-ориентированного программирования, т.е. графики (их оси, метки, линии и т.д.) являются объектами, хранящими в себе всю необходимую информацию. При этом существуют два подхода к визуализации с помощью <a class="reference external" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html">pyplot</a>:</p>
-<ol class="arabic simple">
-<li><p>неявный и</p></li>
-<li><p>явный объектно-ориентированный подход.</p></li>
-</ol>
-<section id="id3">
-<h3>Неявный подход<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>График строится без явного создания объектов <a class="reference external" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html">pyplot</a>.
-Вот так:</p>
+<ul class="simple">
+<li><p>стиль Matlab и</p></li>
+<li><p>объектно-ориентированный стиль.</p></li>
+</ul>
+<section id="matlab">
+<h3>Стиль Matlab<a class="headerlink" href="#matlab" title="Permalink to this heading">#</a></h3>
+<p>График строится без явного создания объектов модуля <a class="reference external" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html">pyplot</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+<span class="c1"># Оператор &quot;;&quot; в данном случае нужен для того,</span>
+<span class="c1"># чтобы не выводилась техническая информация о созданном окне.</span>
+<span class="c1"># При запуске кода из консоли эта информация не будет выводиться,</span>
+<span class="c1"># в таком случае оператор &quot;;&quot; ни на что не влияет.</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc83685df30&gt;]
-</pre></div>
-</div>
 <img alt="../_images/c9a1ea03f2ce518b77226f2d85b1a6ddfef5a7b50f94b8f061760274219602d0.png" src="../_images/c9a1ea03f2ce518b77226f2d85b1a6ddfef5a7b50f94b8f061760274219602d0.png" />
 </div>
 </div>
 <p>Только и всего!</p>
 </section>
-<section id="id4">
-<h3>Явный подход<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id3">
+<h3>Объектно-ориентированный стиль<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>В этом случае мы явно создаём фигуру (рисунок) типа <code class="docutils literal notranslate"><span class="pre">plt.figure</span></code> и ось типа <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code>. Сделать это можно несколькими способами.
 Например, так:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mf">.8</span><span class="p">,</span> <span class="mf">.8</span><span class="p">])</span> <span class="c1"># Массив отвечает за величину &quot;рабочего&quot; поля графика</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mf">.8</span><span class="p">,</span> <span class="mf">.8</span><span class="p">])</span>
+<span class="c1"># Список, переданный add_axes(...) в качестве аргумента,</span>
+<span class="c1"># описывает прямоугольник &quot;рабочего поля&quot; (оси plt.axis) -</span>
+<span class="c1"># то, что очерчено чёрными осями.</span>
+<span class="c1"># Первые два значения - координата левой нижней точки прямоугольника</span>
+<span class="c1"># в относительных (от 0 до 1) координатах окна;</span>
+<span class="c1"># вторые два значения - ширина и высота этого прямоугольника</span>
+<span class="c1"># в тех же координатах.</span>
 </pre></div>
 </div>
 </div>
@@ -459,10 +497,12 @@ document.write(`
 <img alt="../_images/473b3f95593ee18c68763e99c6663d251dfccd0ac2cff5129b7371880e884ab6.png" src="../_images/473b3f95593ee18c68763e99c6663d251dfccd0ac2cff5129b7371880e884ab6.png" />
 </div>
 </div>
-<p>Или так:</p>
+<p>Или с помощью функции <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code>, которая возвращает кортеж вида
+<code class="docutils literal notranslate"><span class="pre">(plt.figure,</span> <span class="pre">plt.axes)</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># Кортеж сразу распакован</span>
 </pre></div>
 </div>
 </div>
@@ -470,35 +510,37 @@ document.write(`
 <img alt="../_images/b302bd66c8ccbe653fb66adf0953ccf8be911a87397cc18c3ae67d1ed734b144.png" src="../_images/b302bd66c8ccbe653fb66adf0953ccf8be911a87397cc18c3ae67d1ed734b144.png" />
 </div>
 </div>
-<p>Теперь у нас есть два объекта с именами <code class="docutils literal notranslate"><span class="pre">fig</span></code> (фигура) и <code class="docutils literal notranslate"><span class="pre">ax</span></code> (ось). В терминах <a class="reference external" href="https://matplotlib.org/">matplotlib</a> <code class="docutils literal notranslate"><span class="pre">fig</span></code> - это окно, т.е. весь рисунок выше; <code class="docutils literal notranslate"><span class="pre">ax</span></code> - это область, ограниченная числовыми осями графика. Отрисовка происходит непосредственно через объект оси:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Одна (ax<strong>i</strong>s) или несколько (ax<strong>e</strong>s) осей
+axis - это ось, ед. число; axes - оси во множ. числе.</p>
+<p>В общем случае <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> возвращает массив осей, но по умолчанию ось всего одна, поэтому возвращённый экземпляр в данном случае имеет тип <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code> вместо <code class="docutils literal notranslate"><span class="pre">plt.axes</span></code>.</p>
+</div>
+<p>Теперь у нас есть два объекта с именами <code class="docutils literal notranslate"><span class="pre">fig</span></code> (фигура, рисунок, окно типа <code class="docutils literal notranslate"><span class="pre">plt.figure</span></code>) и <code class="docutils literal notranslate"><span class="pre">ax</span></code> (ось типа <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code>).
+В терминах <a class="reference external" href="https://matplotlib.org/">matplotlib</a> <code class="docutils literal notranslate"><span class="pre">fig</span></code> - это окно, т.е. весь рисунок выше; <code class="docutils literal notranslate"><span class="pre">ax</span></code> - это область, ограниченная числовыми осями графика.</p>
+<p>Отрисовка происходит непосредственно через объект оси <code class="docutils literal notranslate"><span class="pre">ax</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc834770280&gt;]
-</pre></div>
-</div>
 <img alt="../_images/c9a1ea03f2ce518b77226f2d85b1a6ddfef5a7b50f94b8f061760274219602d0.png" src="../_images/c9a1ea03f2ce518b77226f2d85b1a6ddfef5a7b50f94b8f061760274219602d0.png" />
 </div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Может возникнуть вопрос. Зачем создавать объекты явно (2 или 3 строки кода) вместо того, чтобы использовать неявный метод (1 строка кода)? Дело в том, что явным методом возможно строить очень сложные графики, в т.ч. трёхмерные. Неявный метод для этого не подходит.</p>
+<p>Может возникнуть вопрос. Зачем создавать объекты явно (2 или 3 строки кода) вместо того, чтобы использовать неявный метод (1 строка кода)?
+Дело в том, что явным методом возможно строить очень сложные графики, в т.ч. трёхмерные. Неявный метод для этого не подходит.</p>
 </div>
 <p>Вот таким образом строятся простые двумерные графики с помощью <a class="reference external" href="https://matplotlib.org/">matplotlib</a>.</p>
 </section>
 </section>
 <section id="plotly">
 <h2>plotly<a class="headerlink" href="#plotly" title="Permalink to this heading">#</a></h2>
-<p>Рассмотрим ту же задачу, используя <a class="reference external" href="https://plotly.com/python/">plotly</a>. Для начала импортируем пакет <a class="reference external" href="https://plotly.com/python/plotly-express/">express</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Для работы <a class="reference external" href="https://plotly.com/python/plotly-express/">express</a> может потребоваться библиотека <a class="reference external" href="https://pandas.pydata.org/">pandas</a>.</p>
-</div>
+<p>Рассмотрим ту же задачу, используя <a class="reference external" href="https://plotly.com/python/">plotly</a>. Для начала импортируем пакет <a class="reference external" href="https://plotly.com/python/plotly-express/">express</a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
@@ -506,7 +548,8 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Уже видно отличие от <a class="reference external" href="https://matplotlib.org/">matplotlib</a> - <a class="reference external" href="https://plotly.com/python/">plotly</a> работает с размеченными данными (словарями), а не нативными массивами.
+<p>Уже видно отличие от <a class="reference external" href="https://matplotlib.org/">matplotlib</a> -
+<a class="reference external" href="https://plotly.com/python/">plotly</a> работает с размеченными данными (словарями), а не нативными массивами.
 Это объясняется тем, что <a class="reference external" href="https://plotly.com/python/">plotly</a> заточена на обработку больших многомерных данных, имеющих место в задачах аналитики, машинного обучения и т.п.</p>
 <p>Сформируем таблицу (словарь) <code class="docutils literal notranslate"><span class="pre">xy</span></code> из массивов <code class="docutils literal notranslate"><span class="pre">x</span></code> и <code class="docutils literal notranslate"><span class="pre">y</span></code>:</p>
 <div class="cell docutils container">
@@ -545,9 +588,9 @@ document.write(`
         });
         }
         </script>
-        </div><div class="output text_html"><div>                            <div id="181edc46-91d0-44a5-bfb5-d809b6631c6e" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("181edc46-91d0-44a5-bfb5-d809b6631c6e")) {                    Plotly.newPlot(                        "181edc46-91d0-44a5-bfb5-d809b6631c6e",                        [{"hovertemplate":"x=%{x}<br>y=%{y}<extra></extra>","legendgroup":"","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"","orientation":"v","showlegend":false,"x":[-2.0,-1.96,-1.92,-1.88,-1.84,-1.8,-1.76,-1.72,-1.68,-1.6400000000000001,-1.6,-1.56,-1.52,-1.48,-1.44,-1.4,-1.3599999999999999,-1.3199999999999998,-1.28,-1.24,-1.2,-1.1600000000000001,-1.12,-1.08,-1.04,-1.0,-0.96,-0.9199999999999999,-0.8799999999999999,-0.8400000000000001,-0.8,-0.76,-0.72,-0.6799999999999999,-0.6399999999999999,-0.5999999999999999,-0.56,-0.52,-0.48,-0.43999999999999995,-0.3999999999999999,-0.3599999999999999,-0.32000000000000006,-0.28,-0.24,-0.19999999999999996,-0.15999999999999992,-0.11999999999999988,-0.08000000000000007,-0.040000000000000036,0.0,0.040000000000000036,0.08000000000000007,0.1200000000000001,0.16000000000000014,0.20000000000000018,0.2400000000000002,0.28000000000000025,0.31999999999999984,0.3599999999999999,0.3999999999999999,0.43999999999999995,0.48,0.52,0.56,0.6000000000000001,0.6400000000000001,0.6800000000000002,0.7200000000000002,0.7600000000000002,0.8000000000000003,0.8399999999999999,0.8799999999999999,0.9199999999999999,0.96,1.0,1.04,1.08,1.12,1.1600000000000001,1.2000000000000002,1.2400000000000002,1.2800000000000002,1.3200000000000003,1.3599999999999999,1.4,1.44,1.48,1.52,1.56,1.6,1.6400000000000001,1.6800000000000002,1.7200000000000002,1.7600000000000002,1.8000000000000003,1.8399999999999999,1.88,1.92,1.96,2.0],"xaxis":"x","y":[-8.0,-7.529535999999999,-7.077887999999999,-6.644671999999999,-6.229504,-5.832000000000001,-5.451776,-5.088448,-4.741631999999999,-4.410944000000001,-4.096000000000001,-3.7964160000000002,-3.5118080000000003,-3.241792,-2.9859839999999997,-2.7439999999999993,-2.5154559999999995,-2.2999679999999993,-2.0971520000000003,-1.9066239999999999,-1.7279999999999998,-1.5608960000000005,-1.4049280000000004,-1.2597120000000002,-1.124864,-1.0,-0.8847359999999999,-0.7786879999999998,-0.6814719999999997,-0.5927040000000001,-0.5120000000000001,-0.43897600000000003,-0.37324799999999997,-0.31443199999999993,-0.2621439999999999,-0.21599999999999986,-0.17561600000000005,-0.140608,-0.11059199999999998,-0.08518399999999997,-0.06399999999999996,-0.046655999999999954,-0.03276800000000002,-0.021952000000000006,-0.013823999999999998,-0.007999999999999995,-0.004095999999999994,-0.001727999999999995,-0.0005120000000000014,-6.400000000000017e-05,0.0,6.400000000000016e-05,0.0005120000000000013,0.0017280000000000045,0.00409600000000001,0.008000000000000021,0.013824000000000036,0.02195200000000006,0.03276799999999995,0.046655999999999954,0.06399999999999996,0.08518399999999997,0.11059199999999998,0.140608,0.17561600000000005,0.21600000000000008,0.26214400000000015,0.3144320000000002,0.3732480000000003,0.43897600000000037,0.5120000000000006,0.5927039999999997,0.6814719999999997,0.7786879999999998,0.8847359999999999,1.0,1.124864,1.2597120000000002,1.4049280000000004,1.5608960000000005,1.7280000000000006,1.906624000000001,2.0971520000000012,2.299968000000001,2.515455999999999,2.7439999999999993,2.9859839999999997,3.241792,3.511808,3.7964160000000002,4.096000000000001,4.4109440000000015,4.741632000000001,5.088448000000001,5.4517760000000015,5.8320000000000025,6.229503999999999,6.644671999999999,7.077887999999999,7.529535999999999,8.0],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"x"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"y"}},"legend":{"tracegroupgap":0},"margin":{"t":60}},                        {"responsive": true}                    ).then(function(){
+        </div><div class="output text_html"><div>                            <div id="37c8ad5e-5f14-48c0-9794-1062bf30afb3" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("37c8ad5e-5f14-48c0-9794-1062bf30afb3")) {                    Plotly.newPlot(                        "37c8ad5e-5f14-48c0-9794-1062bf30afb3",                        [{"hovertemplate":"x=%{x}<br>y=%{y}<extra></extra>","legendgroup":"","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"","orientation":"v","showlegend":false,"x":[-2.0,-1.96,-1.92,-1.88,-1.84,-1.8,-1.76,-1.72,-1.68,-1.6400000000000001,-1.6,-1.56,-1.52,-1.48,-1.44,-1.4,-1.3599999999999999,-1.3199999999999998,-1.28,-1.24,-1.2,-1.1600000000000001,-1.12,-1.08,-1.04,-1.0,-0.96,-0.9199999999999999,-0.8799999999999999,-0.8400000000000001,-0.8,-0.76,-0.72,-0.6799999999999999,-0.6399999999999999,-0.5999999999999999,-0.56,-0.52,-0.48,-0.43999999999999995,-0.3999999999999999,-0.3599999999999999,-0.32000000000000006,-0.28,-0.24,-0.19999999999999996,-0.15999999999999992,-0.11999999999999988,-0.08000000000000007,-0.040000000000000036,0.0,0.040000000000000036,0.08000000000000007,0.1200000000000001,0.16000000000000014,0.20000000000000018,0.2400000000000002,0.28000000000000025,0.31999999999999984,0.3599999999999999,0.3999999999999999,0.43999999999999995,0.48,0.52,0.56,0.6000000000000001,0.6400000000000001,0.6800000000000002,0.7200000000000002,0.7600000000000002,0.8000000000000003,0.8399999999999999,0.8799999999999999,0.9199999999999999,0.96,1.0,1.04,1.08,1.12,1.1600000000000001,1.2000000000000002,1.2400000000000002,1.2800000000000002,1.3200000000000003,1.3599999999999999,1.4,1.44,1.48,1.52,1.56,1.6,1.6400000000000001,1.6800000000000002,1.7200000000000002,1.7600000000000002,1.8000000000000003,1.8399999999999999,1.88,1.92,1.96,2.0],"xaxis":"x","y":[-8.0,-7.529535999999999,-7.077887999999999,-6.644671999999999,-6.229504,-5.832000000000001,-5.451776,-5.088448,-4.741631999999999,-4.410944000000001,-4.096000000000001,-3.7964160000000002,-3.5118080000000003,-3.241792,-2.9859839999999997,-2.7439999999999993,-2.5154559999999995,-2.2999679999999993,-2.0971520000000003,-1.9066239999999999,-1.7279999999999998,-1.5608960000000005,-1.4049280000000004,-1.2597120000000002,-1.124864,-1.0,-0.8847359999999999,-0.7786879999999998,-0.6814719999999997,-0.5927040000000001,-0.5120000000000001,-0.43897600000000003,-0.37324799999999997,-0.31443199999999993,-0.2621439999999999,-0.21599999999999986,-0.17561600000000005,-0.140608,-0.11059199999999998,-0.08518399999999997,-0.06399999999999996,-0.046655999999999954,-0.03276800000000002,-0.021952000000000006,-0.013823999999999998,-0.007999999999999995,-0.004095999999999994,-0.001727999999999995,-0.0005120000000000014,-6.400000000000017e-05,0.0,6.400000000000017e-05,0.0005120000000000014,0.0017280000000000047,0.004096000000000011,0.008000000000000021,0.013824000000000038,0.02195200000000006,0.03276799999999995,0.046655999999999954,0.06399999999999996,0.08518399999999997,0.11059199999999998,0.140608,0.17561600000000005,0.2160000000000001,0.26214400000000015,0.3144320000000002,0.3732480000000003,0.4389760000000004,0.5120000000000006,0.5927039999999997,0.6814719999999997,0.7786879999999998,0.8847359999999999,1.0,1.124864,1.2597120000000002,1.4049280000000004,1.5608960000000005,1.7280000000000009,1.906624000000001,2.0971520000000012,2.2999680000000016,2.5154559999999995,2.7439999999999993,2.9859839999999997,3.241792,3.5118080000000003,3.7964160000000002,4.096000000000001,4.410944000000001,4.741632000000001,5.088448000000001,5.451776000000002,5.8320000000000025,6.229503999999999,6.644671999999999,7.077887999999999,7.529535999999999,8.0],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"x"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"y"}},"legend":{"tracegroupgap":0},"margin":{"t":60}},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('181edc46-91d0-44a5-bfb5-d809b6631c6e');
+var gd = document.getElementById('37c8ad5e-5f14-48c0-9794-1062bf30afb3');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -572,7 +615,7 @@ if (outputEl) {{
                         })                };                });            </script>        </div></div></div>
 </div>
 <p>Так же бросается в глаза отличное от <a class="reference external" href="https://matplotlib.org/">matplotlib</a> поведение по умолчанию: оси подписаны, отображается сетка и пр.
-Основной особенностью является то, что график <a class="reference external" href="https://plotly.com/python/">plotly</a> по умолчанию интерактивный даже в среде <em>jupyter-notebook</em>.</p>
+Основной особенностью является то, что график <a class="reference external" href="https://plotly.com/python/">plotly</a> по умолчанию интерактивный даже в браузере.</p>
 </section>
 <section id="seaborn">
 <h2>seaborn<a class="headerlink" href="#seaborn" title="Permalink to this heading">#</a></h2>
@@ -595,16 +638,17 @@ if (outputEl) {{
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fc8161d0d90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7ff1a2e56a40&gt;
 </pre></div>
 </div>
 <img alt="../_images/0505d5d283bf7840ebd2385522512d1e990b964d85f02ac2c6e5b05235c0bfda.png" src="../_images/0505d5d283bf7840ebd2385522512d1e990b964d85f02ac2c6e5b05235c0bfda.png" />
 </div>
 </div>
-<p>Так же заметны серьёзные отличия поведения по умолчанию от двух предыдущих инструментов. В среде <em>jupyter-notebook</em> полученный график не является интерактивным, как и <a class="reference external" href="https://matplotlib.org/">matplotlib</a> по умолчанию.</p>
+<p>Так же заметны серьёзные отличия поведения по умолчанию от двух предыдущих инструментов.
+Полученный график, как и <a class="reference external" href="https://matplotlib.org/">matplotlib</a>, по умолчанию не является интерактивным в браузере.</p>
 <p>На этом рассмотрение основ построения графиков в Python закончено.
 Подробности вы можете найти в официальной документации на библиотеки.</p>
-<p>В других частях пособия будут рассмотрены некоторые наиболее часто используемые особенности рассмотренных библиотек.</p>
+<p>В других частях пособия приведены некоторые наиболее часто используемые особенности рассмотренных библиотек.</p>
 </section>
 </section>
 
@@ -677,8 +721,8 @@ if (outputEl) {{
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Данные для визуализации</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">matplotlib</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Неявный подход</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Явный подход</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matlab">Стиль Matlab</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Объектно-ориентированный стиль</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotly">plotly</a></li>
