@@ -1,8 +1,0 @@
-numpy
-scipy
-matplotlib
-plotly
-seaborn
-jupyter-book
-ipykernel
-ghp-import
