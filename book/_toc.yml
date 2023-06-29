@@ -10,3 +10,7 @@ chapters:
   - file: plotting/ch1-basics
   - file: plotting/ch2-improved-matplotlib
   - file: plotting/ch3-3d-matplotlib
+# Math chapter
+- file: mathematics
+  sections:
+  - file: mathematics/ch1-rooting
