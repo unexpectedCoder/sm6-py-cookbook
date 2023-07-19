@@ -14,3 +14,4 @@ chapters:
 - file: mathematics
   sections:
   - file: mathematics/ch1-rooting
+  - file: mathematics/ch2-ode
