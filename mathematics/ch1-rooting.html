@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Поиск корней уравнений &#8212; SM6 Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'mathematics/ch1-rooting';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Решение обыкновенных дифференциальных уравнений (ОДУ)" href="ch2-ode.html" />
+    <link rel="prev" title="Математика с Python" href="../mathematics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Python-справочник кафедры СМ6 МГТУ им. Н.Э. Баумана
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch1-basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch2-improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch3-3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook/issues/new?title=Issue%20on%20page%20%2Fmathematics/ch1-rooting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/mathematics/ch1-rooting.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Поиск корней уравнений</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Графическое построение</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Численный поиск корня</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Поиск корня другим методом</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Поиск корней уравнений<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>Рассмотрим следующее трансцендентное уравнение:</p>
+<div class="math notranslate nohighlight">
+\[\cos{x} = x.\]</div>
+<p>Никак не получится преобразовать данное уравнение, чтобы точно определить значение <span class="math notranslate nohighlight">\(x\)</span>.
+Поэтому решают его численно.
+Но перед численным решением всегда полезно оценить решение графически, ведь вполне может существовать несколько корней, в то время как численный метод находит только один корень.
+В таком случае важно понимать, какой именно корень найден численно.
+После этого появится понимание, как изменить параметры решателя так, чтобы он нашёл остальные корни в последующих поисках.</p>
+<section id="id2">
+<h2>Графическое построение<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Исходные данные</span>
+<span class="c1"># - массив значений аргумента </span>
+<span class="c1"># - и двух функций: cos(x) и x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">y_cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y_x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># Копируем x, чтобы переменные x и y_x</span>
+                <span class="c1"># не ссылались на одни и те же данные</span>
+
+<span class="c1"># Заведём функцию построения графика f(x)</span>
+<span class="c1"># и сможем строить его в любой момент</span>
+<span class="k">def</span> <span class="nf">plot_f</span><span class="p">():</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_cos</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\cos</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Вернём fig и ax, чтобы была возможность</span>
+    <span class="c1"># достроить и/или изменить график</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;bmh&quot;</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_f</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/477e688e735bc3cbc1ad4603d3bc2fd378416683f2ae403ae4069782c4a9a8d5.png" src="../_images/477e688e735bc3cbc1ad4603d3bc2fd378416683f2ae403ae4069782c4a9a8d5.png" />
+</div>
+</div>
+<p>Итак, в данном случае существует единственный корень <span class="math notranslate nohighlight">\(x_{\rm r}\)</span>, расположенный где-то между <span class="math notranslate nohighlight">\(0.5\)</span> и <span class="math notranslate nohighlight">\(1\)</span>:
+<span class="math notranslate nohighlight">\(x_{\rm r} \in (0.5; 1)\)</span>.</p>
+</section>
+<section id="id3">
+<h2>Численный поиск корня<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>Найти корень уравнения <span class="math notranslate nohighlight">\(\cos{x} = x\)</span> значит найти такое значение <span class="math notranslate nohighlight">\(x_{\rm r}\)</span>, при котором значение функции</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \cos{x} - x\]</div>
+<p>равно <span class="math notranslate nohighlight">\(0\)</span>: <span class="math notranslate nohighlight">\(f(x_{\rm r}) = 0\)</span>.</p>
+<p>Рассматриваемая функция <span class="math notranslate nohighlight">\(f(x)\)</span> является <strong>скалярной</strong>, т. к. отображает скалярный аргумент <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> в скалярное значение <span class="math notranslate nohighlight">\(y = f(x) \in \mathbb{R}\)</span>.
+Помимо скалярных существуют <strong>векторные</strong> функции, зависящие от нескольких аргументов <span class="math notranslate nohighlight">\(x_1, x_2, \ldots\)</span>, собранных в вектор входных параметров <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, однако значение самой функции является скалярной величиной:
+<span class="math notranslate nohighlight">\(f: \mathbf{x} \rightarrow y\)</span>.</p>
+<p>Опишем рассмотренную скалярную функцию <span class="math notranslate nohighlight">\(f(x)\)</span> в коде:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Функции численного поиска корней содержатся в модуле <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html"><code class="docutils literal notranslate"><span class="pre">optimize</span></code></a> библиотеки SciPy. То, что указанный модуль называется “оптимизацией”, не должно вводить в заблуждение. Дело в том, что численный поиск корней уравнений во многом схож с методами численного поиска экстремумов (минимумов, оптимумов) функций.</p>
+<p>Для текущей цели понадобится алгоритм поиска корня скалярной функции <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root_scalar.html#scipy.optimize.root_scalar"><code class="docutils literal notranslate"><span class="pre">root_scalar(...)</span></code></a>.
+Импортируем:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">root_scalar</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Найдём корень. Для этого нужно вызвать функцию <code class="docutils literal notranslate"><span class="pre">root_scalar(...)</span></code> с необходимыми аргументами.
+Первым аргументом передаётся имя целевой функции: в нашем случае <code class="docutils literal notranslate"><span class="pre">f</span></code>.
+Далее необходимо задать метод поиска корня уравнения.
+Их существует большое множество, и все они подробно описаны в документации SciPy - выбор за программистом.</p>
+<p>Выбрать метод можно явно, задав параметр <code class="docutils literal notranslate"><span class="pre">method=&quot;newton&quot;</span></code> (например, метод Ньютона), или неявно.
+Например, ниже задаётся интервал оси <span class="math notranslate nohighlight">\(Ox\)</span>, на котором предполагается нахождение корня.
+В этом случае, если явно не указан метод, он будет назначен автоматически (в данном случае используется метод <code class="docutils literal notranslate"><span class="pre">&quot;brentq&quot;</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">root_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">bracket</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Посмотрим, какая информация содержится в результате <code class="docutils literal notranslate"><span class="pre">res</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      converged: True
+           flag: converged
+ function_calls: 8
+     iterations: 7
+           root: 0.7390851332151606
+</pre></div>
+</div>
+</div>
+</div>
+<p>Информация следующая:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">converged:</span> <span class="pre">True</span></code> и <code class="docutils literal notranslate"><span class="pre">flag:</span> <span class="pre">converged</span></code> - корень успешно найден, решение сошлось;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">function_calls:</span> <span class="pre">8</span></code> - целевая функция <code class="docutils literal notranslate"><span class="pre">f</span></code> была вызвана 8 раз;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iterations:</span> <span class="pre">7</span></code> - алгоритм поиска завершился за 7 итераций;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">root:</span> <span class="pre">0.7390851332151606</span></code> - искомый корень.</p></li>
+</ul>
+<p>Служебная информация (всё, кроме <code class="docutils literal notranslate"><span class="pre">root</span></code>) позволяет оценивать эффективность использованного алгоритма.
+За чем меньшее число итераций выполняется алгоритм, чем меньше раз вызывается целевая функция - тем быстрее выполняется алгоритм.</p>
+<p>Сохраним гайденный корень в отдельной переменной:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">root</span>
+<span class="n">root</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7390851332151606
+</pre></div>
+</div>
+</div>
+</div>
+<p>Перестроим график и отметим на нём найденное решение.
+Функции <code class="docutils literal notranslate"><span class="pre">plot(...)</span></code> передадим <code class="docutils literal notranslate"><span class="pre">root</span></code> в качестве аргумента <code class="docutils literal notranslate"><span class="pre">x</span></code>, а в качестве аргумента <code class="docutils literal notranslate"><span class="pre">y</span></code> можно передать либо <code class="docutils literal notranslate"><span class="pre">np.cos(root)</span></code>, либо просто <code class="docutils literal notranslate"><span class="pre">root</span></code>, т. е. нужно подставить <code class="docutils literal notranslate"><span class="pre">root</span></code> в любую из двух частей уравнения:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;bmh&quot;</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_f</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span>
+        <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Корень&quot;</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/22f4209efede5f15aa2cfffa97633c99167f210f5f94119874654f757c33e1b5.png" src="../_images/22f4209efede5f15aa2cfffa97633c99167f210f5f94119874654f757c33e1b5.png" />
+</div>
+</div>
+<p>Действительно, найдено верное решение уравнения.</p>
+<p>Мы рассматриваем очень простое трансцендентное уравнение <span class="math notranslate nohighlight">\(\cos{x} = x\)</span>.
+Простое оно потому, что имеет единственный корень и рассчитывается довольно быстро.
+В учебном процессе встречаются более сложные уравнения, для поиска корней которых требуется грамотно выбрать метод численного решения. Ниже приведён пример решения того же уравнения методом Ньютона.</p>
+</section>
+<section id="id4">
+<h2>Поиск корня другим методом<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>Найдём корень методом Ньютона (залючим вызов <code class="docutils literal notranslate"><span class="pre">root_scalar(...)</span></code> в блок <code class="docutils literal notranslate"><span class="pre">try...except</span></code>, т. к. первые попытки будут приводить в ошибкам):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">root_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="c1"># Перехватили исключение,</span>
+    <span class="c1"># чтобы не рушить интерпретатор</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x0 must not be None for newton
+</pre></div>
+</div>
+</div>
+</div>
+<p>В возникшем исключении содержится сообщение, что для метода <code class="docutils literal notranslate"><span class="pre">newton</span></code> необходимо задать <code class="docutils literal notranslate"><span class="pre">x0</span></code> - начальное значение аргумента. Сделаем это, учтя, что корень расположен вблизи <span class="math notranslate nohighlight">\(x = 0.5\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">root_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">res</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      converged: True
+           flag: converged
+ function_calls: 8
+     iterations: 4
+           root: 0.7390851332151607
+</pre></div>
+</div>
+</div>
+</div>
+<p>Получили то же значение <span class="math notranslate nohighlight">\(x_{\rm r}\)</span>, что и предыдущим методом <code class="docutils literal notranslate"><span class="pre">brentq</span></code>.
+Посмотрим, изменятся ли параметры решения (число вызовов функции и итераций алгоритма), если изменится начальное приближение <code class="docutils literal notranslate"><span class="pre">x0</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Пусть x0 выбрано очень не удачно,</span>
+<span class="c1"># т. е. вдали от решения</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">root_scalar</span><span class="p">(</span>
+    <span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span> <span class="n">x0</span><span class="o">=-</span><span class="mi">3</span>
+<span class="p">)</span>
+<span class="n">res</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      converged: True
+           flag: converged
+ function_calls: 52
+     iterations: 26
+           root: 0.7390851332151607
+</pre></div>
+</div>
+</div>
+</div>
+<p>Как видно, количество <code class="docutils literal notranslate"><span class="pre">function_calls</span></code> и <code class="docutils literal notranslate"><span class="pre">iterations</span></code> возросло более чем в 6 раз.
+Будь на месте <span class="math notranslate nohighlight">\(f(x)\)</span> более сложная функция, одно вычисление которой занимало бы 1 минуту, то суммарное время поиска корня увеличилось бы с 8 мин. до 52 мин.</p>
+<p>Метод Ньютона использует знание о производных функции.
+Если производная не задана методу явно, то её вычисление производится численно “под капотом”.
+Мы можем попробовать исправить возникшую ситуацию, явно передав производную <code class="docutils literal notranslate"><span class="pre">f</span></code> в функцию <code class="docutils literal notranslate"><span class="pre">root_scalar(...)</span></code>.
+Производная <span class="math notranslate nohighlight">\(f(x)\)</span> имеет вид:</p>
+<div class="math notranslate nohighlight">
+\[f'(x) = -\sin{x} - 1.\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_der</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">root_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span> <span class="n">x0</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span> <span class="n">fprime</span><span class="o">=</span><span class="n">f_der</span><span class="p">)</span>
+<span class="n">res</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      converged: False
+           flag: convergence error
+ function_calls: 100
+     iterations: 50
+           root: 96828.86833692511
+</pre></div>
+</div>
+</div>
+</div>
+<p>Катастрофа!
+Мало того, что число вызовов функции увеличилось на порядок, так ещё и корень не найден!
+Так бывает довольно часто. Мы смогли построить уравнение графически, оценив значение корня.
+На практике может случиться так, что и построение графика затруднительно.
+Представьте, что вам нужно решать сложное уравнение 1000 раз при различных значениях параметров, из-за чего корень каждый раз будет в новых пределах.
+И каждый из 1000 раз вам нужно вручную оценивать значение корня.
+Сколько времени это займёт? Очевидно, достаточно, чтобы провести за этим занятием лучшие годы жизни.
+Нужно уметь решать уравнения численно в общем виде.</p>
+<p>В данном случае проблема применения метода Ньютона обусловлена периодичностью функции <span class="math notranslate nohighlight">\(\cos{x}\)</span> - части целевой функции <span class="math notranslate nohighlight">\(f(x)\)</span>. График <span class="math notranslate nohighlight">\(f(x)\)</span> показан ниже:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Для наглядности возьмём диапазон x побольше</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;bmh&quot;</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$f(x)$&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e276ce416fc039bd2a426d240b780c74af470200303ba806ebf21af7d5ec027c.png" src="../_images/e276ce416fc039bd2a426d240b780c74af470200303ba806ebf21af7d5ec027c.png" />
+</div>
+</div>
+<p>Периодичность уравнения может приводить к появлению локальных минимумов (вот и связь с оптимизацией) или точек перегиба функции <span class="math notranslate nohighlight">\(f(x)\)</span>, из которых метод Ньютона выбраться не способен, т. к. теряет информацию о поведении целевой функции из-за обнуления её производных в таких точках.
+Неудачная точка <code class="docutils literal notranslate"><span class="pre">x0=-3</span></code> неудачна как раз из-за того, что находится очень близко к точке перегиба <span class="math notranslate nohighlight">\(f(x)\)</span>.</p>
+<p>А как поведёт себя метод <code class="docutils literal notranslate"><span class="pre">brentq</span></code> в случае задания очень широкого диапазона поиска?
+Посмотрим:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">root_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;brentq&quot;</span><span class="p">,</span> <span class="n">bracket</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">res</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      converged: True
+           flag: converged
+ function_calls: 9
+     iterations: 8
+           root: 0.7390851332151586
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html">Метод Брента</a> отлично справляется с задачай, причём число вызовов целевой функции почти не изменилось!
+Не зря данный метод считается одним из самых надёжных в библиотеке SciPy.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Заметьте, что значение <code class="docutils literal notranslate"><span class="pre">root</span></code> немного отличается от найденного этим же методом ранее.
+<strong>Численные методы никогда не дают абсолютно точный результат при различных исходных данных!</strong></p>
+</div>
+<p>Таким образом, при численном поиске корней уравнения необходимо понимать сильные и слабые стороны методов поиска, а также помнить о возможности наличия нескольких корней уравнения и о возможном появлении локальных минимумов целевой функции <span class="math notranslate nohighlight">\(f(x)\)</span>.
+К численному решению уравнений (в том числе и дифференциальных) требуется подходить с умом (как и ко всему в этом мире).</p>
+<p>Таковы основы численного поиска корней уравнений.
+Больше информации вы найдёте в официальной документации используемых вами библиотек.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../mathematics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Математика с Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ch2-ode.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Решение обыкновенных дифференциальных уравнений (ОДУ)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Графическое построение</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Численный поиск корня</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Поиск корня другим методом</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vadim Fedulov
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
