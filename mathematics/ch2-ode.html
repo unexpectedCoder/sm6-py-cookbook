@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'mathematics/ch2-ode';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Построение расчётных сеток" href="ch3-meshing.html" />
     <link rel="prev" title="Поиск корней уравнений" href="ch1-rooting.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -168,6 +169,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ch1-rooting.html">Поиск корней уравнений</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch3-meshing.html">Построение расчётных сеток</a></li>
 </ul>
 </li>
 </ul>
@@ -382,6 +384,15 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>Решение обыкновенных дифференциальных уравнений (ОДУ)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
 <p>Решатели ОДУ и их систем содержатся в пакете <a class="reference external" href="https://docs.scipy.org/doc/scipy/tutorial/integrate.html"><code class="docutils literal notranslate"><span class="pre">scipy.integrate</span></code></a>.</p>
+<p>Стандартные функции решают ОДУ вида</p>
+<div class="math notranslate nohighlight" id="equation-eqn-basic">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eqn-basic" title="Permalink to this equation">#</a></span>\[
+\dot{y}(t, y) = f(t, y),
+\]</div>
+<p>где в левой части стоит первая производная <span class="math notranslate nohighlight">\(\dot{y} = \mathrm{d}y / \mathrm{d} t\)</span> искомой функции <span class="math notranslate nohighlight">\(y\)</span>, зависящая в общем случае от независимого аргумента <span class="math notranslate nohighlight">\(t\)</span> (это не обязательно время) и самой искомой функции <span class="math notranslate nohighlight">\(y\)</span>. Правая часть ОДУ <span class="math notranslate nohighlight">\(f\)</span> в общем случае также зависит от <span class="math notranslate nohighlight">\(t\)</span> и <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<p>В плане алгоритма решения ничего не изменится, если <span class="math notranslate nohighlight">\(t\)</span> и <span class="math notranslate nohighlight">\(y\)</span> будут векторами.
+Тогда <em>ОДУ</em> первого порядка <a class="reference internal" href="#equation-eqn-basic">(1)</a> превратится в <em>систему ОДУ</em> первого порядка.</p>
+<p>С точки зрения программирования требуется описать лишь правую часть уравнения (или системы) <a class="reference internal" href="#equation-eqn-basic">(1)</a>.</p>
 <section id="id2">
 <h2>Задача<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>В качестве примера рассмотрим задачу построения траектории движения тела, брошенного под углом к горизонту, с учётом сопротивления воздуха. Данная задача аналитически без серьёзных допущений не решается.</p>
@@ -427,7 +438,7 @@ document.write(`
 <p>Получили систему ОДУ 2-го порядка.
 Теперь понизим порядок, учитывая, что <span class="math notranslate nohighlight">\(\dot x = v_x\)</span> и <span class="math notranslate nohighlight">\(\dot y = v_y\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eqn-fall">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eqn-fall" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(2)<a class="headerlink" href="#equation-eqn-fall" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{cases}
     \dot{v_x} = -\cfrac{c_{\rm drag} S \rho v}{2 m} \cdot v_x + g_x, \\
     \dot{v_y} = -\cfrac{c_{\rm drag} S \rho v}{2 m} \cdot v_y + g_y, \\
@@ -449,7 +460,7 @@ document.write(`
 Начальные координаты зададим напрямую: <span class="math notranslate nohighlight">\(x(0) = x_0\)</span> и <span class="math notranslate nohighlight">\(y(0) = y_0\)</span>.
 Вектор начальной скорости зададим через абсолютное значение <span class="math notranslate nohighlight">\(v_0 = v(0)\)</span> и угол бросания <span class="math notranslate nohighlight">\(\alpha\)</span>:
 <span class="math notranslate nohighlight">\(v_{x0} = v_0 \cos{\alpha}\)</span> и <span class="math notranslate nohighlight">\(v_{y0} = v_0 \sin{\alpha}\)</span>.</p>
-<p>Интегрируя уравнения <a class="reference internal" href="#equation-eqn-fall">(1)</a> при заданных начальных условиях, получим зависимости <span class="math notranslate nohighlight">\(v_x(t)\)</span>, <span class="math notranslate nohighlight">\(v_y(t)\)</span>, <span class="math notranslate nohighlight">\(x(t)\)</span> и <span class="math notranslate nohighlight">\(y(t)\)</span>.
+<p>Интегрируя уравнения <a class="reference internal" href="#equation-eqn-fall">(2)</a> при заданных начальных условиях, получим зависимости <span class="math notranslate nohighlight">\(v_x(t)\)</span>, <span class="math notranslate nohighlight">\(v_y(t)\)</span>, <span class="math notranslate nohighlight">\(x(t)\)</span> и <span class="math notranslate nohighlight">\(y(t)\)</span>.
 Траектория будет построена по массивам значений <span class="math notranslate nohighlight">\(x(t)\)</span> и <span class="math notranslate nohighlight">\(y(t)\)</span>.</p>
 </section>
 <section id="id4">
@@ -462,7 +473,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Проекция на вертикаль вектора ускорения свободного падения <span class="math notranslate nohighlight">\(g_y = -9.81\)</span> м/с^2:</p>
+<p>Проекция на вертикаль вектора ускорения свободного падения <span class="math notranslate nohighlight">\(g_y = -9.81\)</span> м/с<span class="math notranslate nohighlight">\(^2\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FREE_FALL</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9.81</span>
@@ -470,7 +481,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Систему <a class="reference internal" href="#equation-eqn-fall">(1)</a> опишем в функции <code class="docutils literal notranslate"><span class="pre">ode_sys(t,</span> <span class="pre">y...)</span></code>:</p>
+<p>Систему <a class="reference internal" href="#equation-eqn-fall">(2)</a> опишем в функции <code class="docutils literal notranslate"><span class="pre">ode_sys(t,</span> <span class="pre">y...)</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ode_sys</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c_drag</span><span class="p">,</span> <span class="n">air_dense</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s_mid</span><span class="p">):</span>
@@ -496,7 +507,7 @@ document.write(`
 <p>Первые два аргумента - время <code class="docutils literal notranslate"><span class="pre">t</span></code> и вектор значений переменных в этот момент <code class="docutils literal notranslate"><span class="pre">y</span></code> - обязательны и идут именно в таком порядке.
 Последующие аргументы являются дополнительными.</p>
 <p>Начальные условия.
-Пусть <span class="math notranslate nohighlight">\(x_0 = 0\)</span>, <span class="math notranslate nohighlight">\(y_0 = 0\)</span>, <span class="math notranslate nohighlight">\(v_0 = 50\)</span> м/с и <span class="math notranslate nohighlight">\(\alpha = 57.3\degree\)</span>,
+Пусть <span class="math notranslate nohighlight">\(x_0 = 0\)</span>, <span class="math notranslate nohighlight">\(y_0 = 0\)</span>, <span class="math notranslate nohighlight">\(v_0 = 50\)</span> м/с и <span class="math notranslate nohighlight">\(\alpha = 57.3^\circ\)</span>,
 откуда рассчитаем <span class="math notranslate nohighlight">\(v_{x0}\)</span> и <span class="math notranslate nohighlight">\(v_{y0}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -557,7 +568,7 @@ document.write(`
             [ 4.030e+01  4.030e+01 ... -2.667e+01 -2.889e+01]
             [ 0.000e+00  8.372e-04 ...  9.737e+01  1.034e+02]
             [ 0.000e+00  1.140e-03 ... -2.441e+01 -5.499e+01]]
-      sol: &lt;scipy.integrate._ivp.common.OdeSolution object at 0x7f1057e71390&gt;
+      sol: &lt;scipy.integrate._ivp.common.OdeSolution object at 0x7fef16979480&gt;
  t_events: None
  y_events: None
      nfev: 68
@@ -694,7 +705,7 @@ document.write(`
             [ 4.030e+01  4.030e+01 ... -1.718e+01 -2.345e+01]
             [ 0.000e+00  8.372e-04 ...  7.920e+01  9.038e+01]
             [ 0.000e+00  1.140e-03 ...  2.458e+01  3.553e-15]]
-      sol: &lt;scipy.integrate._ivp.common.OdeSolution object at 0x7f1054921870&gt;
+      sol: &lt;scipy.integrate._ivp.common.OdeSolution object at 0x7fef12fc6170&gt;
  t_events: [array([ 5.935e+00])]
  y_events: [array([[ 8.125e+00, -2.345e+01,  9.038e+01,  3.553e-15]])]
      nfev: 62
@@ -793,6 +804,15 @@ document.write(`
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Поиск корней уравнений</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="ch3-meshing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Построение расчётных сеток</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
