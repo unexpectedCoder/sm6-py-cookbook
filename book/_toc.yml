@@ -16,3 +16,6 @@ chapters:
   - file: mathematics/ch1-rooting
   - file: mathematics/ch2-ode
   - file: mathematics/ch3-meshing
+- file: random
+  sections:
+  - file: random/random
