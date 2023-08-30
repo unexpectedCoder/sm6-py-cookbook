@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'plotting/ch3-3d-matplotlib';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Математика с Python" href="../mathematics.html" />
     <link rel="prev" title="Особенности matplotlib" href="ch2-improved-matplotlib.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -163,6 +164,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="ch1-basics.html">Основы построения графиков</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ch2-improved-matplotlib.html">Особенности matplotlib</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
 </ul>
 </li>
 </ul>
@@ -419,7 +430,7 @@ document.write(`
 <img alt="../_images/4d788548f9f6a8fcca5e715cac932eea4e6f0f1a9d3f4fb13ca140d2815c813e.png" src="../_images/4d788548f9f6a8fcca5e715cac932eea4e6f0f1a9d3f4fb13ca140d2815c813e.png" />
 </div>
 </div>
-<p>Далее с объектом <code class="docutils literal notranslate"><span class="pre">ax</span></code> можем выполнять все те же операции, что рассматриваются в <span class="xref std std-doc">basics</span> и <span class="xref std std-doc">improved-matplotlib</span>.</p>
+<p>Далее с объектом <code class="docutils literal notranslate"><span class="pre">ax</span></code> можем выполнять все те же операции, что рассматрены в <a class="reference internal" href="ch1-basics.html"><span class="doc">Основы построения графиков</span></a> и <a class="reference internal" href="ch2-improved-matplotlib.html"><span class="doc">Особенности matplotlib</span></a>.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Создавать трёхмерные графики имеет смысл тогда и только тогда, когда они будут использоваться в интерактивном режиме, т.е. тогда, когда имеется возможность “вертеть” эти графики, рассматривая их со всех сторон и масштабируя.</p>
@@ -778,7 +789,7 @@ f(x, y) = \sin{\sqrt{x^2 + y^2}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c1e914b99312d59ea608535e64179a01243f1f30dd933ff84c529d72bcca5157.png" src="../_images/c1e914b99312d59ea608535e64179a01243f1f30dd933ff84c529d72bcca5157.png" />
+<img alt="../_images/21684e5b41ed37ba61fab1d924e801b4839c504b61f449bae4d0195988fe3e64.png" src="../_images/21684e5b41ed37ba61fab1d924e801b4839c504b61f449bae4d0195988fe3e64.png" />
 </div>
 </div>
 <p>Очевидно, что точки действительно расположены в плоскости <span class="math notranslate nohighlight">\(Oxy\)</span> случайным образом.</p>
@@ -795,7 +806,7 @@ f(x, y) = \sin{\sqrt{x^2 + y^2}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/86b2d3da595caf97bcf87df9023b2c5df0751370558b85c707831535c10294d4.png" src="../_images/86b2d3da595caf97bcf87df9023b2c5df0751370558b85c707831535c10294d4.png" />
+<img alt="../_images/b483eaf996214c3b9621ab2c82387e3c7fdcb0497035082a2568144ebb0cbb85.png" src="../_images/b483eaf996214c3b9621ab2c82387e3c7fdcb0497035082a2568144ebb0cbb85.png" />
 </div>
 </div>
 <p>Триангулированные поверхности строятся как выпуклые оболочки, этим и достигается возможность однозначного связывания точек.</p>
@@ -979,7 +990,7 @@ f(x, y) = \sin{\sqrt{x^2 + y^2}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d66a73494b071b727249fed61f2b11a5349100c405b63d3fc15a72fe00aaf332.png" src="../_images/d66a73494b071b727249fed61f2b11a5349100c405b63d3fc15a72fe00aaf332.png" />
+<img alt="../_images/de0cd4f122a612f5b68347a1baabade03945725e882b631e7f5dfc68d8c37f34.png" src="../_images/de0cd4f122a612f5b68347a1baabade03945725e882b631e7f5dfc68d8c37f34.png" />
 </div>
 </div>
 <p>Удобство и информативность двумерных графиков трёхмерных данных очевидна.</p>
@@ -1031,6 +1042,15 @@ f(x, y) = \sin{\sqrt{x^2 + y^2}}
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Особенности matplotlib</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../mathematics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Математика с Python</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   

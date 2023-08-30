@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'plotting/ch2-improved-matplotlib';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Трёхмерные графики в matplotlib" href="ch3-3d-matplotlib.html" />
+    <link rel="next" title="Визуализация трёхмерных данных с использованием matplotlib" href="ch3-3d-matplotlib.html" />
     <link rel="prev" title="Основы построения графиков" href="ch1-basics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -163,7 +163,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ch1-basics.html">Основы построения графиков</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Особенности matplotlib</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch3-3d-matplotlib.html">Трёхмерные графики в <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch3-3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
 </ul>
 </li>
 </ul>
@@ -384,8 +394,8 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="matplotlib">
 <h1>Особенности matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this heading">#</a></h1>
 <p>В данном разделе рассмотрим некоторые особенности библиотеки <a class="reference external" href="https://matplotlib.org/">matplotlib</a>, наиболее часто применяемые на практике, на примере построения графика функции</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-func-x3-eq">
+<span class="eqno">(1)<a class="headerlink" href="#equation-func-x3-eq" title="Permalink to this equation">#</a></span>\[
 f(x) = x^3
 \]</div>
 <p>на отрезке <span class="math notranslate nohighlight">\(x \in [-2, 2]\)</span>.</p>
@@ -573,7 +583,7 @@ f(x) = x^3
 </section>
 <section id="id5">
 <h2>Построение двух графиков в одних осях. Легенда<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
-<p>Построим в одном поле график кубической параболы <code class="xref eq docutils literal notranslate"><span class="pre">func_x3_eq</span></code>,
+<p>Построим в одном поле график кубической параболы <a class="reference internal" href="#equation-func-x3-eq">(1)</a>,
 а также графики её производных: <span class="math notranslate nohighlight">\(f'(x) = 3 x^2\)</span> и <span class="math notranslate nohighlight">\(f''(x) = 6 x\)</span>.</p>
 <p>Опишем функции производных и рассчитаем данные в тех же рассчётных точках <code class="docutils literal notranslate"><span class="pre">x</span></code>:</p>
 <div class="cell docutils container">
@@ -1215,7 +1225,7 @@ f(x) = x^3
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Трёхмерные графики в <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></p>
+        <p class="prev-next-title">Визуализация трёхмерных данных с использованием matplotlib</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

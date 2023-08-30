@@ -1,0 +1,1007 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Использование генераторов псевдослучайных чисел &#8212; SM6 Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'random/random';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Генерация псевдослучайных чисел" href="../random.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Python-справочник кафедры СМ6 МГТУ им. Н.Э. Баумана
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch1-basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch2-improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch3-3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook/issues/new?title=Issue%20on%20page%20%2Frandom/random.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/random/random.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Использование генераторов псевдослучайных чисел</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Основы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Состояние генератора</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Визуализация распределений</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy">Использование NumPy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">См. также</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Использование генераторов псевдослучайных чисел<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>Начнём рассмотрение вопроса с помощью стандартного модуля <a class="reference external" href="https://docs.python.org/3/library/random.html"><code class="docutils literal notranslate"><span class="pre">random</span></code></a>.
+Абсолютно всю информацию о нём вы найдёте в официальной документации.</p>
+<section id="id2">
+<h2>Основы<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Импортируем модуль:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">rand</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Сгенерируем 5 псевдослучайных чисел (ПСЧ):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.198457292182736
+0.3124577872745741
+0.4750592021159057
+0.5391718604679605
+0.19450654662061562
+</pre></div>
+</div>
+</div>
+</div>
+<p>Функция <code class="docutils literal notranslate"><span class="pre">random()</span></code> генерирует ПСЧ, распределённое равномерно на полуотрезке [0, 1).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Запустив этот код несколько раз, вы заметите, что каждый раз получаете различный результат.
+Ниже приведён тот же код, однако результат отличается.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.08437093082491354
+0.01225670260295686
+0.16621879383658034
+0.9800962577029447
+0.8624280613856478
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id3">
+<h3>Состояние генератора<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>На самом деле в предыдущем примере мы вызвали не <em>функцию</em> <code class="docutils literal notranslate"><span class="pre">random()</span></code>, а <em>метод</em> <code class="docutils literal notranslate"><span class="pre">random()</span></code> <em>экземпляра</em> класса <code class="docutils literal notranslate"><span class="pre">Random</span></code>.
+Конкретный экземпляр класса <code class="docutils literal notranslate"><span class="pre">Random</span></code> имеет определённое <em>состояние</em>, которое по умолчанию случайно, но может определяется параметром <code class="docutils literal notranslate"><span class="pre">seed</span></code> (на русский часто переводится как “затравка”) или методом <code class="docutils literal notranslate"><span class="pre">setstate(...)</span></code> в любой момент работы программы.</p>
+<p>Повторим предыдущий пример, задав определённое значение <code class="docutils literal notranslate"><span class="pre">seed</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Затравка может быть любым целым числом.</span>
+<span class="c1"># Рекомендуют назначать его очень большим числом,</span>
+<span class="c1"># чтобы уменьшить вероятность совпадения затравок,</span>
+<span class="c1"># назначенных разными людьми</span>
+<span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1700077</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7020746348844183
+0.6233161107388304
+0.12425768533206094
+0.29613478392527026
+0.5273751569843022
+</pre></div>
+</div>
+</div>
+</div>
+<p>И ещё раз выполним этот же код:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1700077</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7020746348844183
+0.6233161107388304
+0.12425768533206094
+0.29613478392527026
+0.5273751569843022
+</pre></div>
+</div>
+</div>
+</div>
+<p>Сколько бы раз мы не запустили код, мы будем получать одну и ту же последовательность значений.
+Таким образом наглядно показано свойство обеспечения воспроизводимости результатов ГПСЧ.</p>
+<p>Изменим затравку - получим другой результат:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">777</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.22933408950153078
+0.44559617334521107
+0.36859824937216046
+0.269835098321503
+0.3361436466700177
+</pre></div>
+</div>
+</div>
+</div>
+<p>Но теперь этот результат всё так же от запуска к запуску будет повторяться:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">777</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.22933408950153078
+0.44559617334521107
+0.36859824937216046
+0.269835098321503
+0.3361436466700177
+</pre></div>
+</div>
+</div>
+</div>
+<p>Рассмотрим пример, показывающий неудобство использования метода <code class="docutils literal notranslate"><span class="pre">seed()</span></code> напрямую.</p>
+<p>Пусть есть две функции, использующие внутри себя ГПСЧ, причём получают ПСЧ, распределённое по одинаковым законам.
+Пусть, например, функция <code class="docutils literal notranslate"><span class="pre">f()</span></code> генерирует ПСЧ, используя <code class="docutils literal notranslate"><span class="pre">random()</span></code>.
+То же делает и функция <code class="docutils literal notranslate"><span class="pre">g()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Вызовем последовательно эти функции:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(),</span> <span class="n">g</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7523163560031157 0.9226950812763804
+</pre></div>
+</div>
+</div>
+</div>
+<p>При каждом запуске получаем разные результаты.
+Но попробуем реализовать возможность воспроизведения результатов.
+Для этого вызовем <code class="docutils literal notranslate"><span class="pre">seed(...)</span></code> в глобальной области видимости:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">666</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(),</span> <span class="n">g</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.45611964897696833 0.9033231539802643
+</pre></div>
+</div>
+</div>
+</div>
+<p>Мы добились своего - результат от запуска к запуску не меняется.
+Заметим ещё одно, а именно то, что результат не изменится, если мы поменяем местами вызовы функций:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">666</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">(),</span> <span class="n">f</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.45611964897696833 0.9033231539802643
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Заметьте, в каждой ячейке мы должны вызвать <code class="docutils literal notranslate"><span class="pre">seed(...)</span></code>, чтобы каждый раз переустанавливать ГПСЧ в начальное состояние.
+В противном случае будут генерироваться новые случайные числа, которые тем не менее всё так же воспроизводимы.
+Иными словами, если после вызова <code class="docutils literal notranslate"><span class="pre">seed(...)</span></code> мы сгенерировали <span class="math notranslate nohighlight">\(m\)</span> чисел, то при повторном запуске для генерации <span class="math notranslate nohighlight">\(n\)</span> чисел, <span class="math notranslate nohighlight">\(n &gt; m\)</span>, будут сгенерированы те же самые <span class="math notranslate nohighlight">\(m\)</span> чисел, плюс <span class="math notranslate nohighlight">\(n - m\)</span> новых чисел.</p>
+</div>
+<p>Убедимся в этом так.
+Опишем функцию генерации заданного количества ПСЧ:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_randoms</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>И вызовем её для генерации сначала трёх, а затем двух чисел:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2023</span><span class="p">)</span>
+<span class="c1"># Три случайных числа</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gen_randoms</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="c1"># плюс два новых случайных числа</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gen_randoms</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.3829219244542088, 0.9718620884907823, 0.8438174232038365]
+[0.32028063842069, 0.5710257361341048]
+</pre></div>
+</div>
+</div>
+</div>
+<p>А теперь сбросим ГПСЧ в то же самое начальное состояние и сгенерируем сразу пять чисел.
+В результате должна получиться та же самая последовательность ПСЧ:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2023</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gen_randoms</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.3829219244542088, 0.9718620884907823, 0.8438174232038365, 0.32028063842069, 0.5710257361341048]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Как видите, результат полностью предсказуем.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Параметр <code class="docutils literal notranslate"><span class="pre">seed(...)</span></code> является глобальным.
+В программах, состоящих из нескольких модулей, это может стать проблемой.</p>
+</div>
+<p>В реальных программах со множеством модулей и большим объёмом кода рассмотренный подход имеет некоторые недостатки.
+В ряде задач, например, может потребоваться ГПСЧ, способный корректно работать в условиях параллельных вычислений.
+В условиях модульности программы может быть удобнее передавать между функциями и объектами экземпляры генератора.</p>
+<p>Существует удобный способ справиться с описанными проблемами - создание экземпляра ГПСЧ определённого типа и с заданным состоянием.
+Например, так:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rg</span> <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">2023</span><span class="p">)</span>
+<span class="c1"># Переданный параметр по сути своей есть seed</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Наш экзепляр ГПСЧ <code class="docutils literal notranslate"><span class="pre">rg</span></code> имеет все те же методы и возможности, что есть в модуле <code class="docutils literal notranslate"><span class="pre">random</span></code>, который мы использовали под псевдонимом <code class="docutils literal notranslate"><span class="pre">rand</span></code>.
+Перепишем нашу функцию <code class="docutils literal notranslate"><span class="pre">gen_randoms(...)</span></code> следующим образом:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_randoms</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rg</span><span class="p">):</span>
+    <span class="c1"># Параметр rg - объект ГПСЧ</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">rg</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Теперь, помимо количества генерируемых чисел, функция принимает на вход объект ГПСЧ <code class="docutils literal notranslate"><span class="pre">rg</span></code>.
+Сгенерируем пять чисел:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gen_randoms</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">rg</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.3829219244542088, 0.9718620884907823, 0.8438174232038365, 0.32028063842069, 0.5710257361341048]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Как видите, результат тот же, что и раньше при <code class="docutils literal notranslate"><span class="pre">seed</span> <span class="pre">=</span> <span class="pre">2023</span></code>.</p>
+</section>
+<section id="id4">
+<h3>Визуализация распределений<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>Для визуализации случайных чисел часто используется гистограмма.
+Подключим matplotlib, сформируем два массива ПСЧ для двух разных распределений и построим их гистограммы.
+При формировании массивов воспользуемся методами <code class="docutils literal notranslate"><span class="pre">normalvariate(...)</span></code> (нормальное распределение) и <code class="docutils literal notranslate"><span class="pre">uniform(...)</span></code> (равномерное распределение) нашего экземпляра ГПСЧ <code class="docutils literal notranslate"><span class="pre">rg</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Сформируем массивы по 50 элементов</span>
+<span class="n">N1</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">norm1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># mu - математическое ожидание</span>
+    <span class="c1"># sigma - среднее квадратическое отклонение</span>
+    <span class="n">rg</span><span class="o">.</span><span class="n">normalvariate</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N1</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">uniform1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">rg</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N1</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">norm1</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Нормальное распределение&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">uniform1</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Равномерное распределение&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ecc1a5e5b08a915d6b60bdec169079c53e409dcaf3873e03b80b59ae62b829ad.png" src="../_images/ecc1a5e5b08a915d6b60bdec169079c53e409dcaf3873e03b80b59ae62b829ad.png" />
+</div>
+</div>
+<p>Увеличим число точек в 20 раз:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N2</span> <span class="o">=</span> <span class="n">N1</span> <span class="o">*</span> <span class="mi">20</span>
+<span class="n">norm2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">rg</span><span class="o">.</span><span class="n">normalvariate</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N2</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">uniform2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">rg</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N2</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">norm2</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Нормальное распределение&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">uniform2</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Равномерное распределение&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/31983ca4dcb72e0445c8503e4e0cffb744c4f45b866c0da6e31cc5c47e3d7fa3.png" src="../_images/31983ca4dcb72e0445c8503e4e0cffb744c4f45b866c0da6e31cc5c47e3d7fa3.png" />
+</div>
+</div>
+<p>Как видите, при увеличении количества ПСЧ гистограммы принимают всё более чёткие очертания конкретного распределения.</p>
+<p>Функциональность стандартного <code class="docutils literal notranslate"><span class="pre">random</span></code> уже достаточна для моделирования различных стохастических процессов.
+Однако в ряде случаев более удобно пользоваться <code class="docutils literal notranslate"><span class="pre">random</span></code>’ом из библиотеки NumPy.</p>
+</section>
+</section>
+<section id="numpy">
+<h2>Использование NumPy<a class="headerlink" href="#numpy" title="Permalink to this heading">#</a></h2>
+<p>Функционал <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> полностью аналогичен <code class="docutils literal notranslate"><span class="pre">random</span></code>’у стандартной библиотеки.
+Так как вся библиотека NumPy заточена под работу с массивами, методы <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> так же способны генерировать не одно число за раз, а сразу весь массив, матрицу или тензор заданного размера.
+И здесь также есть возможность пользоваться как неявно созданным экземпляром <code class="docutils literal notranslate"><span class="pre">Generator</span></code>, так и его явно созданным экземпляром.
+Создать генератор можно так:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">nprand</span>
+
+<span class="c1"># Генератор по умолчанию с состоянием по затравке</span>
+<span class="n">rg</span> <span class="o">=</span> <span class="n">nprand</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1234567</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Сразу сгенерируем два массива чисел, распределённых по нормальному и экспоненциальному законам:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="c1"># density=True создаёт гистограмму плотности,</span>
+<span class="c1"># по смыслу соответствующую функции плотности вероятности</span>
+<span class="c1"># - нормальное</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="n">rg</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10_000</span><span class="p">),</span>
+    <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">density</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$p_{\mathrm</span><span class="si">{norm}</span><span class="s2">}(x)$&quot;</span><span class="p">);</span>
+<span class="c1"># - экспоненциальное</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="n">rg</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10_000</span><span class="p">),</span>
+    <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">density</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$p_{\exp}(x)$&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/85a96bd5f3c6f75b226d392be1f1c2cc9ae770118048b29f16894d6d0a02a0d1.png" src="../_images/85a96bd5f3c6f75b226d392be1f1c2cc9ae770118048b29f16894d6d0a02a0d1.png" />
+</div>
+</div>
+<p>Мы сразу создали массив из 10000 элементов, указав параметр <code class="docutils literal notranslate"><span class="pre">size=10000</span></code>.
+Если <code class="docutils literal notranslate"><span class="pre">size</span></code> не указать, то будет возвращено одно число.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Названия некоторых методов отличаются от тех же функций в стандартном <code class="docutils literal notranslate"><span class="pre">random</span></code>’ме.
+Отличаются и имена параметров функций.
+В данном случае параметры <code class="docutils literal notranslate"><span class="pre">loc</span></code> и <code class="docutils literal notranslate"><span class="pre">scale</span></code> аналогичны <code class="docutils literal notranslate"><span class="pre">mu</span></code> и <code class="docutils literal notranslate"><span class="pre">sigma</span></code> (математическое ожидание и стандартное отклонение).</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">)</span>
+<span class="c1"># Пусть y коррелирует с x</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$p(x, y)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/35366011de8453b349970e83ddebfbce5ef5edf93b8832b8bdd23a8c3c6fdc4a.png" src="../_images/35366011de8453b349970e83ddebfbce5ef5edf93b8832b8bdd23a8c3c6fdc4a.png" />
+</div>
+</div>
+<p>Случайную матрицу можно создать, передав в качестве <code class="docutils literal notranslate"><span class="pre">size</span></code> несколько значений:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># По умолчанию loc=0 и scale=1</span>
+<span class="n">rg</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.83356875, -0.99563296, -1.49970249,  0.11628947],
+       [ 0.36775022, -1.06158613, -0.27614625,  0.78144333],
+       [ 1.0311598 , -0.64312952, -1.79305138,  1.42401372]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Естественно, при одном и том же <code class="docutils literal notranslate"><span class="pre">seed</span></code> будет один и тот же результат и для чисел, и для массивов любой формы:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rg</span> <span class="o">=</span> <span class="n">nprand</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">98765</span><span class="p">)</span>
+<span class="n">rg</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.02466916, 1.44229712, 0.96453594, 1.16304798],
+       [0.22589411, 2.33248878, 1.33913539, 0.17395315],
+       [0.73634616, 1.14181883, 1.27708772, 0.36814741]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rg</span> <span class="o">=</span> <span class="n">nprand</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">98765</span><span class="p">)</span>
+<span class="n">rg</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.02466916, 1.44229712, 0.96453594, 1.16304798],
+       [0.22589411, 2.33248878, 1.33913539, 0.17395315],
+       [0.73634616, 1.14181883, 1.27708772, 0.36814741]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Одним из преимуществ <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> является возможность использования ГПСЧ в параллельных процессах.
+Эта возможность обеспечивается за счёт <a class="reference external" href="https://numpy.org/doc/stable/reference/random/bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence"><code class="docutils literal notranslate"><span class="pre">SeedSequence</span></code></a>.</p>
+</section>
+<section id="id5">
+<h2>См. также<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/random/parallel.html"><code class="docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> для применения ГПСЧ в параллельных вычислениях.</p></li>
+<li><p>Основы генерации ПСЧ можно найти в учебнике <a class="reference external" href="https://bmstu.press/catalog/item/3020">“Имитационное моделирование”</a>.</p></li>
+<li><p>Книга <a class="reference external" href="https://www.ozon.ru/product/python-dlya-slozhnyh-zadach-nauka-o-dannyh-i-mashinnoe-obuchenie-vander-plas-dzh-767959620/?sh=45JSWf1qvw">“Python для сложных задач”</a>.</p></li>
+<li><p>Под визуализацию статистических данных заточена библиотека <a class="reference external" href="https://seaborn.pydata.org/">seaborn</a>.</p></li>
+<li><p>Документация <a class="reference external" href="https://numpy.org/doc/stable/reference/random/index.html"><code class="docutils literal notranslate"><span class="pre">numpy.random</span></code></a>.</p></li>
+<li><p>Генераторы NumPy основаны на низкоуровневых генераторах ПСЧ, которые называются <a class="reference external" href="https://numpy.org/doc/stable/reference/random/bit_generators/index.html"><code class="docutils literal notranslate"><span class="pre">Bit</span> <span class="pre">Generators</span></code></a>.
+В документации на них можно найти полный список конкретных генераторов.
+Тогда вместо <code class="docutils literal notranslate"><span class="pre">nprand.default_rng(...)</span></code>, создающего по умолчанию битовый генератор PCG64, можно, например, создать ГПСЧ с битовым генератором SFC64: <code class="docutils literal notranslate"><span class="pre">nprand.Generator(nprand.SFC64())</span></code>.</p></li>
+<li><p>Документация стандартного <a class="reference external" href="https://docs.python.org/3/library/random.html"><code class="docutils literal notranslate"><span class="pre">random</span></code></a>.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./random"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../random.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Генерация псевдослучайных чисел</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Основы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Состояние генератора</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Визуализация распределений</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy">Использование NumPy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">См. также</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vadim Fedulov
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

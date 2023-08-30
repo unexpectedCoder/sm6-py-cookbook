@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'mathematics/ch3-meshing';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Генерация псевдослучайных чисел" href="../random.html" />
     <link rel="prev" title="Решение обыкновенных дифференциальных уравнений (ОДУ)" href="ch2-ode.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -169,6 +170,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="ch1-rooting.html">Поиск корней уравнений</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
 </ul>
 </li>
 </ul>
@@ -423,7 +428,7 @@ document.write(`
 Из-за этого становится проблемным их использование по правилам NumPy (подробнее см. <a class="reference external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html">здесь</a>).</p>
 <p>Допустим нам нужно посчитать на расчётной сетки некоторую функцию</p>
 <div class="math notranslate nohighlight" id="equation-eqn-func">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eqn-func" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(4)<a class="headerlink" href="#equation-eqn-func" title="Permalink to this equation">#</a></span>\[
 z(x, y) = \sin{x} \cos{y}.
 \]</div>
 <p>В программе опишем эту функцию так:</p>
@@ -537,10 +542,10 @@ z(x, y) = \sin{x} \cos{y}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d69a5e46190020b6a01c201ef6f3849b7c9ccf4f894a09bca057ce73eb415c32.png" src="../_images/d69a5e46190020b6a01c201ef6f3849b7c9ccf4f894a09bca057ce73eb415c32.png" />
+<img alt="../_images/b13de10481a6eb2404855e0f135e541083d97e8666ec02e8861d3e9b47b7d868.png" src="../_images/b13de10481a6eb2404855e0f135e541083d97e8666ec02e8861d3e9b47b7d868.png" />
 </div>
 </div>
-<p>Все точки имеют одинаковый (синий) цвет, соответствующий минимальному значению функцию, но функция <a class="reference internal" href="#equation-eqn-func">(3)</a> является тригонометрической и периодической - в массиве <code class="docutils literal notranslate"><span class="pre">z</span></code> лежат различные значения, следовательно, и цвета точек должны быть различными. Это обусловлено тем, что <code class="docutils literal notranslate"><span class="pre">ax.scatter(...)</span></code> вызывается как бы <em>атомарно</em>, т.е. с единицами данных, а не с целыми массивами данных.</p>
+<p>Все точки имеют одинаковый (синий) цвет, соответствующий минимальному значению функцию, но функция <a class="reference internal" href="#equation-eqn-func">(4)</a> является тригонометрической и периодической - в массиве <code class="docutils literal notranslate"><span class="pre">z</span></code> лежат различные значения, следовательно, и цвета точек должны быть различными. Это обусловлено тем, что <code class="docutils literal notranslate"><span class="pre">ax.scatter(...)</span></code> вызывается как бы <em>атомарно</em>, т.е. с единицами данных, а не с целыми массивами данных.</p>
 <p>Конечно, можно добиться правильного решения, усложняя код, на самом деле наполняя его “костылями” и “велосипедами”.
 Правильнее, быстрее и полезнее использовать готовые решения NumPy (или др. библиотек обработки данных).</p>
 </section>
@@ -648,7 +653,7 @@ z(x, y) = \sin{x} \cos{y}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0feb484fc9f30ec5d3dcb725bbfbd3bacd6a165708b8686dd0b9cce0c9228d14.png" src="../_images/0feb484fc9f30ec5d3dcb725bbfbd3bacd6a165708b8686dd0b9cce0c9228d14.png" />
+<img alt="../_images/f27ee76085c89e3b91972a3a1156b7c430b45a885197ef4338aa850434262085.png" src="../_images/f27ee76085c89e3b91972a3a1156b7c430b45a885197ef4338aa850434262085.png" />
 </div>
 </div>
 <p>Или заполненный контурный график (и более плотная сетка):</p>
@@ -668,7 +673,7 @@ z(x, y) = \sin{x} \cos{y}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9f713dd92baf4c8eb68ce503c826eaf720a297eb0866a7744f96d994ecb600c9.png" src="../_images/9f713dd92baf4c8eb68ce503c826eaf720a297eb0866a7744f96d994ecb600c9.png" />
+<img alt="../_images/f26fbc4b6174fb0adba0185a12cb488b20a8109bb8c97e54ea22450e2733365b.png" src="../_images/f26fbc4b6174fb0adba0185a12cb488b20a8109bb8c97e54ea22450e2733365b.png" />
 </div>
 </div>
 </section>
@@ -714,7 +719,7 @@ z(x, y) = \sin{x} \cos{y}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/85a17df195d07fd2ca4f04a5f51648983d0ba4ce57349ba88d544929d9cf970f.png" src="../_images/85a17df195d07fd2ca4f04a5f51648983d0ba4ce57349ba88d544929d9cf970f.png" />
+<img alt="../_images/22687daf80f4cc8a9126474a650e9c8d1e3652708b87f9a753e57a9a86761c9d.png" src="../_images/22687daf80f4cc8a9126474a650e9c8d1e3652708b87f9a753e57a9a86761c9d.png" />
 </div>
 </div>
 </section>
@@ -865,6 +870,15 @@ z(x, y) = \sin{x} \cos{y}.
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Решение обыкновенных дифференциальных уравнений (ОДУ)</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../random.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Генерация псевдослучайных чисел</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
