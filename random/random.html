@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'random/random';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Дискретно-событийное моделирование" href="../discrete-event.html" />
     <link rel="prev" title="Генерация псевдослучайных чисел" href="../random.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -173,6 +174,12 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/iterators.html">Итераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/generators.html">Генераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/des.html">Дискретно-событийное моделирование</a></li>
 </ul>
 </li>
 </ul>
@@ -409,11 +416,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.198457292182736
-0.3124577872745741
-0.4750592021159057
-0.5391718604679605
-0.19450654662061562
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8802117807529882
+0.3999100583035877
+0.08696992971174966
+0.33571424549333473
+0.270124757168527
 </pre></div>
 </div>
 </div>
@@ -432,11 +439,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.08437093082491354
-0.01225670260295686
-0.16621879383658034
-0.9800962577029447
-0.8624280613856478
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.551792976292058
+0.3176400866867991
+0.5925965884502573
+0.9440364856932867
+0.6224867793955536
 </pre></div>
 </div>
 </div>
@@ -718,7 +725,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ecc1a5e5b08a915d6b60bdec169079c53e409dcaf3873e03b80b59ae62b829ad.png" src="../_images/ecc1a5e5b08a915d6b60bdec169079c53e409dcaf3873e03b80b59ae62b829ad.png" />
+<img alt="../_images/adf03a36e4ec785b1389cd13ef10bd3121871d8faef6101d096e149392c17f6f.png" src="../_images/adf03a36e4ec785b1389cd13ef10bd3121871d8faef6101d096e149392c17f6f.png" />
 </div>
 </div>
 <p>Увеличим число точек в 20 раз:</p>
@@ -745,7 +752,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/31983ca4dcb72e0445c8503e4e0cffb744c4f45b866c0da6e31cc5c47e3d7fa3.png" src="../_images/31983ca4dcb72e0445c8503e4e0cffb744c4f45b866c0da6e31cc5c47e3d7fa3.png" />
+<img alt="../_images/091a34c74c6323188c3b80e465d0541ded000b6b9d6a2b560c3dcf53cfcd3780.png" src="../_images/091a34c74c6323188c3b80e465d0541ded000b6b9d6a2b560c3dcf53cfcd3780.png" />
 </div>
 </div>
 <p>Как видите, при увеличении количества ПСЧ гистограммы принимают всё более чёткие очертания конкретного распределения.</p>
@@ -793,7 +800,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/85a96bd5f3c6f75b226d392be1f1c2cc9ae770118048b29f16894d6d0a02a0d1.png" src="../_images/85a96bd5f3c6f75b226d392be1f1c2cc9ae770118048b29f16894d6d0a02a0d1.png" />
+<img alt="../_images/3717b8a175a4dca9d142cbc2d69e1257a719bfd0922a1021f52f95a872bd9a20.png" src="../_images/3717b8a175a4dca9d142cbc2d69e1257a719bfd0922a1021f52f95a872bd9a20.png" />
 </div>
 </div>
 <p>Мы сразу создали массив из 10000 элементов, указав параметр <code class="docutils literal notranslate"><span class="pre">size=10000</span></code>.
@@ -817,7 +824,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/35366011de8453b349970e83ddebfbce5ef5edf93b8832b8bdd23a8c3c6fdc4a.png" src="../_images/35366011de8453b349970e83ddebfbce5ef5edf93b8832b8bdd23a8c3c6fdc4a.png" />
+<img alt="../_images/cc22a464b071e27e140cfbd8301238d4a53e5d90fc49a24415cc27160f7094f0.png" src="../_images/cc22a464b071e27e140cfbd8301238d4a53e5d90fc49a24415cc27160f7094f0.png" />
 </div>
 </div>
 <p>Случайную матрицу можно создать, передав в качестве <code class="docutils literal notranslate"><span class="pre">size</span></code> несколько значений:</p>
@@ -925,6 +932,15 @@ document.write(`
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Генерация псевдослучайных чисел</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../discrete-event.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Дискретно-событийное моделирование</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   

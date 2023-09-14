@@ -1,0 +1,996 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Генераторы &#8212; SM6 Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discrete-event/generators';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Дискретно-событийное моделирование" href="des.html" />
+    <link rel="prev" title="Итераторы" href="iterators.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Python-справочник кафедры СМ6 МГТУ им. Н.Э. Баумана
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch1-basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch2-improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch3-3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="iterators.html">Итераторы</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Генераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="des.html">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook/issues/new?title=Issue%20on%20page%20%2Fdiscrete-event/generators.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discrete-event/generators.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Генераторы</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Что такое генератор</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Генераторное выражение</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Примеры генераторов</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#range">Собственная версия <code class="docutils literal notranslate"><span class="pre">range</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Генератор бесконечной последовательности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zip">Собственная версия <code class="docutils literal notranslate"><span class="pre">zip</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">См. также</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Генераторы<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p><em>Генератором</em> в Python называется некоторый <em>итерируемый</em> объект.
+Это мало о чём говорит.
+Рассмотрим этот вопрос подробно, так как генераторы лежат в основе такой библиотеки дискретно-событийного моделирования, как <a class="reference external" href="https://simpy.readthedocs.io/en/latest/index.html">SimPy</a>.
+Поэтому генераторы необходимо освоить, чтобы легко работать с дискретно-событийным программированием.
+Более того, поняв генераторы, вы легче поймёте асинхронное программирование, которое широко применяется в Web-разработке.</p>
+<p>Разбираться начнём с примеров генераторов стандартной библиотеки.
+Затем перейдём к созданию собственных генераторов.</p>
+<section id="id2">
+<h2>Что такое генератор<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p><em>Генератор</em> - это объект, возвращаемый <em>генераторной функцией</em>.</p>
+<p><em>Генераторная функция</em> - это функция, в которой есть оператор <code class="docutils literal notranslate"><span class="pre">yield</span></code>, который и отвечает за возвращение объекта генератора.
+Пример:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_func</span><span class="p">():</span>
+    <span class="k">yield</span> <span class="mi">1</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">gen_func</span><span class="p">()</span>
+<span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object gen_func at 0x7f096a8e14d0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Чтобы получить значение из генератора, необходимо знать, что генератор поддерживает протокол итератора, т.е. к нему можно применить функцию <code class="docutils literal notranslate"><span class="pre">next</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<p>Как известно, когда итератор достигает своего конца, он инициирует исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>.
+То же самое случится, если мы ещё раз применим <code class="docutils literal notranslate"><span class="pre">next</span></code> к генератору <code class="docutils literal notranslate"><span class="pre">g</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">cprint</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">StopIteration</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="n">cprint</span><span class="p">(</span><span class="s2">&quot;StopIteration:&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;генератор пуст&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">StopIteration:</span> генератор пуст
+</pre></div>
+</div>
+</div>
+</div>
+<p>Но раз генератор поддерживает протокол итератора, значит, он может использоваться в цикле <code class="docutils literal notranslate"><span class="pre">for</span></code>, который этот протокол реализует:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gen_func</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<p>Таковы основы, однако созданный генератор имеет мало смысла.
+Создадим, например, генератор, возвращающий последовательно числа от 0 до заданного <code class="docutils literal notranslate"><span class="pre">n</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">first_n</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="c1"># Генерируем значение</span>
+        <span class="k">yield</span> <span class="n">counter</span>
+        <span class="c1"># Увеличиваем счётчик (движемся по циклу)</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Теперь выведем первые 5 неотрицательных чисел:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">first_n</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 1 2 3 4 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Кое-что напоминает?
+К примеру, это:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 1 2 3 4 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Разберём по шагам, что происходило в этом цикле:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">first_n</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Вызвана генеративная функция <code class="docutils literal notranslate"><span class="pre">first_n(5)</span></code>, вернувшая объект генератора:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">first_n</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object first_n at 0x7f096a8e1f50&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>При этом внутри <code class="docutils literal notranslate"><span class="pre">first_n</span></code> инициализировани счётчик <code class="docutils literal notranslate"><span class="pre">counter</span> <span class="pre">=</span> <span class="pre">0</span></code> и цикл <code class="docutils literal notranslate"><span class="pre">while</span></code>.
+Дойдя до <code class="docutils literal notranslate"><span class="pre">yield</span></code>, поток выполнения вернулся в точку вызова <code class="docutils literal notranslate"><span class="pre">first_n</span></code>, т.е. в следующую за <code class="docutils literal notranslate"><span class="pre">g</span> <span class="pre">=</span> <span class="pre">first_n(...)</span></code> строку.</p>
+<ol class="arabic simple" start="2">
+<li><p>К генератору применена функция <code class="docutils literal notranslate"><span class="pre">next</span></code>. Поток упраления переходит в функцию <code class="docutils literal notranslate"><span class="pre">first_n</span></code> к оператору <code class="docutils literal notranslate"><span class="pre">yield</span></code>, который генерирует текущее значение <code class="docutils literal notranslate"><span class="pre">counter</span></code>. Цикл в <code class="docutils literal notranslate"><span class="pre">first_n</span></code>, повторяясь, и снова доходит до оператора <code class="docutils literal notranslate"><span class="pre">yield</span></code>. Поток управления возвращается в место вызова <code class="docutils literal notranslate"><span class="pre">next</span></code>. Результат сработавшего <code class="docutils literal notranslate"><span class="pre">yield</span></code> сохраняется в счётчике <code class="docutils literal notranslate"><span class="pre">i</span></code>:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Вывод на экран значения <code class="docutils literal notranslate"><span class="pre">i</span></code>:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Цикл повторяется с п.2:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Итерация 2</span>
+<span class="n">i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="c1"># 3...</span>
+<span class="n">i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="c1"># И т.д., пока не закончатся значения в генераторе</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Когда генератор будет исчерпан, инициируется исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, говорящее о завершении протокола итератора.</p>
+</section>
+<section id="id3">
+<h2>Генераторное выражение<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>Есть ещё один способ создания генератора - <em>генеративное (генераторное) выражение</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object &lt;genexpr&gt; at 0x7f096a8e22d0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Как видите, это не кортеж и не множество, а именно генератор.
+Следовательно, никакого множества чисел от 0 до 5 пока нет.
+Значит, и память компьютера ими не занята.
+Однако всё также сработает протокол итератора для <code class="docutils literal notranslate"><span class="pre">g</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">g</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 1 2 3 4 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Однако, мы можем использовать генераторы для конструирования списков, кортежей и колекций других типов.
+Для этого достаточно передать генератор соответствующему конструктору:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Список из генератора так (через списковое выражение)...</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a =&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="c1"># или так (через конструктор)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b =&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="c1"># Кортеж из генератора (только через конструктор)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;c =&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="c1"># Множество также только через конструктор</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;d =&quot;</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a = [0, 1, 2, 3, 4]
+b = [0, 1, 2, 3, 4]
+c = (0, 1, 2, 3, 4)
+d = {0, 1, 2, 3, 4}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>Примеры генераторов<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>В данном разделе содержатся <strong>примеры</strong> использования генераторов.
+В реальном коде изобретать велосипед не стоит - стандартные генераторы и функции работы с ними гораздо надёжнее и быстрее собственного решения.</p>
+<section id="range">
+<h3>Собственная версия <code class="docutils literal notranslate"><span class="pre">range</span></code><a class="headerlink" href="#range" title="Permalink to this heading">#</a></h3>
+<p>Мы почти сделали собственный <code class="docutils literal notranslate"><span class="pre">range</span></code>.
+Сделаем его окончательно:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">range_gen</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stop</span><span class="o">=</span> <span class="n">start</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">stop</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">i</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="n">step</span>
+
+<span class="c1"># И пример его использования</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;range_gen:&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">range_gen</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="c1"># Сравните со стандартным range</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">range:&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>range_gen: 3 5 7 9 
+range: 3 5 7 9 
+</pre></div>
+</div>
+</div>
+</div>
+<p>На самом деле, кроме оператора <code class="docutils literal notranslate"><span class="pre">yield</span></code> существует ещё оператор (выражение) <a class="reference external" href="https://docs-python.ru/tutorial/generatory-python/vyrazhenie-yield-from-expr/"><code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code></a>.
+Его предназначение - связать два генератора.
+Рассмотрим, что это значит на примере нашего <code class="docutils literal notranslate"><span class="pre">range_gen</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">range_gen</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stop</span><span class="o">=</span> <span class="n">start</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">yield from</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Сравните с предыдущей версией и вы заметите, что теперь не нужен счётчик <code class="docutils literal notranslate"><span class="pre">i</span></code> и что наш генератор берёт значения из стандартного <code class="docutils literal notranslate"><span class="pre">range</span></code>.
+Проверим работоспособность:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">range_gen</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3 5 7 9 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Таким способом можно связать сколь-угодное число генераторов.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Однако помните, <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> может запутать других и вас самих, если вы либо не хорошо понимаете предназначение данного выражения, либо если используете его неуместно.</p>
+<p>Связывание генераторов без серьёзной на то причины усложняет код.
+И тут полезно вспомнить <a class="reference external" href="https://peps.python.org/pep-0020/">дзен Python</a>: “Чем проще - тем лучше”.</p>
+</div>
+</section>
+<section id="id5">
+<h3>Генератор бесконечной последовательности<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>Одним из преимуществ генераторов является их <em>ленивость</em> - новое значение генератор выдаёт тогда и только тогда, когда оно запрашивается.
+Генератор не создаёт никаких предварительных списков, что положительно сказывается на работе программы с оперативной памятью.
+Более того, лень генераторов позволяет реализовать <strong>бесконечную последовательность</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">infinity</span><span class="p">():</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Входим в бесконечный цикл</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">i</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1"># Аналог бесконечного цикла &#39;while True&#39;,</span>
+<span class="c1"># только счётчик &#39;i&#39; получается сам собой</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">infinity</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="c1"># Условие выхода из цикла.</span>
+        <span class="c1"># Не будь этого условия, числа выводились бы бесконечно</span>
+        <span class="k">break</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 1 2 3 4 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Как это всё работает?
+Рассмотрим на примере использования <code class="docutils literal notranslate"><span class="pre">infinity</span></code>:</p>
+<ol class="arabic simple">
+<li><p>В самом начале цикла (вернее, при его инициализации) вызывается генеративная функция <code class="docutils literal notranslate"><span class="pre">infinity</span></code>. В результате её вызова создан генератор. При этом поток выполнения программы вошёл в функцию <code class="docutils literal notranslate"><span class="pre">infinity</span></code>, создал локальную переменную <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0</span></code>, вошёл в бесконечный цикл <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">True</span></code> и… вернулся в вызывающую функцию (в данном случае в основной поток программы) с объектом генератора в руках.</p></li>
+<li><p>Цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> начинаетотрабатывать протокол итератора. Применение <code class="docutils literal notranslate"><span class="pre">next</span></code> к генератору приводит к тому, что срабатывает <code class="docutils literal notranslate"><span class="pre">yield</span></code>, генерируя возвращаемое значение <code class="docutils literal notranslate"><span class="pre">i</span></code>, т.е. 0. Выполняется весь следующий код <code class="docutils literal notranslate"><span class="pre">infinity</span></code>: увеличивается значение <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">+=</span> <span class="pre">1</span></code>, бесконечный цикл повторяется и вновь упирается в оператор <code class="docutils literal notranslate"><span class="pre">yield</span></code>… Поток выполнения <code class="docutils literal notranslate"><span class="pre">infinity</span></code> снова возвращает управление потоку-хозяину генератора (в данном случае основному потоку программы).</p></li>
+<li><p>Выполняется тело цикла <code class="docutils literal notranslate"><span class="pre">for</span></code>.</p></li>
+<li><p>Цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> повторяется. При этом <code class="docutils literal notranslate"><span class="pre">i</span></code> уже равно 1. И так до бесконечности или пока цикл не будет прерван оператором <code class="docutils literal notranslate"><span class="pre">break</span></code>.</p></li>
+</ol>
+<p>Если бы наш генератор был бы конечным, то применение <code class="docutils literal notranslate"><span class="pre">next</span></code> после достижения последнего значения привело бы к исключению <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, и цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> закончился бы (штатно).</p>
+<p>Для прерывания цикла использовался оператор <code class="docutils literal notranslate"><span class="pre">break</span></code>.
+Однако у генераторов, как и у любого объекта в Python, есть <a class="reference external" href="https://realpython.com/introduction-to-python-generators/">свои методы</a>.
+Один из методов - <code class="docutils literal notranslate"><span class="pre">close</span></code> - предназначен для преждевременного закрытия генератора.
+При этом генератор инициирует исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, из-за чего цикл автоматически прервётся.
+Это позволяет в нашем случае использовать <code class="docutils literal notranslate"><span class="pre">close</span></code> вместо <code class="docutils literal notranslate"><span class="pre">break</span></code>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Обратите внимание на “оператор моржа” <a class="reference external" href="https://habr.com/ru/companies/skillfactory/articles/683418/"><code class="docutils literal notranslate"><span class="pre">:=</span></code></a>.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Если вы итерируете генератор вне цикла <code class="docutils literal notranslate"><span class="pre">for</span></code>, например, в цикле <code class="docutils literal notranslate"><span class="pre">while</span></code> или вручную и закрываете его методом <code class="docutils literal notranslate"><span class="pre">close</span></code>, то вам следует перехватывать исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, иначе выполнение программы завершится с этой ошибкой.
+Пример ниже.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">infinity</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+<span class="n">g</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># С этого момента не стоит использовать генератор</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+<span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+    <span class="n">cprint</span><span class="p">(</span><span class="s2">&quot;StopIteration:&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;да, инициировано исключение&quot;</span><span class="p">)</span>
+<span class="c1"># Не будь try...except программа бы рухнула</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+1
+<span class=" -Color -Color-Red">StopIteration:</span> да, инициировано исключение
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="zip">
+<h3>Собственная версия <code class="docutils literal notranslate"><span class="pre">zip</span></code><a class="headerlink" href="#zip" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Наш zip тоже принимает произвольное число аргументов</span>
+<span class="k">def</span> <span class="nf">zip_gen</span><span class="p">(</span><span class="o">*</span><span class="n">sequences</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Заодно применим наш бесконечный генератор</span>
+        <span class="c1"># так удобный здесь</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">infinity</span><span class="p">():</span>
+            <span class="c1"># Генерируем кортеж из i-ых элементов sequences</span>
+            <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sequences</span><span class="p">)</span>
+    <span class="c1"># Условие выхода из бесконечного цикла - ошибка индексации.</span>
+    <span class="c1"># Передаваемые списки могут иметь различные длины.</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="c1"># Да, генеративная функция обычная Python-функция,</span>
+        <span class="c1"># поэтому можно вернуться из неё обычным return&#39;ом.</span>
+        <span class="c1"># Для генератора return сродни StopIteration.</span>
+        <span class="k">return</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<span class="c1"># Наш zip</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;zip_gen:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">zip_gen</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="c1"># Стандартный zip</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;zip:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zip_gen:
+1 -2 7
+2 -3 0
+zip:
+1 -2 7
+2 -3 0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Заметьте, мы не создали какие-либо дополнительные списки.</p>
+</div>
+<p>Таким образом, концепция генераторов в Python имеет широкие возможности.
+При этом их синтаксис и логика действия предельно просты.
+Представленной информации вполне достаточно, чтобы научиться работать с библиотекой SimPy.</p>
+</section>
+</section>
+<section id="id6">
+<h2>См. также<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://realpython.com/introduction-to-python-generators/">Обучающий материал</a>, подробно описывающий генераторы Python. Рассмотрены различные примеры их использования, а также особенности, не освещённые в данном справочнике. Например, методы генератора <code class="docutils literal notranslate"><span class="pre">send</span></code>, <code class="docutils literal notranslate"><span class="pre">close</span></code>, <code class="docutils literal notranslate"><span class="pre">throw</span></code>.</p></li>
+<li><p><a class="reference external" href="https://wiki.python.org/moin/Generators">Базовый материал</a> по генераторам.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./discrete-event"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="iterators.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Итераторы</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="des.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Дискретно-событийное моделирование</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Что такое генератор</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Генераторное выражение</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Примеры генераторов</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#range">Собственная версия <code class="docutils literal notranslate"><span class="pre">range</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Генератор бесконечной последовательности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zip">Собственная версия <code class="docutils literal notranslate"><span class="pre">zip</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">См. также</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vadim Fedulov
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

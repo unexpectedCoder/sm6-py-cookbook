@@ -176,6 +176,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/iterators.html">Итераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/generators.html">Генераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/des.html">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -572,7 +578,7 @@ document.write(`
             [ 4.030e+01  4.030e+01 ... -2.667e+01 -2.889e+01]
             [ 0.000e+00  8.372e-04 ...  9.737e+01  1.034e+02]
             [ 0.000e+00  1.140e-03 ... -2.441e+01 -5.499e+01]]
-      sol: &lt;scipy.integrate._ivp.common.OdeSolution object at 0x7f0dca763790&gt;
+      sol: &lt;scipy.integrate._ivp.common.OdeSolution object at 0x7f097ac19990&gt;
  t_events: None
  y_events: None
      nfev: 68
@@ -633,7 +639,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/231e7e57f00993c1ea60deffc24993ef3300ac6ba2c22014a4666c190c4b9010.png" src="../_images/231e7e57f00993c1ea60deffc24993ef3300ac6ba2c22014a4666c190c4b9010.png" />
+<img alt="../_images/93f81ceacd1c8748373c4b13db70009bac16a9f9c84150328024985677d17cf1.png" src="../_images/93f81ceacd1c8748373c4b13db70009bac16a9f9c84150328024985677d17cf1.png" />
 </div>
 </div>
 <p>Траектория полёта:</p>
@@ -648,7 +654,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b08c30f316b10095af9b7764b87dd43ce78cab65f87bab9a176203ae8a138ced.png" src="../_images/b08c30f316b10095af9b7764b87dd43ce78cab65f87bab9a176203ae8a138ced.png" />
+<img alt="../_images/372f3576dba7832d05236fbb61aa7ad2810d04aeee8eeaecf79f31c7efe270ff.png" src="../_images/372f3576dba7832d05236fbb61aa7ad2810d04aeee8eeaecf79f31c7efe270ff.png" />
 </div>
 </div>
 <p>Интервал времени велик, вследствие чего шар “проваливается” сквозь поверхность <span class="math notranslate nohighlight">\(y = 0\)</span>.
@@ -709,7 +715,7 @@ document.write(`
             [ 4.030e+01  4.030e+01 ... -1.718e+01 -2.345e+01]
             [ 0.000e+00  8.372e-04 ...  7.920e+01  9.038e+01]
             [ 0.000e+00  1.140e-03 ...  2.458e+01 -7.105e-15]]
-      sol: &lt;scipy.integrate._ivp.common.OdeSolution object at 0x7f0dc8fa1600&gt;
+      sol: &lt;scipy.integrate._ivp.common.OdeSolution object at 0x7f0976d512d0&gt;
  t_events: [array([ 5.935e+00])]
  y_events: [array([[ 8.125e+00, -2.345e+01,  9.038e+01, -7.105e-15]])]
      nfev: 62
@@ -742,7 +748,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c0aae8fa05cb9e79550a439f1ac8d519758bd4f90fc609e790218cd93f13abdf.png" src="../_images/c0aae8fa05cb9e79550a439f1ac8d519758bd4f90fc609e790218cd93f13abdf.png" />
+<img alt="../_images/aa9539f5e07ea48d6142fb6c19288b2865611488e21e608f62a2f7b22cc5fdcb.png" src="../_images/aa9539f5e07ea48d6142fb6c19288b2865611488e21e608f62a2f7b22cc5fdcb.png" />
 </div>
 </div>
 <p>Если для события <code class="docutils literal notranslate"><span class="pre">terminal</span> <span class="pre">=</span> <span class="pre">False</span></code> (по умолчанию это так), то после его наступления решение продолжится до конца интервала интегрирования.

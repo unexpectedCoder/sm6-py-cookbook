@@ -1,0 +1,1140 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Дискретно-событийное моделирование &#8212; SM6 Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discrete-event/des';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Генераторы" href="generators.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Python-справочник кафедры СМ6 МГТУ им. Н.Э. Баумана
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch1-basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch2-improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/ch3-3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="iterators.html">Итераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generators.html">Генераторы</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook/issues/new?title=Issue%20on%20page%20%2Fdiscrete-event/des.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discrete-event/des.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Дискретно-событийное моделирование</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Шарик в коробке</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Итеративный подход</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Дискретно-событийный подход</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpy">Примеры использования SimPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Разочарование клиента в банке</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Дискретно-событийное моделирование<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>Рассмотрим, как устроено дискретно-событийное моделирование (ДСМ) в Python в контексте библиотеки <a class="reference external" href="https://simpy.readthedocs.io/en/latest/index.html">SimPy</a>, реализующей <strong>всё, что только может понадобиться для этого</strong>.</p>
+<p>Начнём с простой и показательной задачки о движении абсолютно упругого шарика в ограниченном двумерном пространстве (коробке).
+Затем подробнее рассмотрим некоторые примеры из документации SimPy.</p>
+<section id="id2">
+<h2>Шарик в коробке<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Представьте прямоугольную коробку, внутри которой от стенки к стенке движется абсолютно упругий шарик.
+Когда он достигает границы области, то упруго от неё отскакивает.
+Пусть пространство будет ограничено прямоугольником шириной <span class="math notranslate nohighlight">\(w\)</span> и высотой <span class="math notranslate nohighlight">\(h\)</span>.
+Шарик в начальный момент времени <span class="math notranslate nohighlight">\(t_0 = 0\)</span> находится в случайной точке <span class="math notranslate nohighlight">\((x_0, y_0)\)</span> внутри прямоугольника и имеет случайную скорость <span class="math notranslate nohighlight">\((v_x, v_y)\)</span> постоянную по величине: <span class="math notranslate nohighlight">\(v = \sqrt{v_x^2 + v_y^2} = \mathrm{const}\)</span>.</p>
+<p>При абсолютно упругом ударе о вертикальные стенки отражается <em>x</em>-составляющая скорости <span class="math notranslate nohighlight">\(v_x' = -v_x\)</span>, при ударе о горизонтальные - <em>y</em>-составляющая: <span class="math notranslate nohighlight">\(v_y' = -v_y\)</span>.</p>
+<p>Мы хотим промоделировать движение шарика в коробке в течение заданного времени <span class="math notranslate nohighlight">\(T\)</span>.
+Как это сделать?</p>
+<p>Одно из решений, часто первым приходящим на ум, заключается в задании некоторого <strong>постоянного</strong> <em>малого</em> шага по времени <span class="math notranslate nohighlight">\(\Delta t\)</span>.
+Однако сразу возникает две проблемы:</p>
+<ol class="arabic simple">
+<li><p>Как определить, какой шаг является <em>малым</em>, а какой - <em>большим</em>?</p></li>
+<li><p>Постоянная величина шага <span class="math notranslate nohighlight">\(\Delta t\)</span> приводит к проблеме <em>пересечения границ</em>, т.е. тело выходит за границы расчётной области и на деле ударяется не о стенку коробки, а о <em>что-то</em>, расположенное вне её.
+Это кардинально меняет траекторию тела, по сути нарушая задачу.</p></li>
+</ol>
+<p>Шаг по времени в данной задачи зависит от размеров прямоугольника и скорости тела.
+Чем меньше область и больше скорость, тем меньше должен быть шаг <span class="math notranslate nohighlight">\(\Delta t\)</span>.
+Скажем, при скорости 1 м/с и шаге по времени 0.1 с шарик выйдет за границу не более, чем на <span class="math notranslate nohighlight">\(1 \cdot 0.5 = 0.1\)</span> м.
+Если размеры прямоугольника составляют десятки и более метров, то погрешность в 0.1 м не велика.
+Однако тогда понадобится очень большое число промежуточных шагов, при которых никаких <em>событий</em> (столкновений) в системе не происходит.
+<strong>Компьютер тратит время впустую</strong> (и мы вместе с ним).
+Более того, ошибка в расчёте столкновений всё же присутствует, сколь малой бы она ни была.
+Если за время моделирования шарик столкнётся со стенками 10 раз - мы получим одну величину ошибки <span class="math notranslate nohighlight">\(\varepsilon_1\)</span> в определении конечного положения тела.
+Если же столкновений будет 100000, то ошибка <span class="math notranslate nohighlight">\(\varepsilon_2\)</span> конечного положения будет много больше ошибки <span class="math notranslate nohighlight">\(\varepsilon_1\)</span>.
+Следовательно, при итеративном подходе <strong>ошибка накапливается</strong>.
+Ошибка накапливается также ввиду конечной точности чисел с плавающей точкой в компьютере.</p>
+<p>Рассмотренный подход называется <em>итеративным</em>.
+Каждая итерация представляет из себя следующую последовательность действий:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_{i+1} = x_i + v_{x\, i+1} \Delta t_i\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_{i+1} = y_i + v_{y\, i+1} \Delta t_i\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(t_{i+1} = t_i + \Delta t_i\)</span>;</p></li>
+<li><p>проверка пересечения границ.
+Если границы пересечены, то меняется знак соответствующей проекции скорости.
+Например, при столкновении с правой или левой стенкой <span class="math notranslate nohighlight">\(v_{x\, i+1} = -v_{xi}\)</span>.
+Если столкновения нет, то проекции не изменяются: <span class="math notranslate nohighlight">\(v_{x\, i+1} = v_{xi}\)</span> и <span class="math notranslate nohighlight">\(v_{y\, i+1} = v_{yi}\)</span>;</p></li>
+<li><p>итерации повторяются, пока <span class="math notranslate nohighlight">\(t_i &lt; T\)</span>.</p></li>
+</ul>
+<p>Проверка пересечения границ заключается в проверке условий
+<span class="math notranslate nohighlight">\(x \notin (x_\mathrm{lb}; x_\mathrm{rb})\)</span> и
+<span class="math notranslate nohighlight">\(y \notin (y_\mathrm{bb}; y_\mathrm{tb})\)</span>,
+где
+<span class="math notranslate nohighlight">\(x_\mathrm{lb}\)</span> и <span class="math notranslate nohighlight">\(x_\mathrm{rb}\)</span> - прямые левой и правой границ соответственно;
+<span class="math notranslate nohighlight">\(y_\mathrm{bb}\)</span> и <span class="math notranslate nohighlight">\(y_\mathrm{tb}\)</span> - прямые нижней и верхней границ соответственно.</p>
+<p>Если не спешить и обдумать задачу более основательно, то можно заметить, что по известной и постоянной скорости, начальному положению тела и при известных размерах пространства несложно <em>рассчитать</em> промежуток времени <span class="math notranslate nohighlight">\(\Delta t_i\)</span>, через который тело столкнётся с одной из границ.
+Действительно, если в момент времени <span class="math notranslate nohighlight">\(t_i\)</span> проекции скорости тела <span class="math notranslate nohighlight">\(v_{xi} &gt; 0\)</span> и <span class="math notranslate nohighlight">\(v_{yi} &gt; 0\)</span>, то шарик движется в направлении правой и верхней стенок.
+Остаётся определить, которая из них будет достигнута быстрее.
+Если координата шарика в момент времени <span class="math notranslate nohighlight">\(t_i\)</span> есть <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, то с правой границей он столкнётся через время <span class="math notranslate nohighlight">\(\Delta t_{\mathrm{rb} i} = (x_\mathrm{rb} - x_i) / v_{xi}\)</span>, а с верхней - через <span class="math notranslate nohighlight">\(\Delta t_{\mathrm{tb} i} = (y_\mathrm{tb} - y_i) / v_{yi}\)</span>.
+И тогда <span class="math notranslate nohighlight">\(t_{i+1} = t_i + \min(\Delta t_{\mathrm{rb} i}, \Delta t_{\mathrm{tb} i})\)</span>.
+Аналогично рассчитывается время столкновения с любой границей в зависимости от комбинации знаков проекций скорости тела.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Если какая-либо из проекций равна нулю, то достаточно рассмотреть лишь одну границу, в направлении которой движется тело.</p>
+</div>
+<p>Таким образом, мы можем рассчитать момент времени <span class="math notranslate nohighlight">\(t_{i+1} = t_{i} + \Delta t_i\)</span> наступления <span class="math notranslate nohighlight">\((i+1)\)</span>-го <em>события</em> “столкновение со стенкой”.
+Зная <span class="math notranslate nohighlight">\(\Delta t_i\)</span>, мы можем <strong>точно рассчитать</strong> точку столкновения с границей: <span class="math notranslate nohighlight">\(x_{i+1} = x_i + v_{xi} \Delta t_i\)</span> и <span class="math notranslate nohighlight">\(y_{i+1} = y_i + v_{yi}\Delta t_i\)</span>, после чего изменить знак соответствующей проекции скорости: либо <span class="math notranslate nohighlight">\(v_{x\, i+1} = -v_{xi}\)</span>, либо <span class="math notranslate nohighlight">\(v_{y\, i+1} = -v_{yi}\)</span>.
+После этого рассчитывается время до следующего столкновения и т.д.</p>
+<p>При этом нам <strong>не нужно</strong></p>
+<ul class="simple">
+<li><p>думать о выборе шага по времени, зависящего от нескольких параметров (в реальных задачах таких параметров может быть гораздо больше, чем в рассматриваемой задаче);</p></li>
+<li><p>впустую тратить расчётное время компьютера - он считает лишь моменты, в которых меняется <em>состояние системы</em> (в данном случае, когда при столкновении меняется знак у одной из проекций скорости);</p></li>
+<li><p>знать сколько раз за время моделирования шарик столкнётся со стенками.</p></li>
+</ul>
+<p>При применении ДСМ также <strong>не накапливается ошибка</strong> численного расчёта.
+Получается траектория движения шарика, совпадающая с теоретической.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Состояние системы изменяется при наступлении какого-либо события.
+Между событиями состояние остаётся постоянным.
+Это одно из основных положений ДСМ.</p>
+</div>
+<p>Реализуем сначала итеративный подход.
+Получим траекторию тела, которую затем сравним с траекторией, полученной с применением ДСМ.</p>
+<section id="id3">
+<h3>Итеративный подход<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Напишем функцию итеративного решения задачи о шарике в коробке.
+Назовём её <code class="docutils literal notranslate"><span class="pre">iterative_solver</span></code>.
+Чтобы было легче воспринимать код, разобьём его на более мелкие составные части (функции).</p>
+<p>Начнём с реализации вспомогательной функции определения столкновений с границами.
+Условия столкновения, как отмечено выше, следующие:</p>
+<div class="math notranslate nohighlight">
+\[
+x_i \notin (x_\mathrm{lb}; x_\mathrm{rb}), \quad
+y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">collision</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Условие столкновения шара с границами коробки.</span>
+
+<span class="sd">    * `bounds` - кортеж вида `(x_lb, x_rb, y_bb, y_tb)`,</span>
+<span class="sd">      хранящий координаты левой, правой, нижней и верхней границ</span>
+<span class="sd">      прямоугольной области.</span>
+<span class="sd">    * `p` - текущая координата `(x, y)` шара.</span>
+<span class="sd">    </span>
+<span class="sd">    Возвращает кортеж из двух значений, определяющих, нужно ли</span>
+<span class="sd">    инвертировать соответствующую проекцию скорости.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x_lb</span><span class="p">,</span> <span class="n">x_rb</span><span class="p">,</span> <span class="n">y_bb</span><span class="p">,</span> <span class="n">y_tb</span> <span class="o">=</span> <span class="n">bounds</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="c1"># Знак элемента signs показывает, нужно ли инвертировать</span>
+    <span class="c1"># соответствующую проекцию скорости</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Было ли столкновение</span>
+    <span class="n">signs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">x_lb</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">x_rb</span><span class="p">:</span>
+        <span class="c1"># Столкновение с одной из вертикальных стен,</span>
+        <span class="c1"># значит, нужно инвертировать v_x</span>
+        <span class="n">signs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">y_bb</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">y_tb</span><span class="p">:</span>
+        <span class="c1"># Столкновение с одной из горизонтальных стен,</span>
+        <span class="c1"># значит, нужно инвертировать v_y</span>
+        <span class="n">signs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">flag</span><span class="p">,</span> <span class="n">signs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Функция <code class="docutils literal notranslate"><span class="pre">collision</span></code> имеет один эффект, влияющий на траекторию шара, который мы не предусмотрели.
+Получится ли у вас его определить?</p>
+</div>
+<p>Теперь сама функция итеративного решателя:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">iterative_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t_until</span><span class="p">,</span> <span class="n">t_step</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Итеративный решатель задачи о шарике в коробке.</span>
+<span class="sd">    </span>
+<span class="sd">    * `bounds` - кортеж из 4 чисел вида `(x_lb, x_rb, y_bb, y_tb)`,</span>
+<span class="sd">      описывающий левую, правую, нижнюю и верхнюю границы</span>
+<span class="sd">      прямоугольной области.</span>
+<span class="sd">    * `p` - начальная координата шара `(x, y)`.</span>
+<span class="sd">    * `v` - кортеж `(v_x, v_y)` со значениями проекций вектора</span>
+<span class="sd">       начальной скорости шара.</span>
+<span class="sd">    * `t_until` - время моделирования.</span>
+<span class="sd">    * `t_step` - постоянный шаг по времени.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Распакуем аргументы-кортежи в соответствующие переменные</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="n">v_x</span><span class="p">,</span> <span class="n">v_y</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="c1"># Инициализируем &quot;часы&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># и массив траекторных точек</span>
+    <span class="c1"># (именно эти три переменные формируют траекторию)</span>
+    <span class="n">traj</span> <span class="o">=</span> <span class="p">[(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span>
+    <span class="c1"># Выполняем итерации:</span>
+    <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">t_until</span><span class="p">:</span>
+        <span class="c1"># 1. Обновляем координаты и время</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="n">v_x</span> <span class="o">*</span> <span class="n">t_step</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="n">v_y</span> <span class="o">*</span> <span class="n">t_step</span>
+        <span class="n">t</span> <span class="o">+=</span> <span class="n">t_step</span>
+        <span class="c1"># 2. Проверяем условие столкновения</span>
+        <span class="n">flag</span><span class="p">,</span> <span class="p">(</span><span class="n">svx</span><span class="p">,</span> <span class="n">svy</span><span class="p">)</span> <span class="o">=</span> <span class="n">collision</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="c1"># 3. Инвертируем проекции скорости</span>
+        <span class="c1">#    (если svx и svy отрицательны)</span>
+        <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+            <span class="c1"># Просто чтобы не расходавать память</span>
+            <span class="c1"># на точки между столкновениями</span>
+            <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+            <span class="n">v_x</span> <span class="o">*=</span> <span class="n">svx</span>
+            <span class="n">v_y</span> <span class="o">*=</span> <span class="n">svy</span>
+    <span class="c1"># В завершение добавим последнюю точку траектории</span>
+    <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="c1"># Возвращаем полученную траекторию</span>
+    <span class="c1"># в виде массива NumPy</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Напишем удобную для многоразового использования функцию визуализации траектории <code class="docutils literal notranslate"><span class="pre">plot_traj</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">plot_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Строит траекторию тела.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">figax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">figax</span>
+    <span class="c1"># Линии траектории</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">traj</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">traj</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="c1"># Начальная и конечная точки</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Посмотрим, что получилось.
+Пусть условия задачи таковы:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_\mathrm{lb} = 0\)</span>, <span class="math notranslate nohighlight">\(x_\mathrm{rb} = 1\)</span>, <span class="math notranslate nohighlight">\(y_\mathrm{bb} = 0\)</span> и <span class="math notranslate nohighlight">\(y_\mathrm{tb} = 1\)</span> м;</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_0 = 0.67\)</span> и <span class="math notranslate nohighlight">\(y_0 = 0.33\)</span> м;</p></li>
+<li><p><span class="math notranslate nohighlight">\(v_{x0} = 0.3\)</span> и <span class="math notranslate nohighlight">\(v_{y0} = 0.1\)</span> м/с;</p></li>
+<li><p>шаг по времени <span class="math notranslate nohighlight">\(\Delta t = 0.5\)</span> с;</p></li>
+<li><p>время моделирования <span class="math notranslate nohighlight">\(T = 60\)</span> с.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Условия задачи</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="mf">0.67</span><span class="p">,</span> <span class="mf">0.33</span>
+<span class="n">v</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">t_until</span> <span class="o">=</span> <span class="mi">60</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Моделируем и строим траекторию:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traj</span> <span class="o">=</span> <span class="n">iterative_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t_until</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a2d991aea65cc04b76d10acbfd7cf8fc12d24ea733fd63ce19fa59de059fd7f2.png" src="../_images/a2d991aea65cc04b76d10acbfd7cf8fc12d24ea733fd63ce19fa59de059fd7f2.png" />
+</div>
+</div>
+<p>Число столкновений:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Число столкновений:&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Не учитывая последнюю (свободную) точку</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Число столкновений: 21
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Кстати, о непредусмотренном эффекте функции <code class="docutils literal notranslate"><span class="pre">collision</span></code>.
+Этот эффект виден на получившемся графике.</p>
+</div>
+<p>Если уменьшить шаг по времени в 5 раз, то получим следующую картину:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traj_iterative</span> <span class="o">=</span> <span class="n">iterative_solver</span><span class="p">(</span>
+    <span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t_until</span><span class="p">,</span> <span class="n">t_step</span><span class="o">=</span><span class="n">dt</span><span class="o">/</span><span class="mi">5</span>
+<span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_traj</span><span class="p">(</span><span class="n">traj_iterative</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c8859a2ee2643d5126685f0c799991c779940a5aa0e0e17767255a184f12135e.png" src="../_images/c8859a2ee2643d5126685f0c799991c779940a5aa0e0e17767255a184f12135e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Число столкновений:&quot;</span><span class="p">,</span> <span class="n">traj_iterative</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Число столкновений: 25
+</pre></div>
+</div>
+</div>
+</div>
+<p>Сравнив два рисунка, можно заметить, что хоть уменьшение шага и привело к более точной траектории тела, но пересечение границ всё равно присутствует.
+Также при различном временном шаге получены разные значения числа столкновений - 21 и 25 соответственно.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Заметьте, что столкновение с горизонтальными границами происходит <em>почти</em> на них.
+На самом деле при данном масштабе не видно, что выход за границу по вертикальной оси составляет 0.03 м.
+Можно и так подобрать параметры задачи (шаг по времени, скорость и начальную координату шара), что столкновение будет происходить точно на границах.
+Но это будет либо совпадением, либо подгонкой параметров, которую бывает невозможно произвести в сложных задачах.</p>
+</div>
+<p>Настало время решить эту задачу правильно.</p>
+</section>
+<section id="id4">
+<h3>Дискретно-событийный подход<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>Как отмечено выше, при дискретно-событийном подходе мы должны рассчитать момент наступления события.
+Для этой цели опишем функцию <code class="docutils literal notranslate"><span class="pre">calc_delay</span></code>, которая по заданным границам, скорости <span class="math notranslate nohighlight">\((v_{xi}, v_{yi})\)</span> и положению тела <span class="math notranslate nohighlight">\((x_i, y_i)\)</span> рассчитает, через какое время <span class="math notranslate nohighlight">\(\Delta t_i\)</span> наступит следующее событие:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_delay</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Рассчитать задержку времени перед следующим событием</span>
+<span class="sd">    при заданных границах `bounds = (x_lb, x_rb, y_bb, y_tb)`,</span>
+<span class="sd">    скорости шара `v = (v_x, v_y)` и координате его последнего</span>
+<span class="sd">    столкновения `p = (x, y)`.&quot;&quot;&quot;</span>
+    <span class="c1"># Распакуем аргументы для удобства</span>
+    <span class="n">x_lb</span><span class="p">,</span> <span class="n">x_rb</span><span class="p">,</span> <span class="n">y_bb</span><span class="p">,</span> <span class="n">y_tb</span> <span class="o">=</span> <span class="n">bounds</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="c1"># Вычисляем время (задержку)</span>
+    <span class="n">dtx</span><span class="p">,</span> <span class="n">dty</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span>
+    <span class="c1"># - в направлении оси Ox</span>
+    <span class="k">if</span> <span class="n">vx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dtx</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_rb</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">vx</span>
+    <span class="k">elif</span> <span class="n">vx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dtx</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_lb</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">vx</span>
+    <span class="c1"># - в направление оси Oy</span>
+    <span class="k">if</span> <span class="n">vy</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dty</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_tb</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">vy</span>
+    <span class="k">elif</span> <span class="n">vy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dty</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_bb</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">vy</span>
+    <span class="c1"># Определение, какую проекцию скорости инвертировать</span>
+    <span class="n">signs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">signs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">((</span><span class="n">dtx</span><span class="p">,</span> <span class="n">dty</span><span class="p">))]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">dtx</span><span class="p">,</span> <span class="n">dty</span><span class="p">),</span> <span class="n">signs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Реализуем решатель <code class="docutils literal notranslate"><span class="pre">de_solver</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span> <span class="k">as</span> <span class="nn">sim</span>
+
+<span class="k">def</span> <span class="nf">de_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t_until</span><span class="p">):</span>
+    <span class="n">p</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
+    <span class="n">traj</span> <span class="o">=</span> <span class="p">[(</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)]</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">loop</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">traj</span><span class="p">))</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">t_until</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="p">(</span><span class="n">t_until</span> <span class="o">-</span> <span class="n">traj</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">loop</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">dt</span><span class="p">,</span> <span class="n">signs</span> <span class="o">=</span> <span class="n">calc_delay</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">))</span>
+        <span class="n">v</span> <span class="o">*=</span> <span class="n">signs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Промоделируем при тех же исходных параметрах:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Заметьте, мы уже не задаём шаг по времени</span>
+<span class="n">traj_des</span> <span class="o">=</span> <span class="n">de_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t_until</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_traj</span><span class="p">(</span><span class="n">traj_des</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Число столкновений:&quot;</span><span class="p">,</span> <span class="n">traj_des</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Число столкновений: 25
+</pre></div>
+</div>
+<img alt="../_images/8f5c2150f79bdfb68931a160ef9e57b0da54c092fe4f598d4f2c170346d089b6.png" src="../_images/8f5c2150f79bdfb68931a160ef9e57b0da54c092fe4f598d4f2c170346d089b6.png" />
+</div>
+</div>
+<p>Получили точное решение, которое заметно отличается от всех решений, полученных ранее - шарик оказался в том же самом месте, из которого начал своё движение.</p>
+<p>Итак, приведём полученные результаты на одном графике:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_traj</span><span class="p">(</span><span class="n">traj_iterative</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Итеративный метод&quot;</span><span class="p">)</span>
+<span class="n">plot_traj</span><span class="p">(</span><span class="n">traj_des</span><span class="p">,</span> <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ДСМ&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/49208866bdd0d39d06e04bbde093f30142f530a50cbec4fe8677f1c3d64f6aa8.png" src="../_images/49208866bdd0d39d06e04bbde093f30142f530a50cbec4fe8677f1c3d64f6aa8.png" />
+</div>
+</div>
+<p>Из полученного графика также отчётливо видно, как по мере увеличения числа событий, увеличивается ошибка итеративного метода.
+С течением времени полученная с его помощью траектория всё сильнее и сильнее отклоняется от теоретической (оранжевой).</p>
+<p>Изменим начальные условия и посмотрим на результат:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Немного другие условия задачи</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span>
+<span class="n">v</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span>
+<span class="n">t_until</span> <span class="o">=</span> <span class="mi">40</span>    <span class="c1"># ...равно периоду движения</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">de_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t_until</span><span class="p">)</span>
+
+<span class="c1"># Показываем</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Число столкновений:&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Число столкновений: 11
+</pre></div>
+</div>
+<img alt="../_images/a5dfa22b222e6ac6d8273dfdb065084d79e7064e8ff2b63ab77f16759f441557.png" src="../_images/a5dfa22b222e6ac6d8273dfdb065084d79e7064e8ff2b63ab77f16759f441557.png" />
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Интересно подумать, почему получается периодическое движение и как рассчитать его период?</p>
+</div>
+</section>
+</section>
+<section id="simpy">
+<h2>Примеры использования SimPy<a class="headerlink" href="#simpy" title="Permalink to this heading">#</a></h2>
+<p>В данном разделе рассмотрены некоторые примеры из <a class="reference external" href="https://simpy.readthedocs.io/en/latest/examples/index.html">официальной документации</a> SimPy с целью чуть лучше раскрыть принципы работы с данной библиотекой.</p>
+<p>Прежде необходимо подключить SimPy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span> <span class="k">as</span> <span class="nn">sim</span>
+</pre></div>
+</div>
+<section id="id5">
+<h3>Разочарование клиента в банке<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>Данный <a class="reference external" href="https://simpy.readthedocs.io/en/latest/examples/bank_renege.html">пример</a> раскрывает такие возможности SimPy, как <em>ресурсы</em> и <em>условные события</em>.</p>
+<p>Задача следующая.
+Есть банк, в который приходят клиенты.
+У банка есть несколько окон для обслуживания клиентов.
+Поток клиентов случаен.
+Каждый клиент имеет определённое терпение, которое может закончиться, и клиент в результате просто уйдёт из банка.
+Если же его очередь подойдёт быстрее, чем закончится терпение, то он подойдёт к окну и займёт его на некоторое время.
+Остальные клиенты всё так же продолжат ждать своей очереди, насколько хватит терпения.</p>
+<p>Нам точно понадобится рандом:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">rand</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Также задаём основные параметры модели:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">RANDOM_SEED</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">NEW_CUSTOMERS</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Общее число посетителей</span>
+<span class="n">INTERVAL_CUSTOMERS</span> <span class="o">=</span> <span class="mf">10.0</span>  <span class="c1"># Среднее время появления нового посетителя</span>
+<span class="n">MIN_PATIENCE</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Минимальное</span>
+<span class="n">MAX_PATIENCE</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># и максимальное время ожидания клиента</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Определим клиента как <em>функцию-процесс</em> (в терминах SimPy) <code class="docutils literal notranslate"><span class="pre">customer</span></code>.
+По сути своей, это обычная генераторная функция.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">counter</span><span class="p">,</span> <span class="n">time_in_bank</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Посетитель приходит, обслуживается и уходит.&quot;&quot;&quot;</span>
+    <span class="n">arrive</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">now</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">arrive</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: Я пришёл!&quot;</span><span class="p">)</span>
+    <span class="c1"># Клиент &quot;запрашивает&quot; обслуживание, т.е. ресурс в терминах SimPy.</span>
+    <span class="c1"># counter - это сотрудник банка (окно обслуживания).</span>
+    <span class="k">with</span> <span class="n">counter</span><span class="o">.</span><span class="n">request</span><span class="p">()</span> <span class="k">as</span> <span class="n">req</span><span class="p">:</span>
+        <span class="c1"># Каково же терпение!</span>
+        <span class="n">patience</span> <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">MIN_PATIENCE</span><span class="p">,</span> <span class="n">MAX_PATIENCE</span><span class="p">)</span>
+        <span class="c1"># Ожидание своей очереди, пока хватает терпения.</span>
+        <span class="c1"># Это и есть условное событие: либо пришла очередь,</span>
+        <span class="c1"># либо кончилось терпение. Оператор ИЛИ в yield-выражении</span>
+        <span class="c1"># обозначается вертикальной чертой &quot;|&quot;, как побитовое ИЛИ.</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">req</span> <span class="o">|</span> <span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">patience</span><span class="p">)</span>
+        <span class="c1"># Отмечаем, сколько клиент прождал</span>
+        <span class="n">wait</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="n">arrive</span>
+        <span class="c1"># В results у нас список НАСТУПИВШИХ событий.</span>
+        <span class="c1"># В данном случае могло наступить всего одно событие:</span>
+        <span class="c1"># либо req, либо истекло время ожидания (timeout).</span>
+        <span class="k">if</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="c1"># Освободился ресурс (окно) - настала очередь клиента</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: Прождал </span><span class="si">{</span><span class="n">wait</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># Теперь клиент на случайное время занимает окно.</span>
+            <span class="c1"># Всё это время ресурс req занят и не доступен</span>
+            <span class="c1"># другим посетителям.</span>
+            <span class="n">tib</span> <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">expovariate</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">time_in_bank</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">tib</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: Довольный ухожу&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Кончилось терпение!</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: УХОЖУ после ожидания </span><span class="si">{</span><span class="n">wait</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Теперь опишем генераторную функцию, ответственную за возникновение новых посетителей.
+Назовём её <code class="docutils literal notranslate"><span class="pre">source</span></code>.
+Она будет <em>процессом</em> в терминах SimPy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">counter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Случайным образом генерирует посетителей.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">customer</span><span class="p">(</span>
+            <span class="n">env</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;Посетитель с талончиком </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">counter</span><span class="p">,</span>
+            <span class="n">time_in_bank</span><span class="o">=</span><span class="mf">12.0</span>
+        <span class="p">)</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="c1"># Через сколько этот клиент нагрянет в банк?</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">expovariate</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">interval</span><span class="p">)</span>
+        <span class="c1"># Генерируем событие &quot;Новый посетитель&quot;</span>
+        <span class="k">yield</span> <span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Теперь можно и моделировать:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Настраиваем и запускаем симуляцию</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Банковская идилия&quot;</span><span class="p">)</span>
+<span class="n">rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">RANDOM_SEED</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
+<span class="c1"># Запускаем процессы и прогонку (run) модели.</span>
+<span class="c1"># - Окно обслуживания у нас всего одно и оно является ресурсом</span>
+<span class="c1">#   в терминах SimPy.</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Resource</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># - Инициализируем процесс появления клиентов, который, в свою очередь,</span>
+<span class="c1">#   генерирует посетителя, запускает его как процесс, а потом ждёт,</span>
+<span class="c1">#   прежде чем сгенерировать нового клиента.</span>
+<span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">source</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">NEW_CUSTOMERS</span><span class="p">,</span> <span class="n">INTERVAL_CUSTOMERS</span><span class="p">,</span> <span class="n">counter</span><span class="p">))</span>
+<span class="c1"># - Так как всего будет NEW_CUSTOMERS посетителей, то симуляция</span>
+<span class="c1">#   сама собой завершится, когда уйдёт последний клиент.</span>
+<span class="c1">#   Поэтому нет нужды указывать run время моделирования until.</span>
+<span class="n">env</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Банковская идилия
+ 0.0000 Посетитель с талончиком 1: Я пришёл!
+ 0.0000 Посетитель с талончиком 1: Прождал  0.000
+ 3.8595 Посетитель с талончиком 1: Довольный ухожу
+10.2006 Посетитель с талончиком 2: Я пришёл!
+10.2006 Посетитель с талончиком 2: Прождал  0.000
+12.7265 Посетитель с талончиком 3: Я пришёл!
+13.9003 Посетитель с талончиком 3: УХОЖУ после ожидания  1.174!
+23.7507 Посетитель с талончиком 2: Довольный ухожу
+34.9993 Посетитель с талончиком 4: Я пришёл!
+34.9993 Посетитель с талончиком 4: Прождал  0.000
+37.9599 Посетитель с талончиком 4: Довольный ухожу
+40.4798 Посетитель с талончиком 5: Я пришёл!
+40.4798 Посетитель с талончиком 5: Прождал  0.000
+43.1401 Посетитель с талончиком 5: Довольный ухожу
+</pre></div>
+</div>
+</div>
+</div>
+<p>Вот и результат.
+Не повезло лишь третьему талончику…
+Ну и банку тоже! Вдруг именно этим клиентом был Илон Маск?</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Кстати, сравните полученный результат с результатом официального примера.
+Абсолютно точное совпадение!
+Всё из-за того, что использовалась одна и та же затравка <code class="docutils literal notranslate"><span class="pre">SEED</span></code> для генератора псевдослучайных чисел.
+Ну и сам генератор был тем же самым - из стандартной библиотеки random.</p>
+</div>
+<p>Как видите, довольно просто и быстро можно смоделировать вполне реальную задачу <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D0%BC%D0%B0%D1%81%D1%81%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">теории массового обслуживания</a>.
+Ведь никто не мешает учесть здесь финансовую сторону вопроса и прийти к оптимизационной задачи по типу: “Сколько нужно обслуживающих окон, чтобы минимизировать потерю клиентов, т.е. максимизировать прибыль?
+Сколько нужно окон утром во вторник и вечером пятницы?
+Как при этом минимизировать затраты на новых сотрудников, но не ухудшить обслуживание?
+Поставить автоматы самообслуживания?
+Сколько их нужно?
+Когда и сколько денег в них загружать?”
+Ну вы поняли…</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Создаётся впечатление, будто процессы <code class="docutils literal notranslate"><span class="pre">source</span></code> и <code class="docutils literal notranslate"><span class="pre">customer</span></code> выполняются параллельно.
+На самом деле это <em>не совсем</em> так.</p>
+<p>С точки зрения операционной системы <em>поток выполнения</em> нашей программы один, т.е. программа не “выполняется на нескольких ядрах”.
+Иными словами, параллелизма <em>на аппаратном уровне</em> здесь нет.</p>
+<p>Но есть параллелизм на уровне программы.
+Генераторы лежат в основе <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%90%D1%81%D0%B8%D0%BD%D1%85%D1%80%D0%BE%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">асинхронного программирования</a>, при котором отдельные части программы могут работать асинхронно, т.е. не ожидать завершения друг друга.
+Подробнее основы асинхронного программирования изложены <a class="reference external" href="https://proglib.io/p/asynchrony?ysclid=lmjk2v8cxv779630081">здесь</a>.</p>
+<p>У нас может быть <strong>любое</strong> количество запущенных процессов, но каждый процесс - это генератор.
+А генератор ничего не делает, пока к нему не будет применена стандартная функция <code class="docutils literal notranslate"><span class="pre">next</span></code>.
+Эту функцию среды <code class="docutils literal notranslate"><span class="pre">env</span></code> начинает применяет к генераторам наш объект, когда мы запускаем симуляцию методом <code class="docutils literal notranslate"><span class="pre">run</span></code>.</p>
+<p>К какому именно генератору из всего множества имеющихся применить <code class="docutils literal notranslate"><span class="pre">next</span></code>?
+Среда <code class="docutils literal notranslate"><span class="pre">env</span></code> определяет это, исходя из своего <em>журнала событий</em>, который она непрерывно ведёт.
+Например, когда мы написали внутри процесса <code class="docutils literal notranslate"><span class="pre">source</span></code> выражение <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">env.timeout(t)</span></code>, то объект <code class="docutils literal notranslate"><span class="pre">env</span></code> “под капотом” добавил в журнал событие типа <a class="reference external" href="https://simpy.readthedocs.io/en/latest/api_reference/simpy.events.html#simpy.events.Timeout"><code class="docutils literal notranslate"><span class="pre">Timeout</span></code></a>, которое произойдёт во время <code class="docutils literal notranslate"><span class="pre">env.now</span> <span class="pre">+</span> <span class="pre">t</span></code>.
+Когда это событие является следующим в очереди, то определяется генератор, к которому оно принадлежит (опять же SimPy сопоставляет процессы с событиями “под капотом”), и к этому генератору применяется <code class="docutils literal notranslate"><span class="pre">next</span></code>.
+Никакой “магии” не происходит - только чистые Python-генераторы!</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./discrete-event"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="generators.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Генераторы</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Шарик в коробке</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Итеративный подход</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Дискретно-событийный подход</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpy">Примеры использования SimPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Разочарование клиента в банке</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vadim Fedulov
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
