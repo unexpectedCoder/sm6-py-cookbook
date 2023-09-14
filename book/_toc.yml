@@ -4,13 +4,13 @@
 format: jb-book
 root: intro
 chapters:
-# Plotting chapter
+# Визуализация
 - file: plotting
   sections:
   - file: plotting/ch1-basics
   - file: plotting/ch2-improved-matplotlib
   - file: plotting/ch3-3d-matplotlib
-# Math chapter
+# Математика
 - file: mathematics
   sections:
   - file: mathematics/ch1-rooting
@@ -19,3 +19,9 @@ chapters:
 - file: random
   sections:
   - file: random/random
+# Дискретно-событийное моделирование
+- file: discrete-event
+  sections:
+  - file: discrete-event/iterators
+  - file: discrete-event/generators
+  - file: discrete-event/des
