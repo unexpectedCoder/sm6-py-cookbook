@@ -393,24 +393,22 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>Генераторы<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="about-generators">
+<span id="id1"></span><h1>Генераторы<a class="headerlink" href="#about-generators" title="Permalink to this heading">#</a></h1>
 <p><em>Генератором</em> в Python называется некоторый <em>итерируемый</em> объект.
-Это мало о чём говорит.
-Рассмотрим этот вопрос подробно, так как генераторы лежат в основе такой библиотеки дискретно-событийного моделирования, как <a class="reference external" href="https://simpy.readthedocs.io/en/latest/index.html">SimPy</a>.
-Поэтому генераторы необходимо освоить, чтобы легко работать с дискретно-событийным программированием.
+Если это вам мало, о чём говорит, то стоит изучить тему <a class="reference internal" href="iterators.html#iterators"><span class="std std-ref">Итераторы</span></a>.</p>
+<p>В данном разделе коснёмся темы генераторов, так как они лежат в основе библиотеки дискретно-событийного моделирования <a class="reference external" href="https://simpy.readthedocs.io/en/latest/index.html">SimPy</a>, которую мы будем использовать в процессе обучения.
+Поэтому генераторы необходимо освоить, чтобы легко программировать имитационные модели любой сложности.
 Более того, поняв генераторы, вы легче поймёте асинхронное программирование, которое широко применяется в Web-разработке.</p>
-<p>Разбираться начнём с примеров генераторов стандартной библиотеки.
-Затем перейдём к созданию собственных генераторов.</p>
 <section id="id2">
 <h2>Что такое генератор<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<p><em>Генератор</em> - это объект, возвращаемый <em>генераторной функцией</em>.</p>
-<p><em>Генераторная функция</em> - это функция, в которой есть оператор <code class="docutils literal notranslate"><span class="pre">yield</span></code>, который и отвечает за возвращение объекта генератора.
-Пример:</p>
+<p><em>Генератор</em> - это разновидность <em>итератора</em>, который возвращается <em>генераторной функцией</em>.</p>
+<p><em>Генераторная функция</em> - это функция, в которой есть оператор <code class="docutils literal notranslate"><span class="pre">yield</span></code>, отвечающий за возвращение объекта генератора.
+Пример простейшей генераторной функции:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_func</span><span class="p">():</span>
-    <span class="k">yield</span> <span class="mi">1</span>
+    <span class="k">yield</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">gen_func</span><span class="p">()</span>
 <span class="n">g</span>
@@ -418,15 +416,34 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object gen_func at 0x7f096a8e14d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object gen_func at 0x7f61ad3499a0&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p>Чтобы получить значение из генератора, необходимо знать, что генератор поддерживает протокол итератора, т.е. к нему можно применить функцию <code class="docutils literal notranslate"><span class="pre">next</span></code>:</p>
+<p>Чтобы получить значение из генератора, необходимо знать, что генератор как вид итератора поддерживает протокол итерации:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Кажется, что функция <code class="docutils literal notranslate"><span class="pre">next</span></code> ни к чему не привела, но это не так.
+Просто в данном случае <code class="docutils literal notranslate"><span class="pre">yield</span></code> не имеет возвращаемой величины.
+Вот, что будет, если к <code class="docutils literal notranslate"><span class="pre">yield</span></code> добавить возвращаемое значение:</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_func</span><span class="p">():</span>
+    <span class="c1"># Хотим, чтобы генераторная функция давала</span>
+    <span class="c1"># генератор, выдающий одно целое число</span>
+    <span class="k">yield</span> <span class="mi">1</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">gen_func</span><span class="p">()</span>
+<span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -436,27 +453,47 @@ document.write(`
 </div>
 </div>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Генераторная функция возвращает итератор.</p>
+</div>
 <p>Как известно, когда итератор достигает своего конца, он инициирует исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>.
 То же самое случится, если мы ещё раз применим <code class="docutils literal notranslate"><span class="pre">next</span></code> к генератору <code class="docutils literal notranslate"><span class="pre">g</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">cprint</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Для окраски ошибок и прочего в сочные цвета</span>
+<span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">cprint</span>
+
 
 <span class="k">try</span><span class="p">:</span>
     <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">StopIteration</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-    <span class="n">cprint</span><span class="p">(</span><span class="s2">&quot;StopIteration:&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;генератор пуст&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="n">cprint</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">StopIteration:</span> генератор пуст
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">StopIteration</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>Но раз генератор поддерживает протокол итератора, значит, он может использоваться в цикле <code class="docutils literal notranslate"><span class="pre">for</span></code>, который этот протокол реализует:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">gen_func</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">g</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<p>Или проще:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gen_func</span><span class="p">():</span>
@@ -481,14 +518,10 @@ document.write(`
         <span class="k">yield</span> <span class="n">counter</span>
         <span class="c1"># Увеличиваем счётчик (движемся по циклу)</span>
         <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Теперь выведем первые 5 неотрицательных чисел:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">first_n</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+
+
+<span class="c1"># Пример использования</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">first_n</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -514,13 +547,13 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Разберём по шагам, что происходило в этом цикле:</p>
+<p>Разберём по шагам, что происходило в цикле <code class="docutils literal notranslate"><span class="pre">for</span></code> для <code class="docutils literal notranslate"><span class="pre">first_n</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">first_n</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple">
-<li><p>Вызвана генеративная функция <code class="docutils literal notranslate"><span class="pre">first_n(5)</span></code>, вернувшая объект генератора:</p></li>
+<li><p>Вызвана генераторная функция <code class="docutils literal notranslate"><span class="pre">first_n(5)</span></code>, вернувшая объект генератора:</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -530,15 +563,15 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object first_n at 0x7f096a8e1f50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object first_n at 0x7f61ad34a1f0&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p>При этом внутри <code class="docutils literal notranslate"><span class="pre">first_n</span></code> инициализировани счётчик <code class="docutils literal notranslate"><span class="pre">counter</span> <span class="pre">=</span> <span class="pre">0</span></code> и цикл <code class="docutils literal notranslate"><span class="pre">while</span></code>.
+<p>При этом внутри <code class="docutils literal notranslate"><span class="pre">first_n</span></code> инициализировани счётчик <code class="docutils literal notranslate"><span class="pre">counter</span> <span class="pre">=</span> <span class="pre">0</span></code> и поток выполнения вошёл в цикл <code class="docutils literal notranslate"><span class="pre">while</span></code>.
 Дойдя до <code class="docutils literal notranslate"><span class="pre">yield</span></code>, поток выполнения вернулся в точку вызова <code class="docutils literal notranslate"><span class="pre">first_n</span></code>, т.е. в следующую за <code class="docutils literal notranslate"><span class="pre">g</span> <span class="pre">=</span> <span class="pre">first_n(...)</span></code> строку.</p>
-<ol class="arabic simple" start="2">
-<li><p>К генератору применена функция <code class="docutils literal notranslate"><span class="pre">next</span></code>. Поток упраления переходит в функцию <code class="docutils literal notranslate"><span class="pre">first_n</span></code> к оператору <code class="docutils literal notranslate"><span class="pre">yield</span></code>, который генерирует текущее значение <code class="docutils literal notranslate"><span class="pre">counter</span></code>. Цикл в <code class="docutils literal notranslate"><span class="pre">first_n</span></code>, повторяясь, и снова доходит до оператора <code class="docutils literal notranslate"><span class="pre">yield</span></code>. Поток управления возвращается в место вызова <code class="docutils literal notranslate"><span class="pre">next</span></code>. Результат сработавшего <code class="docutils literal notranslate"><span class="pre">yield</span></code> сохраняется в счётчике <code class="docutils literal notranslate"><span class="pre">i</span></code>:</p></li>
+<ol class="arabic simple">
+<li><p>К генератору применена функция <code class="docutils literal notranslate"><span class="pre">next</span></code>. Поток упраления переходит в функцию <code class="docutils literal notranslate"><span class="pre">first_n</span></code>, но не в начало, а сразу же к оператору <code class="docutils literal notranslate"><span class="pre">yield</span></code>, который генерирует текущее значение <code class="docutils literal notranslate"><span class="pre">counter</span></code>. Цикл в <code class="docutils literal notranslate"><span class="pre">first_n</span></code>, повторяясь, снова доходит до оператора <code class="docutils literal notranslate"><span class="pre">yield</span></code>. Поток управления возвращается в место вызова <code class="docutils literal notranslate"><span class="pre">next</span></code>. Результат сработавшего <code class="docutils literal notranslate"><span class="pre">yield</span></code> сохраняется в счётчике <code class="docutils literal notranslate"><span class="pre">i</span></code>:</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -584,11 +617,35 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Когда генератор будет исчерпан, инициируется исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, говорящее о завершении протокола итератора.</p>
+<p>Когда генератор будет исчерпан - а это случится, когда в <code class="docutils literal notranslate"><span class="pre">first_n</span></code> завершится цикл <code class="docutils literal notranslate"><span class="pre">while</span></code> и в ней не останется активного оператора <code class="docutils literal notranslate"><span class="pre">yield</span></code>, - инициируется исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, говорящее о завершении протокола итератора:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3...</span>
+<span class="n">i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="c1"># 4...</span>
+<span class="n">i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="c1"># И... конец</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="n">cprint</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+4
+<span class=" -Color -Color-Red">StopIteration</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id3">
 <h2>Генераторное выражение<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
-<p>Есть ещё один способ создания генератора - <em>генеративное (генераторное) выражение</em>:</p>
+<p>Есть ещё один способ создания генератора - <em>генераторное выражение</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
@@ -597,15 +654,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object &lt;genexpr&gt; at 0x7f096a8e22d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object &lt;genexpr&gt; at 0x7f61ad34a650&gt;
 </pre></div>
 </div>
 </div>
 </div>
 <p>Как видите, это не кортеж и не множество, а именно генератор.
-Следовательно, никакого множества чисел от 0 до 5 пока нет.
-Значит, и память компьютера ими не занята.
-Однако всё также сработает протокол итератора для <code class="docutils literal notranslate"><span class="pre">g</span></code>:</p>
+Следовательно, никаких чисел от 0 до 5 в памяти компьютера нет.
+И всё также сработает протокол итерации для <code class="docutils literal notranslate"><span class="pre">g</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">g</span><span class="p">:</span>
@@ -654,11 +710,12 @@ d = {0, 1, 2, 3, 4}
 В реальном коде изобретать велосипед не стоит - стандартные генераторы и функции работы с ними гораздо надёжнее и быстрее собственного решения.</p>
 <section id="range">
 <h3>Собственная версия <code class="docutils literal notranslate"><span class="pre">range</span></code><a class="headerlink" href="#range" title="Permalink to this heading">#</a></h3>
-<p>Мы почти сделали собственный <code class="docutils literal notranslate"><span class="pre">range</span></code>.
-Сделаем его окончательно:</p>
+<p>В предыдущей главе <a class="reference internal" href="iterators.html#iterators"><span class="std std-ref">Итераторы</span></a> мы сделали собственную реализацию стандартного <code class="docutils literal notranslate"><span class="pre">range</span></code> через итерируемый класс.
+Здесь же реализуем ту же функциональность с помощью генератора:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">range_gen</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Генераторная функция, аналогичная range</span>
+<span class="k">def</span> <span class="nf">range_gen</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">start</span>
     <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">stop</span><span class="o">=</span> <span class="n">start</span>
@@ -694,16 +751,14 @@ range: 3 5 7 9
     <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">stop</span><span class="o">=</span> <span class="n">start</span>
         <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Наш генератор генерирует значения,</span>
+    <span class="c1"># генерируемые другим генератором -</span>
+    <span class="c1"># это так называемая композиция генераторов</span>
     <span class="k">yield from</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Сравните с предыдущей версией и вы заметите, что теперь не нужен счётчик <code class="docutils literal notranslate"><span class="pre">i</span></code> и что наш генератор берёт значения из стандартного <code class="docutils literal notranslate"><span class="pre">range</span></code>.
-Проверим работоспособность:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">range_gen</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+
+
+<span class="c1"># Использование</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">range_gen</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -714,7 +769,7 @@ range: 3 5 7 9
 </div>
 </div>
 </div>
-<p>Таким способом можно связать сколь-угодное число генераторов.</p>
+<p>Сравните с предыдущей версией и вы заметите, что теперь в генераторной функции не нужен счётчик <code class="docutils literal notranslate"><span class="pre">i</span></code>, и что наш генератор берёт значения из стандартного <code class="docutils literal notranslate"><span class="pre">range</span></code>. Таким способом можно связать сколь-угодное число генераторов.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Однако помните, <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> может запутать других и вас самих, если вы либо не хорошо понимаете предназначение данного выражения, либо если используете его неуместно.</p>
@@ -753,29 +808,10 @@ range: 3 5 7 9
 </div>
 </div>
 </div>
-<p>Как это всё работает?
-Рассмотрим на примере использования <code class="docutils literal notranslate"><span class="pre">infinity</span></code>:</p>
-<ol class="arabic simple">
-<li><p>В самом начале цикла (вернее, при его инициализации) вызывается генеративная функция <code class="docutils literal notranslate"><span class="pre">infinity</span></code>. В результате её вызова создан генератор. При этом поток выполнения программы вошёл в функцию <code class="docutils literal notranslate"><span class="pre">infinity</span></code>, создал локальную переменную <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0</span></code>, вошёл в бесконечный цикл <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">True</span></code> и… вернулся в вызывающую функцию (в данном случае в основной поток программы) с объектом генератора в руках.</p></li>
-<li><p>Цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> начинаетотрабатывать протокол итератора. Применение <code class="docutils literal notranslate"><span class="pre">next</span></code> к генератору приводит к тому, что срабатывает <code class="docutils literal notranslate"><span class="pre">yield</span></code>, генерируя возвращаемое значение <code class="docutils literal notranslate"><span class="pre">i</span></code>, т.е. 0. Выполняется весь следующий код <code class="docutils literal notranslate"><span class="pre">infinity</span></code>: увеличивается значение <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">+=</span> <span class="pre">1</span></code>, бесконечный цикл повторяется и вновь упирается в оператор <code class="docutils literal notranslate"><span class="pre">yield</span></code>… Поток выполнения <code class="docutils literal notranslate"><span class="pre">infinity</span></code> снова возвращает управление потоку-хозяину генератора (в данном случае основному потоку программы).</p></li>
-<li><p>Выполняется тело цикла <code class="docutils literal notranslate"><span class="pre">for</span></code>.</p></li>
-<li><p>Цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> повторяется. При этом <code class="docutils literal notranslate"><span class="pre">i</span></code> уже равно 1. И так до бесконечности или пока цикл не будет прерван оператором <code class="docutils literal notranslate"><span class="pre">break</span></code>.</p></li>
-</ol>
-<p>Если бы наш генератор был бы конечным, то применение <code class="docutils literal notranslate"><span class="pre">next</span></code> после достижения последнего значения привело бы к исключению <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, и цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> закончился бы (штатно).</p>
-<p>Для прерывания цикла использовался оператор <code class="docutils literal notranslate"><span class="pre">break</span></code>.
+<p>Для прерывания цикла выше использовался оператор <code class="docutils literal notranslate"><span class="pre">break</span></code>.
 Однако у генераторов, как и у любого объекта в Python, есть <a class="reference external" href="https://realpython.com/introduction-to-python-generators/">свои методы</a>.
 Один из методов - <code class="docutils literal notranslate"><span class="pre">close</span></code> - предназначен для преждевременного закрытия генератора.
-При этом генератор инициирует исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, из-за чего цикл автоматически прервётся.
-Это позволяет в нашем случае использовать <code class="docutils literal notranslate"><span class="pre">close</span></code> вместо <code class="docutils literal notranslate"><span class="pre">break</span></code>:</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Обратите внимание на “оператор моржа” <a class="reference external" href="https://habr.com/ru/companies/skillfactory/articles/683418/"><code class="docutils literal notranslate"><span class="pre">:=</span></code></a>.</p>
-</div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>Если вы итерируете генератор вне цикла <code class="docutils literal notranslate"><span class="pre">for</span></code>, например, в цикле <code class="docutils literal notranslate"><span class="pre">while</span></code> или вручную и закрываете его методом <code class="docutils literal notranslate"><span class="pre">close</span></code>, то вам следует перехватывать исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, иначе выполнение программы завершится с этой ошибкой.
-Пример ниже.</p>
-</div>
+При этом генератор инициирует исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, из-за чего цикл автоматически прервётся:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">infinity</span><span class="p">()</span>
@@ -796,6 +832,24 @@ range: 3 5 7 9
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
 1
 <span class=" -Color -Color-Red">StopIteration:</span> да, инициировано исключение
+</pre></div>
+</div>
+</div>
+</div>
+<p>Это позволяет в нашем случае использовать <code class="docutils literal notranslate"><span class="pre">close</span></code> вместо <code class="docutils literal notranslate"><span class="pre">break</span></code> следующим образом:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">infinity</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">g</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="c1"># Завершение цикла</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 1 2 3 4 5 
 </pre></div>
 </div>
 </div>

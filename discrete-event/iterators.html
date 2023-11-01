@@ -374,6 +374,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Примеры стандартных функций, возвращающих итерируемый объект</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iter-protocol">Протокол итератора</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Пример собственного итерируемого класса</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Упражнения</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">См. также</a></li>
 </ul>
             </nav>
         </div>
@@ -385,8 +389,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>Итераторы<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="iterators">
+<span id="id1"></span><h1>Итераторы<a class="headerlink" href="#iterators" title="Permalink to this heading">#</a></h1>
 <p>Язык Python является высокоуровневым языком программирования.
 В нём абсолютно всё является объектом.
 В связи с этим открывается ряд новых возможностей, среди которых несколько иной подход к реализации циклов.</p>
@@ -400,36 +404,39 @@ document.write(`
 Этот протокол лежит в основе любого <em>итерируемого</em> типа: списка, кортежа, словаря, множества, очереди,стека, генератора и др.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>В Python вы встретите как итерируемые (<code class="docutils literal notranslate"><span class="pre">Iterable</span></code>), так и объекты типа <code class="docutils literal notranslate"><span class="pre">Sequence</span></code>, т.е. объекты, поддерживающие индексацию.
-При этом <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> является частным случаем итерируемого объекта, т.е. для индексируемых объектов справедливо всё, что справедливо и для итерируемых сущностей.
-Например, в цикле <code class="docutils literal notranslate"><span class="pre">for</span></code> вы можете обходить как список (поддерживает индексацию), так и множество (не поддерживает индексацию).
+<p>В Python вы встретите как итерируемые (<code class="docutils literal notranslate"><span class="pre">Iterable</span></code>), так и объекты типа <code class="docutils literal notranslate"><span class="pre">Sequence</span></code>.
+Тип <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> является производным от <code class="docutils literal notranslate"><span class="pre">Iterable</span></code>, расширяя последний поддержкой индексации, т.е. к элементам объекта типа <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> можно обращаться по индексу.
+Классический пример - массивы.
+В остальном же для <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> справедливо всё то, что справедливо и для <code class="docutils literal notranslate"><span class="pre">Iterable</span></code>.
 Пример ниже.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">cprint</span>
-
-<span class="c1"># Список поддерживает индексацию</span>
-<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[1] =&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Список поддерживает индексацию,</span>
+<span class="c1"># т.к. имеет тип Sequence</span>
+<span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a_list[1] =&quot;</span><span class="p">,</span> <span class="n">a_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a[1] = 2
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a_list[1] = 2
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Но множество - нет</span>
-<span class="n">b</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Подключим функцию cprint для цветного вывода ошибок</span>
+<span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">cprint</span>
+
+<span class="c1"># Но множество индексацию не поддерживает</span>
+<span class="n">a_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a_set</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
     <span class="c1"># Попытка обращения по индексу приводит к такому исключению</span>
-    <span class="n">cprint</span><span class="p">(</span><span class="s2">&quot;TypeError:&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">cprint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ex</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="s2">&quot;(множество не индексируется)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -442,14 +449,13 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Однако и список, и множество могут</span>
-<span class="c1"># использоваться в цикле for,</span>
-<span class="c1"># т.к. реализуют протокол итератора</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Однако и список, и множество могут использоваться в цикле for,</span>
+<span class="c1"># т.к. реализуют протокол итератора (унаследованы от Iterable)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Список:&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Множество:&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">b</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">a_set</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -462,6 +468,10 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Заметьте, что <code class="docutils literal notranslate"><span class="pre">set</span></code> имеет исключительно уникальные элементы, поэтому последние два числа (3 и 1) из списка во множестве не присутствуют.</p>
 </div>
 <section id="id2">
 <h2>Примеры стандартных функций, возвращающих итерируемый объект<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
@@ -483,9 +493,9 @@ document.write(`
 <p class="admonition-title">Important</p>
 <p>Это принципиально иной подход к реализации цикла <code class="docutils literal notranslate"><span class="pre">for</span></code> в языке.
 Хоть <code class="docutils literal notranslate"><span class="pre">i</span></code> в данном случае похож на простой счётчик - это не так.
-<code class="docutils literal notranslate"><span class="pre">range</span></code> возвращает <strong>итерируемый объект</strong>.</p>
+<code class="docutils literal notranslate"><span class="pre">range</span></code> возвращает <em>итерируемый объект</em>.</p>
 <p>Ни с какими целыми числами цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> в Python (напрямую) не работает, в отличие, например, от цикла <code class="docutils literal notranslate"><span class="pre">for</span></code> языка C++: <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">(int</span> <span class="pre">i</span> <span class="pre">=</span> <span class="pre">0;</span> <span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">5;</span> <span class="pre">++i)</span></code>.
-Целое же значение <strong>генерируется</strong> или получается при каждой итерации цикла при применении встроенной функции <code class="docutils literal notranslate"><span class="pre">next</span></code> к итерируемому объекту (подробности см. далее).</p>
+Целое же значение <em>генерируется</em> или получается при каждой итерации цикла при применении встроенной функции <code class="docutils literal notranslate"><span class="pre">next</span></code> к итерируемому объекту (подробности см. <a class="reference internal" href="#iter-protocol"><span class="std std-ref">Протокол итератора</span></a>).</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -512,7 +522,7 @@ document.write(`
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Второй способ, к тому же, гораздо быстрее.</p>
+<p>Второй способ, к тому же, гораздо быстрее выполняется.</p>
 </div>
 <p>Ещё один пример - функция <code class="docutils literal notranslate"><span class="pre">enumerate</span></code>.
 Будучи применённой к переданному итерируемому объекту, она возвращает новую итерируемую сущность, которая при итерировании возвращает пару <code class="docutils literal notranslate"><span class="pre">(индекс,</span> <span class="pre">элемент)</span></code>.
@@ -550,9 +560,9 @@ document.write(`
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Обратите внимание, что <code class="docutils literal notranslate"><span class="pre">enumerate</span></code> возвращает кортеж из двух элементов.
-В данном случае этот кортеж сразу же распаковывался в две переменные <code class="docutils literal notranslate"><span class="pre">i</span></code> и <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+В данном случае этот кортеж сразу же распаковывался в цикле <code class="docutils literal notranslate"><span class="pre">for</span></code> в две переменные <code class="docutils literal notranslate"><span class="pre">i</span></code> и <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 </div>
-<p>Ещё один пример - функция <code class="docutils literal notranslate"><span class="pre">zip</span></code>, которая помогает в одном цикле обходить сразу несколько колекций.
+<p>Последний пример - функция <code class="docutils literal notranslate"><span class="pre">zip</span></code>, которая помогает в одном цикле обходить сразу несколько колекций.
 Допустим, есть три списка <strong>произвольной длины</strong>: <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> и <code class="docutils literal notranslate"><span class="pre">c</span></code>.
 Нам нужно вывести сумму соответствующих элементов.
 Вот способ низкоуровневых языков:</p>
@@ -579,7 +589,27 @@ document.write(`
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Гораздо хуже было бы, окажись <code class="docutils literal notranslate"><span class="pre">a</span></code> самым длинным из всех.
-<strong>Тогда индекс <code class="docutils literal notranslate"><span class="pre">i</span></code> вышел бы за границы остальных (коротких) массивов, а это привело бы к исключению и концу работы интерпретатора</strong>.</p>
+<strong>Тогда индекс <code class="docutils literal notranslate"><span class="pre">i</span></code> вышел бы за границы остальных (коротких) массивов, а это привело бы к исключению и концу работы интерпретатора</strong>.
+Вот пример, что будет, если в <code class="docutils literal notranslate"><span class="pre">range</span></code> передать длину большего списка <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="n">cprint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ex</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+-6
+<span class=" -Color -Color-Red">IndexError:</span> list index out of range
+</pre></div>
+</div>
+</div>
 </div>
 <p>Проверять равенство длин всех массивов перед циклом?
 Плохое решение.
@@ -591,10 +621,7 @@ document.write(`
 Вот пример:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>    <span class="c1"># 4 элемента</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">]</span>        <span class="c1"># 2 элемента (cамый короткий)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]</span>     <span class="c1"># 3 элемента</span>
-<span class="k">for</span> <span class="n">ai</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">ci</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ai</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">ci</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">ai</span> <span class="o">+</span> <span class="n">bi</span> <span class="o">+</span> <span class="n">ci</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -606,12 +633,146 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Короткий список - <code class="docutils literal notranslate"><span class="pre">b</span></code> - имел длину 2, поэтому в результате вывелось 2 числа.
+<p>Короткий список - <code class="docutils literal notranslate"><span class="pre">a</span></code> - имел длину 2, поэтому в результате вывелось 2 числа.
 При этом мы не задумывались, какой из массивов короткий, чья длина должна быть передана для обхода по индексу.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Функция <code class="docutils literal notranslate"><span class="pre">zip</span></code> принимает неограниченное число аргументов.</p>
 </div>
+<p>Все рассмотренные функции возвращают итерируемые сущности,другими словами, объекты, реализующими протокол итератора.
+Так что же это за протокол такой?</p>
+</section>
+<section id="iter-protocol">
+<span id="id3"></span><h2>Протокол итератора<a class="headerlink" href="#iter-protocol" title="Permalink to this heading">#</a></h2>
+<p>Рассмотрим, как выполняется цикл <code class="docutils literal notranslate"><span class="pre">for</span></code>, шаг за шагом.
+В качестве примера возьмём следующий простой цикл:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+1
+2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Что скрыто от наших глаз:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># В начале инициализируется объект range</span>
+<span class="n">r</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># Затем инициализируется итератор по r,</span>
+<span class="c1"># в результате получается итерируемый объект</span>
+<span class="n">r_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="c1"># Теперь в каждом шаге цикла for к итератору</span>
+<span class="c1"># применяется стандартная функция next</span>
+<span class="c1"># - i = 0</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">r_iter</span><span class="p">))</span>
+<span class="c1"># - i = 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">r_iter</span><span class="p">))</span>
+<span class="c1"># - i = 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">r_iter</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+1
+2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Мы достигли конца - значения 2.
+Как цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> понимает, что пора завершаться?
+Если ещё раз применить <code class="docutils literal notranslate"><span class="pre">next</span></code>, то мы получит исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>, говорящее о достижении итератором конца итерируемого объекта:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">r_iter</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="n">cprint</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">StopIteration</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Именно так и работает цикл <code class="docutils literal notranslate"><span class="pre">for</span></code>:</p>
+<ol class="arabic simple">
+<li><p>Получает итерируемый объект <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>Преобразует его в итератор <code class="docutils literal notranslate"><span class="pre">a_iter</span> <span class="pre">=</span> <span class="pre">iter(a)</span></code>.</p></li>
+<li><p>Применяет к нему функцию <code class="docutils literal notranslate"><span class="pre">next(a_iter)</span></code> до тех пор, пока не инициируется исключение <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>.</p></li>
+</ol>
+<p>В нашем случае объект <code class="docutils literal notranslate"><span class="pre">a</span></code> имел тип <code class="docutils literal notranslate"><span class="pre">range</span></code>, т.е. был объектом данного класса.
+Внутри этого класса определён метод <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> (или <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>, если необходимо поддерживать индексацию), который вызывается с помощью <code class="docutils literal notranslate"><span class="pre">iter(a)</span></code> и превращает объект <code class="docutils literal notranslate"><span class="pre">a</span></code> в итератор <code class="docutils literal notranslate"><span class="pre">a_iter</span></code>.
+Можно сказать, что <code class="docutils literal notranslate"><span class="pre">iter(a)</span></code> то же самое, что и <code class="docutils literal notranslate"><span class="pre">a.__iter__()</span></code>.</p>
+<p>Три приведённых выше пункта совместно с реализацией метода <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> или <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> - это и есть <em>протокол итератора или протокол итерации</em>.</p>
+</section>
+<section id="id4">
+<h2>Пример собственного итерируемого класса<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>Создадим класс <code class="docutils literal notranslate"><span class="pre">Range</span></code>, предназначенный для той же задачи, что и стандартный <code class="docutils literal notranslate"><span class="pre">range</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Range</span><span class="p">:</span>
+    <span class="c1"># Конструктор (инициализатор) объекта данного класса</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Внутри каждого объекта будет лежать</span>
+        <span class="c1"># соответствующий генератор, который</span>
+        <span class="c1"># в отличие от списка не требует выделения</span>
+        <span class="c1"># памяти под каждый элемент коллекции</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+    
+    <span class="c1"># Функция преобразования объекта данного класса</span>
+    <span class="c1"># в итератор</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>О генераторах см. главу <a class="reference internal" href="generators.html#about-generators"><span class="std std-ref">Генераторы</span></a>.</p>
+</div>
+<p>Работа с объектами нашего класса ничем не отличается от работы с <code class="docutils literal notranslate"><span class="pre">range</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Range</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-3 -1 1 3 5 7 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Таким образом мы и реализовали протокол итерации.</p>
+</section>
+<section id="id5">
+<h2>Упражнения<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Опишите стандартные <code class="docutils literal notranslate"><span class="pre">zip</span></code> и <code class="docutils literal notranslate"><span class="pre">enumerate</span></code> собственными классами по аналогии с классом <code class="docutils literal notranslate"><span class="pre">Range</span></code>, рализовав протокол итерации.</p></li>
+</ol>
+</section>
+<section id="id6">
+<h2>См. также<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Более подробно и строго об итераторах и протоколе итерации рассказано <a class="reference external" href="https://pyneng.readthedocs.io/ru/latest/book/23_oop_special_methods/iterable_iterator.html">здесь</a>.</p></li>
+</ol>
 </section>
 </section>
 
@@ -683,6 +844,10 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Примеры стандартных функций, возвращающих итерируемый объект</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iter-protocol">Протокол итератора</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Пример собственного итерируемого класса</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Упражнения</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">См. также</a></li>
 </ul>
   </nav></div>
 
