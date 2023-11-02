@@ -374,13 +374,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpy">Основы SimPy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Шарик в коробке</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Итеративный подход</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Дискретно-событийный подход</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpy">Примеры использования SimPy</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Разочарование клиента в банке</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Примеры использования SimPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Разочарование клиента в банке</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#event-waiting">Ожидание события</a></li>
 </ul>
 </li>
 </ul>
@@ -396,12 +398,109 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>Дискретно-событийное моделирование<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
-<p>Рассмотрим, как устроено дискретно-событийное моделирование (ДСМ) в Python в контексте библиотеки <a class="reference external" href="https://simpy.readthedocs.io/en/latest/index.html">SimPy</a>, реализующей <strong>всё, что только может понадобиться для этого</strong>.</p>
-<p>Начнём с простой и показательной задачки о движении абсолютно упругого шарика в ограниченном двумерном пространстве (коробке).
+<p><em>Дискретно-событийное моделирование (ДСМ)</em> - это разновидность имитационного моделирования.
+Рассмотрим, как устроено ДСМ с использованием Python в контексте библиотеки <a class="reference external" href="https://simpy.readthedocs.io/en/latest/index.html">SimPy</a>, функциональности которой достаточно для создания сложных многоуровневых имитационных моделей со множеством агентов.</p>
+<p>Начнём с рассмотрения основ SimPy.
+Затем рассмотрим простую и показательную задачку о движении материальной точки (шарика) в ограниченном двумерном пространстве (ящике, коробке).
 Затем подробнее рассмотрим некоторые примеры из документации SimPy.</p>
+<section id="simpy">
+<span id="basic-simpy"></span><h2>Основы SimPy<a class="headerlink" href="#simpy" title="Permalink to this heading">#</a></h2>
+<p>Для начала импортируем библиотеку:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span> <span class="k">as</span> <span class="nn">sim</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Подход ДСМ основан на понятии “<em>событие</em>”.
+При наступлении события должны быть выполнены те или иные <em>действия</em>, которые определяются создателями модели (нами).
+Это так называемая модель “<em>событие - действие</em>”.
+Чтобы её прояснить рассмотрим такой пример.</p>
+<p>Пусть в некоторой нашей имитационной модели <span class="math notranslate nohighlight">\(n\)</span> событий следуют друг за другом через случайный промежуток времени <span class="math notranslate nohighlight">\(\tau\)</span>. Пусть величина <span class="math notranslate nohighlight">\(\tau\)</span> распределена по экспоненциальному закону с плотностью вероятности</p>
+<div class="math notranslate nohighlight">
+\[
+\rho(\tau) =
+    \cfrac{1}{\tau_{\rm mean}}
+    \exp{\left( -\cfrac{\tau}{\tau_{\rm mean}} \right)},
+\]</div>
+<p>где <span class="math notranslate nohighlight">\(\tau_{\rm mean}\)</span> - средняя величина времени между событиями.</p>
+<p>Тогда в коде это выражается следующим образом:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
+
+<span class="k">def</span> <span class="nf">exp_time</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">tau_mean</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Генерирует события через случайные</span>
+<span class="sd">    промежутки времени.</span>
+
+<span class="sd">    env - объект среды SimPy.</span>
+<span class="sd">    tau_mean - среднее время между событиями.</span>
+<span class="sd">    n - количество событий.</span>
+<span class="sd">    seed - затравка для генератора случайных чисел.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rg</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">tau</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">tau_mean</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Событие </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> наступило в </span><span class="si">{</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
+<span class="n">events_gen</span> <span class="o">=</span> <span class="n">exp_time</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">tau_mean</span><span class="o">=</span><span class="mf">3.</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">events_gen</span><span class="p">)</span>
+<span class="n">env</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Событие 1 наступило в 3.3720763677548744
+Событие 2 наступило в 15.134932950477644
+Событие 3 наступило в 25.29316760439565
+Событие 4 наступило в 33.313301368657264
+Событие 5 наступило в 38.37984710975272
+</pre></div>
+</div>
+</div>
+</div>
+<p>Что сделано:</p>
+<ol class="arabic simple">
+<li><p>Для генерации случайных чисел импортировали функцию инициализации генератора по умолчанию.</p></li>
+<li><p>Описали генераторную функцию (см. раздел <a class="reference internal" href="generators.html#about-generators"><span class="std std-ref">Генераторы</span></a>) <code class="docutils literal notranslate"><span class="pre">exp_time</span></code>.</p></li>
+<li><p>Инициализировали среду SimPy <code class="docutils literal notranslate"><span class="pre">sim.Environment</span></code> и сохранили в переменной <code class="docutils literal notranslate"><span class="pre">env</span></code>.
+Именно в этот момент SimPy создаёт журнал событий, список процессов и т.д.</p></li>
+<li><p>Инициализировали, но не запустили (!), процесс методом <code class="docutils literal notranslate"><span class="pre">env.process</span></code>, передав ему <em>генератор событий</em>.</p></li>
+<li><p>Запустили ДСМ методом <code class="docutils literal notranslate"><span class="pre">env.run</span></code>.</p></li>
+</ol>
+<p>В генераторной функции <code class="docutils literal notranslate"><span class="pre">exp_time</span></code> при её вызове:</p>
+<ol class="arabic simple">
+<li><p>Инициализируется генератор случайных чисел.</p></li>
+<li><p>Поток выполнения программы входит в цикл <code class="docutils literal notranslate"><span class="pre">for</span></code> по числу событий <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p></li>
+<li><p>Генерируется величина <span class="math notranslate nohighlight">\(\tau\)</span>.</p></li>
+<li><p>Оператор <code class="docutils literal notranslate"><span class="pre">yield</span></code> возвращает генератор событий типа <code class="docutils literal notranslate"><span class="pre">sim.Timeout</span></code>.
+Поток выполнения возвращается в место вызова <code class="docutils literal notranslate"><span class="pre">exp_time</span></code>, в данном случае в строку <code class="docutils literal notranslate"><span class="pre">events_gen</span> <span class="pre">=</span> <span class="pre">...</span></code>.</p></li>
+</ol>
+<p>При вызове функции <code class="docutils literal notranslate"><span class="pre">exp_time</span></code> создаётся генератор событий, сохраняемый в переменной <code class="docutils literal notranslate"><span class="pre">events_gen</span></code>.
+Далее <code class="docutils literal notranslate"><span class="pre">events_gen</span></code> передаётся в качестве аргумента методу <code class="docutils literal notranslate"><span class="pre">env.process</span></code>, регистрирующему SimPy-процесс.
+С этого момента <code class="docutils literal notranslate"><span class="pre">env</span></code> “знает” о существовании этого процесса.
+При вызове метода <code class="docutils literal notranslate"><span class="pre">env.run</span></code> SimPy “под капотом” запускает свой <em>основной цикл или цикл обновления</em>.
+Последовательность этого цикла в общих чертах следующая:</p>
+<ol class="arabic simple">
+<li><p>Обходится список зарегистрированных генераторов событий - в нашем случае генератор всего один (результат вызова <code class="docutils literal notranslate"><span class="pre">exp_time</span></code>) и зарегистрирован он при вызове <code class="docutils literal notranslate"><span class="pre">env.process</span></code>.
+С каждым таким генератором ассоциировано событие, время наступления которого в нашем случае известно, но в общем случае может быть и неизвестным (см. пример в <a class="reference internal" href="#event-waiting"><span class="std std-ref">Ожидание события</span></a>). В нашем случае событием является истечение времени ожидания <code class="docutils literal notranslate"><span class="pre">env.timeout</span></code>.</p></li>
+<li><p>Выбирается генератор с ближайшим событием (у нас он всего один).
+При этом обновляется счётчик глобального времени <code class="docutils literal notranslate"><span class="pre">env.now</span></code> и выполняется ряд других действий “под капотом”.
+К этому генератору применяется функция <code class="docutils literal notranslate"><span class="pre">next</span></code> - <strong>это и означает наступление события</strong>.</p></li>
+<li><p>Поток управления входит в генераторную функцию (<code class="docutils literal notranslate"><span class="pre">exp_time</span></code>) - выполняется код, расположенный под <code class="docutils literal notranslate"><span class="pre">yield</span></code>, пока не будет достигнут очередной оператор <code class="docutils literal notranslate"><span class="pre">yield</span></code> или функция <code class="docutils literal notranslate"><span class="pre">exp_time</span></code> не завершится.
+<strong>Это соответствует выполнению действий в ответ на событие</strong>.</p></li>
+<li><p>Цикл повторяется.</p></li>
+</ol>
+<p>Никакой магии, никаких особенностей - чистый Python.
+Таким образом SimPy реализует концепцию ДСМ “событие - действие”.
+Далее рассмотрим более показательную задачу.</p>
+</section>
 <section id="id2">
 <h2>Шарик в коробке<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<p>Представьте прямоугольную коробку, внутри которой от стенки к стенке движется абсолютно упругий шарик.
+<p>Представьте прямоугольную коробку, внутри которой от стенки к стенке движется шарик.
 Когда он достигает границы области, то упруго от неё отскакивает.
 Пусть пространство будет ограничено прямоугольником шириной <span class="math notranslate nohighlight">\(w\)</span> и высотой <span class="math notranslate nohighlight">\(h\)</span>.
 Шарик в начальный момент времени <span class="math notranslate nohighlight">\(t_0 = 0\)</span> находится в случайной точке <span class="math notranslate nohighlight">\((x_0, y_0)\)</span> внутри прямоугольника и имеет случайную скорость <span class="math notranslate nohighlight">\((v_x, v_y)\)</span> постоянную по величине: <span class="math notranslate nohighlight">\(v = \sqrt{v_x^2 + v_y^2} = \mathrm{const}\)</span>.</p>
@@ -409,35 +508,35 @@ document.write(`
 <p>Мы хотим промоделировать движение шарика в коробке в течение заданного времени <span class="math notranslate nohighlight">\(T\)</span>.
 Как это сделать?</p>
 <p>Одно из решений, часто первым приходящим на ум, заключается в задании некоторого <strong>постоянного</strong> <em>малого</em> шага по времени <span class="math notranslate nohighlight">\(\Delta t\)</span>.
-Однако сразу возникает две проблемы:</p>
+Однако сразу возникает два вопроса:</p>
 <ol class="arabic simple">
 <li><p>Как определить, какой шаг является <em>малым</em>, а какой - <em>большим</em>?</p></li>
 <li><p>Постоянная величина шага <span class="math notranslate nohighlight">\(\Delta t\)</span> приводит к проблеме <em>пересечения границ</em>, т.е. тело выходит за границы расчётной области и на деле ударяется не о стенку коробки, а о <em>что-то</em>, расположенное вне её.
-Это кардинально меняет траекторию тела, по сути нарушая задачу.</p></li>
+Это кардинально меняет траекторию тела, по сути нарушая условия задачи.</p></li>
 </ol>
-<p>Шаг по времени в данной задачи зависит от размеров прямоугольника и скорости тела.
+<p>Шаг по времени в данной задаче зависит от размеров прямоугольника и скорости тела.
 Чем меньше область и больше скорость, тем меньше должен быть шаг <span class="math notranslate nohighlight">\(\Delta t\)</span>.
 Скажем, при скорости 1 м/с и шаге по времени 0.1 с шарик выйдет за границу не более, чем на <span class="math notranslate nohighlight">\(1 \cdot 0.5 = 0.1\)</span> м.
 Если размеры прямоугольника составляют десятки и более метров, то погрешность в 0.1 м не велика.
 Однако тогда понадобится очень большое число промежуточных шагов, при которых никаких <em>событий</em> (столкновений) в системе не происходит.
 <strong>Компьютер тратит время впустую</strong> (и мы вместе с ним).
-Более того, ошибка в расчёте столкновений всё же присутствует, сколь малой бы она ни была.
+Более того, <em>методическая ошибка</em> в расчёте столкновений всё же присутствует, сколь малой бы она ни была.
 Если за время моделирования шарик столкнётся со стенками 10 раз - мы получим одну величину ошибки <span class="math notranslate nohighlight">\(\varepsilon_1\)</span> в определении конечного положения тела.
 Если же столкновений будет 100000, то ошибка <span class="math notranslate nohighlight">\(\varepsilon_2\)</span> конечного положения будет много больше ошибки <span class="math notranslate nohighlight">\(\varepsilon_1\)</span>.
-Следовательно, при итеративном подходе <strong>ошибка накапливается</strong>.
-Ошибка накапливается также ввиду конечной точности чисел с плавающей точкой в компьютере.</p>
+Следовательно, при итеративном подходе методическая <strong>ошибка расчёта накапливается</strong>.
+Ошибка накапливается также ввиду конечной точности представления вещественных чисел в компьютере.</p>
 <p>Рассмотренный подход называется <em>итеративным</em>.
 Каждая итерация представляет из себя следующую последовательность действий:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(x_{i+1} = x_i + v_{x\, i+1} \Delta t_i\)</span>;</p></li>
-<li><p><span class="math notranslate nohighlight">\(y_{i+1} = y_i + v_{y\, i+1} \Delta t_i\)</span>;</p></li>
-<li><p><span class="math notranslate nohighlight">\(t_{i+1} = t_i + \Delta t_i\)</span>;</p></li>
-<li><p>проверка пересечения границ.
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(x_{i+1} = x_i + v_{x\, i+1} \Delta t_i\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_{i+1} = y_i + v_{y\, i+1} \Delta t_i\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(t_{i+1} = t_i + \Delta t_i\)</span>.</p></li>
+<li><p>Проверка пересечения границ.
 Если границы пересечены, то меняется знак соответствующей проекции скорости.
 Например, при столкновении с правой или левой стенкой <span class="math notranslate nohighlight">\(v_{x\, i+1} = -v_{xi}\)</span>.
-Если столкновения нет, то проекции не изменяются: <span class="math notranslate nohighlight">\(v_{x\, i+1} = v_{xi}\)</span> и <span class="math notranslate nohighlight">\(v_{y\, i+1} = v_{yi}\)</span>;</p></li>
-<li><p>итерации повторяются, пока <span class="math notranslate nohighlight">\(t_i &lt; T\)</span>.</p></li>
-</ul>
+Если столкновения нет, то проекции не изменяются: <span class="math notranslate nohighlight">\(v_{x\, i+1} = v_{xi}\)</span> и <span class="math notranslate nohighlight">\(v_{y\, i+1} = v_{yi}\)</span>.</p></li>
+<li><p>Итерации повторяются, пока <span class="math notranslate nohighlight">\(t_i &lt; T\)</span>.</p></li>
+</ol>
 <p>Проверка пересечения границ заключается в проверке условий
 <span class="math notranslate nohighlight">\(x \notin (x_\mathrm{lb}; x_\mathrm{rb})\)</span> и
 <span class="math notranslate nohighlight">\(y \notin (y_\mathrm{bb}; y_\mathrm{tb})\)</span>,
@@ -445,65 +544,104 @@ document.write(`
 <span class="math notranslate nohighlight">\(x_\mathrm{lb}\)</span> и <span class="math notranslate nohighlight">\(x_\mathrm{rb}\)</span> - прямые левой и правой границ соответственно;
 <span class="math notranslate nohighlight">\(y_\mathrm{bb}\)</span> и <span class="math notranslate nohighlight">\(y_\mathrm{tb}\)</span> - прямые нижней и верхней границ соответственно.</p>
 <p>Если не спешить и обдумать задачу более основательно, то можно заметить, что по известной и постоянной скорости, начальному положению тела и при известных размерах пространства несложно <em>рассчитать</em> промежуток времени <span class="math notranslate nohighlight">\(\Delta t_i\)</span>, через который тело столкнётся с одной из границ.
-Действительно, если в момент времени <span class="math notranslate nohighlight">\(t_i\)</span> проекции скорости тела <span class="math notranslate nohighlight">\(v_{xi} &gt; 0\)</span> и <span class="math notranslate nohighlight">\(v_{yi} &gt; 0\)</span>, то шарик движется в направлении правой и верхней стенок.
-Остаётся определить, которая из них будет достигнута быстрее.
-Если координата шарика в момент времени <span class="math notranslate nohighlight">\(t_i\)</span> есть <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, то с правой границей он столкнётся через время <span class="math notranslate nohighlight">\(\Delta t_{\mathrm{rb} i} = (x_\mathrm{rb} - x_i) / v_{xi}\)</span>, а с верхней - через <span class="math notranslate nohighlight">\(\Delta t_{\mathrm{tb} i} = (y_\mathrm{tb} - y_i) / v_{yi}\)</span>.
+Действительно, если в момент времени <span class="math notranslate nohighlight">\(t_i\)</span> проекции скорости тела <span class="math notranslate nohighlight">\(v_{xi} &gt; 0\)</span> и <span class="math notranslate nohighlight">\(v_{yi} &gt; 0\)</span>, то шарик движется в направлении вправо вверх.
+Остаётся определить, какая из двух границ - правая или верхняя - будет достигнута быстрее.
+Если координата последнего столкновения шарика в момент времени <span class="math notranslate nohighlight">\(t_i\)</span> есть <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, то с правой границей он столкнётся через время <span class="math notranslate nohighlight">\(\Delta t_{\mathrm{rb} i} = (x_\mathrm{rb} - x_i) / v_{xi}\)</span>, а с верхней - через <span class="math notranslate nohighlight">\(\Delta t_{\mathrm{tb} i} = (y_\mathrm{tb} - y_i) / v_{yi}\)</span>.
 И тогда <span class="math notranslate nohighlight">\(t_{i+1} = t_i + \min(\Delta t_{\mathrm{rb} i}, \Delta t_{\mathrm{tb} i})\)</span>.
 Аналогично рассчитывается время столкновения с любой границей в зависимости от комбинации знаков проекций скорости тела.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Если какая-либо из проекций равна нулю, то достаточно рассмотреть лишь одну границу, в направлении которой движется тело.</p>
 </div>
-<p>Таким образом, мы можем рассчитать момент времени <span class="math notranslate nohighlight">\(t_{i+1} = t_{i} + \Delta t_i\)</span> наступления <span class="math notranslate nohighlight">\((i+1)\)</span>-го <em>события</em> “столкновение со стенкой”.
-Зная <span class="math notranslate nohighlight">\(\Delta t_i\)</span>, мы можем <strong>точно рассчитать</strong> точку столкновения с границей: <span class="math notranslate nohighlight">\(x_{i+1} = x_i + v_{xi} \Delta t_i\)</span> и <span class="math notranslate nohighlight">\(y_{i+1} = y_i + v_{yi}\Delta t_i\)</span>, после чего изменить знак соответствующей проекции скорости: либо <span class="math notranslate nohighlight">\(v_{x\, i+1} = -v_{xi}\)</span>, либо <span class="math notranslate nohighlight">\(v_{y\, i+1} = -v_{yi}\)</span>.
+<p>Таким образом, мы можем рассчитать момент времени <span class="math notranslate nohighlight">\(t_{i+1}\)</span> наступления следующего (<span class="math notranslate nohighlight">\((i+1)\)</span>-го) <em>события</em> “столкновение со стенкой”.
+Зная <span class="math notranslate nohighlight">\(\Delta t_i\)</span> и закон движения тела, мы можем <strong>точно рассчитать</strong> точку столкновения с границей: <span class="math notranslate nohighlight">\(x_{i+1} = x_i + v_{xi} \Delta t_i\)</span> и <span class="math notranslate nohighlight">\(y_{i+1} = y_i + v_{yi}\Delta t_i\)</span>, после чего изменить знак соответствующей проекции скорости: либо <span class="math notranslate nohighlight">\(v_{x\, i+1} = -v_{xi}\)</span>, либо <span class="math notranslate nohighlight">\(v_{y\, i+1} = -v_{yi}\)</span>.
 После этого рассчитывается время до следующего столкновения и т.д.</p>
-<p>При этом нам <strong>не нужно</strong></p>
+<p>При этом нам не нужно:</p>
 <ul class="simple">
-<li><p>думать о выборе шага по времени, зависящего от нескольких параметров (в реальных задачах таких параметров может быть гораздо больше, чем в рассматриваемой задаче);</p></li>
-<li><p>впустую тратить расчётное время компьютера - он считает лишь моменты, в которых меняется <em>состояние системы</em> (в данном случае, когда при столкновении меняется знак у одной из проекций скорости);</p></li>
-<li><p>знать сколько раз за время моделирования шарик столкнётся со стенками.</p></li>
+<li><p>думать о выборе шага по времени - в реальных задачах от времени может зависеть большое число параметров, вследствие чего крайне затруднительно выбрать постоянный шаг по времени;</p></li>
+<li><p>впустую тратить расчётное время компьютера - он обсчитает лишь моменты, в которых меняется <em>состояние системы</em> (в данном случае, когда при столкновении меняется знак у одной из проекций скорости);</p></li>
+<li><p>знать сколько раз за время моделирования <span class="math notranslate nohighlight">\(T\)</span> шарик столкнётся со стенками.</p></li>
 </ul>
-<p>При применении ДСМ также <strong>не накапливается ошибка</strong> численного расчёта.
-Получается траектория движения шарика, совпадающая с теоретической.</p>
+<p>При применении ДСМ методическая расчётная ошибка равна нулю и не накапливается.
+Получается траектория движения шарика, точно совпадающая с теоретической.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Состояние системы изменяется при наступлении какого-либо события.
 Между событиями состояние остаётся постоянным.
 Это одно из основных положений ДСМ.</p>
 </div>
-<p>Реализуем сначала итеративный подход.
-Получим траекторию тела, которую затем сравним с траекторией, полученной с применением ДСМ.</p>
+<p>Для сравнения результатов реализуем и итеративный, и дискретно-событийный подходы.</p>
 <section id="id3">
 <h3>Итеративный подход<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>Напишем функцию итеративного решения задачи о шарике в коробке.
 Назовём её <code class="docutils literal notranslate"><span class="pre">iterative_solver</span></code>.
-Чтобы было легче воспринимать код, разобьём его на более мелкие составные части (функции).</p>
-<p>Начнём с реализации вспомогательной функции определения столкновений с границами.
-Условия столкновения, как отмечено выше, следующие:</p>
-<div class="math notranslate nohighlight">
-\[
-x_i \notin (x_\mathrm{lb}; x_\mathrm{rb}), \quad
-y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
-\]</div>
+Чтобы было легче воспринимать код, распределим его на функции.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">collision</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">iterative_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">v_xy</span><span class="p">,</span> <span class="n">t_until</span><span class="p">,</span> <span class="n">t_step</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Итеративный решатель задачи о шарике в коробке.</span>
+<span class="sd">    </span>
+<span class="sd">    * `bounds` - кортеж из 4 чисел, описывающих соответственно</span>
+<span class="sd">      левую, правую, нижнюю и верхнюю границы прямоугольной области.</span>
+<span class="sd">    * `xy` - начальная координата шара `(x, y)`.</span>
+<span class="sd">    * `v_xy` - кортеж `(v_x, v_y)` со значениями проекций вектора</span>
+<span class="sd">       начальной скорости точки.</span>
+<span class="sd">    * `t_until` - время моделирования.</span>
+<span class="sd">    * `t_step` - постоянный шаг по времени.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Распакуем аргументы-кортежи в соответствующие переменные</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">xy</span>
+    <span class="n">v_x</span><span class="p">,</span> <span class="n">v_y</span> <span class="o">=</span> <span class="n">v_xy</span>
+    <span class="c1"># Инициализируем &quot;часы&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># и массив траекторных точек</span>
+    <span class="c1"># (именно эти три переменные формируют траекторию)</span>
+    <span class="n">traj</span> <span class="o">=</span> <span class="p">[(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span>
+    <span class="c1"># Выполняем итерации:</span>
+    <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">t_until</span><span class="p">:</span>
+        <span class="c1"># 1. Обновляем координаты и время</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="n">v_x</span> <span class="o">*</span> <span class="n">t_step</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="n">v_y</span> <span class="o">*</span> <span class="n">t_step</span>
+        <span class="n">t</span> <span class="o">+=</span> <span class="n">t_step</span>
+        <span class="c1"># 2. Проверяем условие столкновения</span>
+        <span class="n">flag</span><span class="p">,</span> <span class="p">(</span><span class="n">sv_x</span><span class="p">,</span> <span class="n">sv_y</span><span class="p">)</span> <span class="o">=</span> <span class="n">collision</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="c1"># 3. Инвертируем проекции скорости</span>
+        <span class="c1">#    (если было столкновение)</span>
+        <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+            <span class="c1"># Чтобы не расходавать память</span>
+            <span class="c1"># на точки между столкновениями,</span>
+            <span class="c1"># будем запоминать только точки столкновений</span>
+            <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+            <span class="c1"># Инвертируем проекции скорости</span>
+            <span class="n">v_x</span> <span class="o">*=</span> <span class="n">sv_x</span>
+            <span class="n">v_y</span> <span class="o">*=</span> <span class="n">sv_y</span>
+    <span class="c1"># В завершение добавим последнюю точку траектории</span>
+    <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="c1"># Возвращаем полученную траектории как массив NumPy</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">collision</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Условие столкновения шара с границами коробки.</span>
 
-<span class="sd">    * `bounds` - кортеж вида `(x_lb, x_rb, y_bb, y_tb)`,</span>
+<span class="sd">    * `bounds` - кортеж четырёх элементов,</span>
 <span class="sd">      хранящий координаты левой, правой, нижней и верхней границ</span>
 <span class="sd">      прямоугольной области.</span>
-<span class="sd">    * `p` - текущая координата `(x, y)` шара.</span>
+<span class="sd">    * `xy` - текущая координата `(x, y)` шара.</span>
 <span class="sd">    </span>
-<span class="sd">    Возвращает кортеж из двух значений, определяющих, нужно ли</span>
-<span class="sd">    инвертировать соответствующую проекцию скорости.</span>
+<span class="sd">    Возвращает кортеж из двух единичных значений, определяющих,</span>
+<span class="sd">    нужно ли инвертировать соответствующую проекцию скорости.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">x_lb</span><span class="p">,</span> <span class="n">x_rb</span><span class="p">,</span> <span class="n">y_bb</span><span class="p">,</span> <span class="n">y_tb</span> <span class="o">=</span> <span class="n">bounds</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">xy</span>
     <span class="c1"># Знак элемента signs показывает, нужно ли инвертировать</span>
     <span class="c1"># соответствующую проекцию скорости</span>
-    <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Было ли столкновение</span>
     <span class="n">signs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># Флаг, показывающий было ли столкновение</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">x_lb</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">x_rb</span><span class="p">:</span>
         <span class="c1"># Столкновение с одной из вертикальных стен,</span>
         <span class="c1"># значит, нужно инвертировать v_x</span>
@@ -519,68 +657,32 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 </div>
 </div>
 </div>
+<p>Функция <code class="docutils literal notranslate"><span class="pre">collision</span></code> проверяет условия столкновения, которые, напомним, имеют следующий:</p>
+<div class="math notranslate nohighlight">
+\[
+x_i \notin (x_\mathrm{lb}; x_\mathrm{rb}), \quad
+y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
+\]</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Функция <code class="docutils literal notranslate"><span class="pre">collision</span></code> имеет один эффект, влияющий на траекторию шара, который мы не предусмотрели.
 Получится ли у вас его определить?</p>
 </div>
-<p>Теперь сама функция итеративного решателя:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="k">def</span> <span class="nf">iterative_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t_until</span><span class="p">,</span> <span class="n">t_step</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Итеративный решатель задачи о шарике в коробке.</span>
-<span class="sd">    </span>
-<span class="sd">    * `bounds` - кортеж из 4 чисел вида `(x_lb, x_rb, y_bb, y_tb)`,</span>
-<span class="sd">      описывающий левую, правую, нижнюю и верхнюю границы</span>
-<span class="sd">      прямоугольной области.</span>
-<span class="sd">    * `p` - начальная координата шара `(x, y)`.</span>
-<span class="sd">    * `v` - кортеж `(v_x, v_y)` со значениями проекций вектора</span>
-<span class="sd">       начальной скорости шара.</span>
-<span class="sd">    * `t_until` - время моделирования.</span>
-<span class="sd">    * `t_step` - постоянный шаг по времени.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Распакуем аргументы-кортежи в соответствующие переменные</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p</span>
-    <span class="n">v_x</span><span class="p">,</span> <span class="n">v_y</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="c1"># Инициализируем &quot;часы&quot;</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="c1"># и массив траекторных точек</span>
-    <span class="c1"># (именно эти три переменные формируют траекторию)</span>
-    <span class="n">traj</span> <span class="o">=</span> <span class="p">[(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span>
-    <span class="c1"># Выполняем итерации:</span>
-    <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">t_until</span><span class="p">:</span>
-        <span class="c1"># 1. Обновляем координаты и время</span>
-        <span class="n">x</span> <span class="o">+=</span> <span class="n">v_x</span> <span class="o">*</span> <span class="n">t_step</span>
-        <span class="n">y</span> <span class="o">+=</span> <span class="n">v_y</span> <span class="o">*</span> <span class="n">t_step</span>
-        <span class="n">t</span> <span class="o">+=</span> <span class="n">t_step</span>
-        <span class="c1"># 2. Проверяем условие столкновения</span>
-        <span class="n">flag</span><span class="p">,</span> <span class="p">(</span><span class="n">svx</span><span class="p">,</span> <span class="n">svy</span><span class="p">)</span> <span class="o">=</span> <span class="n">collision</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-        <span class="c1"># 3. Инвертируем проекции скорости</span>
-        <span class="c1">#    (если svx и svy отрицательны)</span>
-        <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
-            <span class="c1"># Просто чтобы не расходавать память</span>
-            <span class="c1"># на точки между столкновениями</span>
-            <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-            <span class="n">v_x</span> <span class="o">*=</span> <span class="n">svx</span>
-            <span class="n">v_y</span> <span class="o">*=</span> <span class="n">svy</span>
-    <span class="c1"># В завершение добавим последнюю точку траектории</span>
-    <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-    <span class="c1"># Возвращаем полученную траекторию</span>
-    <span class="c1"># в виде массива NumPy</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Напишем удобную для многоразового использования функцию визуализации траектории <code class="docutils literal notranslate"><span class="pre">plot_traj</span></code>:</p>
+<p>Опишем удобную для многоразового использования функцию визуализации траектории <code class="docutils literal notranslate"><span class="pre">plot_traj</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
+
 <span class="k">def</span> <span class="nf">plot_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Строит траекторию тела.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Строит траекторию тела.</span>
+<span class="sd">    </span>
+<span class="sd">    * `traj` - прямоугольная матрица, каждая строка</span>
+<span class="sd">      которой соответствует точке траектории. Точка траектории</span>
+<span class="sd">      описывается тремя величинами: временем столкновения</span>
+<span class="sd">      и x- и y-координатой точки в этот момент.</span>
+<span class="sd">    * `figax` - кортеж двух элементов: рисунка и оси графика.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">figax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
@@ -598,13 +700,13 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 </div>
 </div>
 <p>Посмотрим, что получилось.
-Пусть условия задачи таковы:</p>
+Пусть условия задачи таковы (единицы измерения нас не интересуют):</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(x_\mathrm{lb} = 0\)</span>, <span class="math notranslate nohighlight">\(x_\mathrm{rb} = 1\)</span>, <span class="math notranslate nohighlight">\(y_\mathrm{bb} = 0\)</span> и <span class="math notranslate nohighlight">\(y_\mathrm{tb} = 1\)</span> м;</p></li>
-<li><p><span class="math notranslate nohighlight">\(x_0 = 0.67\)</span> и <span class="math notranslate nohighlight">\(y_0 = 0.33\)</span> м;</p></li>
-<li><p><span class="math notranslate nohighlight">\(v_{x0} = 0.3\)</span> и <span class="math notranslate nohighlight">\(v_{y0} = 0.1\)</span> м/с;</p></li>
-<li><p>шаг по времени <span class="math notranslate nohighlight">\(\Delta t = 0.5\)</span> с;</p></li>
-<li><p>время моделирования <span class="math notranslate nohighlight">\(T = 60\)</span> с.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_\mathrm{lb} = 0\)</span>, <span class="math notranslate nohighlight">\(x_\mathrm{rb} = 1\)</span>, <span class="math notranslate nohighlight">\(y_\mathrm{bb} = 0\)</span> и <span class="math notranslate nohighlight">\(y_\mathrm{tb} = 1\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_0 = 2/3\)</span> и <span class="math notranslate nohighlight">\(y_0 = 1/3\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(v_{x0} = 0.3\)</span> и <span class="math notranslate nohighlight">\(v_{y0} = 0.1\)</span>;</p></li>
+<li><p>шаг по времени <span class="math notranslate nohighlight">\(\Delta t = 0.5\)</span>;</p></li>
+<li><p>время моделирования <span class="math notranslate nohighlight">\(T = 60\)</span>.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -632,7 +734,7 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a2d991aea65cc04b76d10acbfd7cf8fc12d24ea733fd63ce19fa59de059fd7f2.png" src="../_images/a2d991aea65cc04b76d10acbfd7cf8fc12d24ea733fd63ce19fa59de059fd7f2.png" />
+<img alt="../_images/cd02002c1b2ec62ee4d81e448a97028267a42ddf818c863d92c10b236be9d96a.png" src="../_images/cd02002c1b2ec62ee4d81e448a97028267a42ddf818c863d92c10b236be9d96a.png" />
 </div>
 </div>
 <p>Число столкновений:</p>
@@ -652,7 +754,8 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Кстати, о непредусмотренном эффекте функции <code class="docutils literal notranslate"><span class="pre">collision</span></code>.
-Этот эффект виден на получившемся графике.</p>
+Этот эффект виден на получившемся графике.
+Постарайтесь его найти и объяснить.</p>
 </div>
 <p>Если уменьшить шаг по времени в 5 раз, то получим следующую картину:</p>
 <div class="cell docutils container">
@@ -665,12 +768,12 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c8859a2ee2643d5126685f0c799991c779940a5aa0e0e17767255a184f12135e.png" src="../_images/c8859a2ee2643d5126685f0c799991c779940a5aa0e0e17767255a184f12135e.png" />
+<img alt="../_images/63621037c080c9bac205f5f731df5dc9dc5cbab71d116ee8692998d92f3e2f48.png" src="../_images/63621037c080c9bac205f5f731df5dc9dc5cbab71d116ee8692998d92f3e2f48.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -686,7 +789,7 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 </div>
 </div>
 <p>Сравнив два рисунка, можно заметить, что хоть уменьшение шага и привело к более точной траектории тела, но пересечение границ всё равно присутствует.
-Также при различном временном шаге получены разные значения числа столкновений - 21 и 25 соответственно.</p>
+Также при различном временном шаге получены разные значения числа столкновений: 21 и 25 соответственно.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Заметьте, что столкновение с горизонтальными границами происходит <em>почти</em> на них.
@@ -698,20 +801,67 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 </section>
 <section id="id4">
 <h3>Дискретно-событийный подход<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>Как отмечено выше, при дискретно-событийном подходе мы должны рассчитать момент наступления события.
-Для этой цели опишем функцию <code class="docutils literal notranslate"><span class="pre">calc_delay</span></code>, которая по заданным границам, скорости <span class="math notranslate nohighlight">\((v_{xi}, v_{yi})\)</span> и положению тела <span class="math notranslate nohighlight">\((x_i, y_i)\)</span> рассчитает, через какое время <span class="math notranslate nohighlight">\(\Delta t_i\)</span> наступит следующее событие:</p>
+<p>Как отмечено выше, при дискретно-событийном подходе мы должны рассчитать момент наступления события.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_delay</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Рассчитать задержку времени перед следующим событием</span>
-<span class="sd">    при заданных границах `bounds = (x_lb, x_rb, y_bb, y_tb)`,</span>
-<span class="sd">    скорости шара `v = (v_x, v_y)` и координате его последнего</span>
-<span class="sd">    столкновения `p = (x, y)`.&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">de_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">v_xy</span><span class="p">,</span> <span class="n">t_until</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Решатель, рализующий подход ДСМ.</span>
+<span class="sd">    </span>
+<span class="sd">    * `bounds` - кортеж из 4 чисел, описывающих соответственно</span>
+<span class="sd">      левую, правую, нижнюю и верхнюю границы прямоугольной области.</span>
+<span class="sd">    * `xy` - начальная координата шара `(x, y)`.</span>
+<span class="sd">    * `v_xy` - кортеж `(v_x, v_y)` со значениями проекций вектора</span>
+<span class="sd">       начальной скорости точки.</span>
+<span class="sd">    * `t_until` - время моделирования.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Для удобства расчётов сделаем NumPy-массивы</span>
+    <span class="n">xy</span><span class="p">,</span> <span class="n">v_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xy</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v_xy</span><span class="p">)</span>
+    <span class="c1"># Инициализируем SimPy-среду.</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
+    <span class="c1"># Сохраним начальную точку траектории</span>
+    <span class="n">traj</span> <span class="o">=</span> <span class="p">[(</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">xy</span><span class="p">)]</span>
+    <span class="c1"># Регистируем процесс motion</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">motion</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">v_xy</span><span class="p">,</span> <span class="n">traj</span><span class="p">))</span>
+    <span class="c1"># Запускаем моделирование в течение заданного времени</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until</span><span class="o">=</span><span class="n">t_until</span><span class="p">)</span>
+    <span class="c1"># Сохраним точку траектории в конце моделирования</span>
+    <span class="n">xy</span> <span class="o">+=</span> <span class="n">v_xy</span> <span class="o">*</span> <span class="p">(</span><span class="n">t_until</span> <span class="o">-</span> <span class="n">traj</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">xy</span><span class="p">))</span>
+    <span class="c1"># Возвращаем траекторию в виде NumPy-массива</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">motion</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">v_xy</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Генераторная функция для событий столкновения с границами.</span>
+<span class="sd">    </span>
+<span class="sd">    * `env` - объект среды SimPy.</span>
+<span class="sd">    * `bounds` - кортеж из 4 чисел, описывающих соответственно</span>
+<span class="sd">      левую, правую, нижнюю и верхнюю границы прямоугольной области.</span>
+<span class="sd">    * `xy` - координата последнего столкновения тела.</span>
+<span class="sd">    * `v_xy` - скорость тела после последнего столкновения.</span>
+<span class="sd">    * `traj` - прямоугольная матрица, каждая строка</span>
+<span class="sd">      которой соответствует точке траектории. Точка траектории</span>
+<span class="sd">      описывается тремя величинами: временем столкновения</span>
+<span class="sd">      и x- и y-координатой точки в этот момент.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">dt</span><span class="p">,</span> <span class="n">signs</span> <span class="o">=</span> <span class="n">calc_delay</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">v_xy</span><span class="p">,</span> <span class="n">xy</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">xy</span> <span class="o">+=</span> <span class="n">v_xy</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">xy</span><span class="p">))</span>
+        <span class="n">v_xy</span> <span class="o">*=</span> <span class="n">signs</span>
+
+
+<span class="k">def</span> <span class="nf">calc_delay</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">v_xy</span><span class="p">,</span> <span class="n">xy</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Рассчитать величину времени, через которое наступит</span>
+<span class="sd">    следующее событие, по заданным границам `bounds`,</span>
+<span class="sd">    скорости шара `v_xy` и координате его последнего</span>
+<span class="sd">    столкновения `xy`.&quot;&quot;&quot;</span>
     <span class="c1"># Распакуем аргументы для удобства</span>
     <span class="n">x_lb</span><span class="p">,</span> <span class="n">x_rb</span><span class="p">,</span> <span class="n">y_bb</span><span class="p">,</span> <span class="n">y_tb</span> <span class="o">=</span> <span class="n">bounds</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p</span>
-    <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="c1"># Вычисляем время (задержку)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">xy</span>
+    <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">v_xy</span>
+    <span class="c1"># Вычисляем время (задержку):</span>
     <span class="n">dtx</span><span class="p">,</span> <span class="n">dty</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span>
     <span class="c1"># - в направлении оси Ox</span>
     <span class="k">if</span> <span class="n">vx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -723,7 +873,7 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
         <span class="n">dty</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_tb</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">vy</span>
     <span class="k">elif</span> <span class="n">vy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">dty</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_bb</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">vy</span>
-    <span class="c1"># Определение, какую проекцию скорости инвертировать</span>
+    <span class="c1"># Определяем, какую проекцию скорости инвертировать</span>
     <span class="n">signs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
     <span class="n">signs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">((</span><span class="n">dtx</span><span class="p">,</span> <span class="n">dty</span><span class="p">))]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">dtx</span><span class="p">,</span> <span class="n">dty</span><span class="p">),</span> <span class="n">signs</span>
@@ -731,33 +881,9 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 </div>
 </div>
 </div>
-<p>Реализуем решатель <code class="docutils literal notranslate"><span class="pre">de_solver</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span> <span class="k">as</span> <span class="nn">sim</span>
-
-<span class="k">def</span> <span class="nf">de_solver</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t_until</span><span class="p">):</span>
-    <span class="n">p</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-    <span class="n">env</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
-    <span class="n">traj</span> <span class="o">=</span> <span class="p">[(</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)]</span>
-    <span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">loop</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">traj</span><span class="p">))</span>
-    <span class="n">env</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">t_until</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="p">(</span><span class="n">t_until</span> <span class="o">-</span> <span class="n">traj</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">loop</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">traj</span><span class="p">):</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">dt</span><span class="p">,</span> <span class="n">signs</span> <span class="o">=</span> <span class="n">calc_delay</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-        <span class="k">yield</span> <span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
-        <span class="n">p</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">dt</span>
-        <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">env</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">))</span>
-        <span class="n">v</span> <span class="o">*=</span> <span class="n">signs</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Промоделируем при тех же исходных параметрах:</p>
+<p>Сформированная программа с точки зрения ДСМ ничем не отличается от программы в примере из раздела <a class="reference internal" href="#basic-simpy"><span class="std std-ref">Основы SimPy</span></a>.
+Разница лишь в том, что в данном случае время между событиями мы рассчитываем (в функции <code class="docutils literal notranslate"><span class="pre">calc_delay</span></code>), а не генерируем как случайное число.</p>
+<p>Промоделируем при тех же условиях:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Заметьте, мы уже не задаём шаг по времени</span>
@@ -767,7 +893,7 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Число столкновений:&quot;</span><span class="p">,</span> <span class="n">traj_des</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -776,7 +902,7 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Число столкновений: 25
 </pre></div>
 </div>
-<img alt="../_images/8f5c2150f79bdfb68931a160ef9e57b0da54c092fe4f598d4f2c170346d089b6.png" src="../_images/8f5c2150f79bdfb68931a160ef9e57b0da54c092fe4f598d4f2c170346d089b6.png" />
+<img alt="../_images/22a53799da0707dd19aebd92d018031b32b318d5197e4a3a35c32d12668768cb.png" src="../_images/22a53799da0707dd19aebd92d018031b32b318d5197e4a3a35c32d12668768cb.png" />
 </div>
 </div>
 <p>Получили точное решение, которое заметно отличается от всех решений, полученных ранее - шарик оказался в том же самом месте, из которого начал своё движение.</p>
@@ -785,22 +911,23 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_traj</span><span class="p">(</span><span class="n">traj_iterative</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Итеративный метод&quot;</span><span class="p">)</span>
 <span class="n">plot_traj</span><span class="p">(</span><span class="n">traj_des</span><span class="p">,</span> <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ДСМ&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/49208866bdd0d39d06e04bbde093f30142f530a50cbec4fe8677f1c3d64f6aa8.png" src="../_images/49208866bdd0d39d06e04bbde093f30142f530a50cbec4fe8677f1c3d64f6aa8.png" />
+<img alt="../_images/b19ac6f0ab6228795143cb105a18aeed82b91493dfbc3ad2e7d0f96d29d5af37.png" src="../_images/b19ac6f0ab6228795143cb105a18aeed82b91493dfbc3ad2e7d0f96d29d5af37.png" />
 </div>
 </div>
 <p>Из полученного графика также отчётливо видно, как по мере увеличения числа событий, увеличивается ошибка итеративного метода.
-С течением времени полученная с его помощью траектория всё сильнее и сильнее отклоняется от теоретической (оранжевой).</p>
+С течением времени полученная с его помощью траектория всё сильнее и сильнее отклоняется от теоретической (оранжевой).
+В данном случае относительная ошибка в определении конечного положения составляет примерно 40% (!).</p>
 <p>Изменим начальные условия и посмотрим на результат:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -818,7 +945,7 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Число столкновений:&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -827,24 +954,25 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Число столкновений: 11
 </pre></div>
 </div>
-<img alt="../_images/a5dfa22b222e6ac6d8273dfdb065084d79e7064e8ff2b63ab77f16759f441557.png" src="../_images/a5dfa22b222e6ac6d8273dfdb065084d79e7064e8ff2b63ab77f16759f441557.png" />
+<img alt="../_images/f450c0fd2be1ad4d28df5927c77ffa041e45ce25504e06abba1a7e837e5e2ca7.png" src="../_images/f450c0fd2be1ad4d28df5927c77ffa041e45ce25504e06abba1a7e837e5e2ca7.png" />
 </div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Интересно подумать, почему получается периодическое движение и как рассчитать его период?</p>
 </div>
+<p>Для дальнейшего изучения SimPy достаточно отличной <a class="reference external" href="https://simpy.readthedocs.io/en/latest/index.html">официальной документации</a> с <a class="reference external" href="https://simpy.readthedocs.io/en/latest/examples/index.html">примерами</a></p>
 </section>
 </section>
-<section id="simpy">
-<h2>Примеры использования SimPy<a class="headerlink" href="#simpy" title="Permalink to this heading">#</a></h2>
-<p>В данном разделе рассмотрены некоторые примеры из <a class="reference external" href="https://simpy.readthedocs.io/en/latest/examples/index.html">официальной документации</a> SimPy с целью чуть лучше раскрыть принципы работы с данной библиотекой.</p>
+<section id="id5">
+<h2>Примеры использования SimPy<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>В данном разделе рассмотрены некоторые <a class="reference external" href="https://simpy.readthedocs.io/en/latest/examples/index.html">примеры</a> из официальной документации SimPy с целью чуть лучше раскрыть принципы работы с данной библиотекой.</p>
 <p>Прежде необходимо подключить SimPy:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span> <span class="k">as</span> <span class="nn">sim</span>
 </pre></div>
 </div>
-<section id="id5">
-<h3>Разочарование клиента в банке<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<section id="id6">
+<h3>Разочарование клиента в банке<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>Данный <a class="reference external" href="https://simpy.readthedocs.io/en/latest/examples/bank_renege.html">пример</a> раскрывает такие возможности SimPy, как <em>ресурсы</em> и <em>условные события</em>.</p>
 <p>Задача следующая.
 Есть банк, в который приходят клиенты.
@@ -987,7 +1115,7 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 Всё из-за того, что использовалась одна и та же затравка <code class="docutils literal notranslate"><span class="pre">SEED</span></code> для генератора псевдослучайных чисел.
 Ну и сам генератор был тем же самым - из стандартной библиотеки random.</p>
 </div>
-<p>Как видите, довольно просто и быстро можно смоделировать вполне реальную задачу <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D0%BC%D0%B0%D1%81%D1%81%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">теории массового обслуживания</a>.
+<p>Как видите, довольно просто и быстро можно смоделировать вполне реальную задачу из <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D0%BC%D0%B0%D1%81%D1%81%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">теории массового обслуживания</a>.
 Ведь никто не мешает учесть здесь финансовую сторону вопроса и прийти к оптимизационной задачи по типу: “Сколько нужно обслуживающих окон, чтобы минимизировать потерю клиентов, т.е. максимизировать прибыль?
 Сколько нужно окон утром во вторник и вечером пятницы?
 Как при этом минимизировать затраты на новых сотрудников, но не ухудшить обслуживание?
@@ -1000,19 +1128,14 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
 <p>Создаётся впечатление, будто процессы <code class="docutils literal notranslate"><span class="pre">source</span></code> и <code class="docutils literal notranslate"><span class="pre">customer</span></code> выполняются параллельно.
 На самом деле это <em>не совсем</em> так.</p>
 <p>С точки зрения операционной системы <em>поток выполнения</em> нашей программы один, т.е. программа не “выполняется на нескольких ядрах”.
-Иными словами, параллелизма <em>на аппаратном уровне</em> здесь нет.</p>
-<p>Но есть параллелизм на уровне программы.
-Генераторы лежат в основе <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%90%D1%81%D0%B8%D0%BD%D1%85%D1%80%D0%BE%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">асинхронного программирования</a>, при котором отдельные части программы могут работать асинхронно, т.е. не ожидать завершения друг друга.
-Подробнее основы асинхронного программирования изложены <a class="reference external" href="https://proglib.io/p/asynchrony?ysclid=lmjk2v8cxv779630081">здесь</a>.</p>
-<p>У нас может быть <strong>любое</strong> количество запущенных процессов, но каждый процесс - это генератор.
-А генератор ничего не делает, пока к нему не будет применена стандартная функция <code class="docutils literal notranslate"><span class="pre">next</span></code>.
-Эту функцию среды <code class="docutils literal notranslate"><span class="pre">env</span></code> начинает применяет к генераторам наш объект, когда мы запускаем симуляцию методом <code class="docutils literal notranslate"><span class="pre">run</span></code>.</p>
-<p>К какому именно генератору из всего множества имеющихся применить <code class="docutils literal notranslate"><span class="pre">next</span></code>?
-Среда <code class="docutils literal notranslate"><span class="pre">env</span></code> определяет это, исходя из своего <em>журнала событий</em>, который она непрерывно ведёт.
-Например, когда мы написали внутри процесса <code class="docutils literal notranslate"><span class="pre">source</span></code> выражение <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">env.timeout(t)</span></code>, то объект <code class="docutils literal notranslate"><span class="pre">env</span></code> “под капотом” добавил в журнал событие типа <a class="reference external" href="https://simpy.readthedocs.io/en/latest/api_reference/simpy.events.html#simpy.events.Timeout"><code class="docutils literal notranslate"><span class="pre">Timeout</span></code></a>, которое произойдёт во время <code class="docutils literal notranslate"><span class="pre">env.now</span> <span class="pre">+</span> <span class="pre">t</span></code>.
-Когда это событие является следующим в очереди, то определяется генератор, к которому оно принадлежит (опять же SimPy сопоставляет процессы с событиями “под капотом”), и к этому генератору применяется <code class="docutils literal notranslate"><span class="pre">next</span></code>.
-Никакой “магии” не происходит - только чистые Python-генераторы!</p>
+Выражаясь технически, параллелизма <em>на аппаратном уровне</em> здесь нет.
+Но есть параллелизм на уровне программы.</p>
+<p>У нас может быть <strong>любое</strong> количество запущенных процессов, но каждый процесс - это генератор.</p>
 </div>
+</section>
+<section id="event-waiting">
+<span id="id7"></span><h3>Ожидание события<a class="headerlink" href="#event-waiting" title="Permalink to this heading">#</a></h3>
+<p>…</p>
 </section>
 </section>
 </section>
@@ -1075,13 +1198,15 @@ y_i \notin (y_\mathrm{bb}; y_\mathrm{tb}).
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpy">Основы SimPy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Шарик в коробке</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Итеративный подход</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Дискретно-событийный подход</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpy">Примеры использования SimPy</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Разочарование клиента в банке</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Примеры использования SimPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Разочарование клиента в банке</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#event-waiting">Ожидание события</a></li>
 </ul>
 </li>
 </ul>
