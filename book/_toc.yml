@@ -4,24 +4,36 @@
 format: jb-book
 root: intro
 chapters:
+# Основы NumPy
+- file: numpy_basics
+  sections:
+  - file: numpy_basics/creating
+  - file: numpy_basics/replicating_joining_mutating
+  - file: numpy_basics/indexing
+# Рандом
+- file: random
+  sections:
+  - file: random/random
 # Визуализация
 - file: plotting
   sections:
-  - file: plotting/ch1-basics
-  - file: plotting/ch2-improved-matplotlib
-  - file: plotting/ch3-3d-matplotlib
+  - file: plotting/basics
+  - file: plotting/improved-matplotlib
+  - file: plotting/3d-matplotlib
 # Математика
 - file: mathematics
   sections:
   - file: mathematics/ch1-rooting
   - file: mathematics/ch2-ode
   - file: mathematics/ch3-meshing
-- file: random
-  sections:
-  - file: random/random
 # Дискретно-событийное моделирование
 - file: discrete-event
   sections:
   - file: discrete-event/iterators
   - file: discrete-event/generators
   - file: discrete-event/des
+# Численные методы в физике
+- file: numerical_physics
+  sections:
+  - file: numerical_physics/vector_fields_visual
+  - file: numerical_physics/multipole_expansion
