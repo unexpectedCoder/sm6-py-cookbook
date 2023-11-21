@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Визуализация векторных полей &#8212; SM6 Cookbook</title>
+    <title>Визуализация векторного поля &#8212; SM6 Cookbook</title>
   
   
   
@@ -67,6 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'numerical_physics/vector_fields_visual';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Мультипольное разложение в теории электромагнитного поля" href="multipole_expansion.html" />
+    <link rel="prev" title="Численные методы в физике с Python" href="../numerical_physics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -157,27 +159,38 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch1-basics.html">Основы построения графиков</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch2-improved-matplotlib.html">Особенности matplotlib</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch3-3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numpy_basics.html">Основы библиотеки NumPy для работы с массивами чисел</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/creating.html">Создание массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/replicating_joining_mutating.html">Копирование, объединение и изменение массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/indexing.html">Индексация массивов</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/iterators.html">Итераторы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/generators.html">Генераторы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/des.html">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../numerical_physics.html">Численные методы в физике с Python</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Визуализация векторного поля</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipole_expansion.html">Мультипольное разложение в теории электромагнитного поля</a></li>
 </ul>
 </li>
 </ul>
@@ -363,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Визуализация векторных полей</h1>
+    <h1>Визуализация векторного поля</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -394,8 +407,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>Визуализация векторных полей<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="vectorfield-visualization">
+<span id="id1"></span><h1>Визуализация векторного поля<a class="headerlink" href="#vectorfield-visualization" title="Permalink to this heading">#</a></h1>
 <p>Рассмотрим способы визуализации векторных и скалярных полей на примере электрического поля, создаваемого несколькими электрическими зарядами.</p>
 <p>Как известно из курса физики, на <em>пробный заряд</em> <span class="math notranslate nohighlight">\(Q\)</span>, помещённый в электрическое поле заряда <span class="math notranslate nohighlight">\(q_0\)</span>, действует сила Кулона:</p>
 <div class="math notranslate nohighlight">
@@ -429,7 +442,7 @@ document.write(`
 На рисунке ниже показана расчётная схема.
 В этом случае результирующее поле рассчитывается, исходя из <em>принципа суперпозиции</em> - суммарное поле есть сумма полей отдельных зарядов:</p>
 <div class="math notranslate nohighlight" id="equation-total-field">
-<span class="eqno">()<a class="headerlink" href="#equation-total-field" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5)<a class="headerlink" href="#equation-total-field" title="Permalink to this equation">#</a></span>\[
 \mathbf{E}(\mathbf{r}) =
     \sum\limits_{i=0}^{n-1}{\mathbf{E}_i(\mathbf{r})} =
     k \sum\limits_{i=0}^{n-1}{
@@ -441,14 +454,13 @@ document.write(`
 Это значит, что в каждой точке пространства <span class="math notranslate nohighlight">\(\mathbf{r}\)</span> определена не только величина поля - электрическая напряжённость <span class="math notranslate nohighlight">\(E_0\)</span>, - но и его направление.
 Именно вдоль направления поля <span class="math notranslate nohighlight">\(\mathbf{E}\)</span> и действует сила Кулона.
 Одним из способов визуализации любого векторного поля является построение его <em>силовых линий</em>.
-Этим мы сейчас и займёмся - покажем векторное поле <a class="reference internal" href="#equation-total-field">()</a> для заданной системы зарядов.</p>
+Этим мы сейчас и займёмся - покажем векторное поле <a class="reference internal" href="#equation-total-field">(5)</a> для заданной системы зарядов.</p>
 <section id="id2">
 <h2>Визуализация векторного поля<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>С визуализацией нам поможет библиотека Matplotlib.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="c1"># Для работы с массивами</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="c1"># Для векторной алгебры</span>
@@ -469,10 +481,13 @@ document.write(`
 </div>
 <section id="id3">
 <h3>Расчёт поля двух зарядов<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>Программно опишем поле <a class="reference internal" href="#equation-total-field">()</a>:</p>
+<p>Программно опишем поле <a class="reference internal" href="#equation-total-field">(5)</a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_field</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">rs</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_vector_field</span><span class="p">(</span><span class="n">qtopos</span><span class="p">):</span>
+    <span class="n">qs</span> <span class="o">=</span> <span class="n">qtopos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">rs</span> <span class="o">=</span> <span class="n">qtopos</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+
     <span class="k">def</span> <span class="nf">field</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>
         <span class="n">mx</span><span class="p">,</span> <span class="n">my</span> <span class="o">=</span> <span class="n">mesh</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">mx</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">my</span><span class="o">.</span><span class="n">flatten</span><span class="p">()])</span>
@@ -496,7 +511,7 @@ document.write(`
 </div>
 </div>
 <p>Данная функция принимает на вход массив зарядов <code class="docutils literal notranslate"><span class="pre">qs</span></code>, массив их координат <code class="docutils literal notranslate"><span class="pre">rs</span></code> и возвращает функцию <code class="docutils literal notranslate"><span class="pre">E</span></code>, зависящую только от <code class="docutils literal notranslate"><span class="pre">r</span></code> - координаты произвольной точки.
-Функция <code class="docutils literal notranslate"><span class="pre">E</span></code> соответствует полю <a class="reference internal" href="#equation-total-field">()</a>.</p>
+Функция <code class="docutils literal notranslate"><span class="pre">E</span></code> соответствует полю <a class="reference internal" href="#equation-total-field">(5)</a>.</p>
 </section>
 <section id="id4">
 <h3>Создание расчётной сетки<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
@@ -517,7 +532,7 @@ document.write(`
 <p>Заодно создадим функцию визуализации сетки для лучшего её представления:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_mesh2d</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_mesh_2d</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">figax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
@@ -543,9 +558,11 @@ document.write(`
 <span class="n">x_minmax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
 <span class="n">y_minmax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
 <span class="c1"># Поместим 2 заряда: слева +1, справа -1</span>
-<span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="c1"># Расположим их в точках (-1; 0) и (1; 0)</span>
-<span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="c1"># и расположим их в точках (-1; 0) и (1; 0)</span>
+<span class="n">qtopos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -567,32 +584,30 @@ document.write(`
 <p>Отобразим расчётные точки для проверки корректности сетки:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_mesh2d</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_mesh_2d</span><span class="p">(</span>
     <span class="n">mesh</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Расчётные точки&quot;</span>
 <span class="p">)</span>
 <span class="c1"># Заодно покажем расположение зарядов</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд +1&quot;</span>
+    <span class="o">*</span><span class="n">qtopos</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд $+$&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд -1&quot;</span>
+    <span class="o">*</span><span class="n">qtopos</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд $-$&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ab37d681eac47daa595e2bf5ad56ba08a27b83d54cdcc0e2159006bd91f95e06.png" src="../_images/ab37d681eac47daa595e2bf5ad56ba08a27b83d54cdcc0e2159006bd91f95e06.png" />
+<img alt="../_images/2681cfcd2559e2a5d38f4978be31142a3aa3c76ecd9d4bae52e4b4776549145f.png" src="../_images/2681cfcd2559e2a5d38f4978be31142a3aa3c76ecd9d4bae52e4b4776549145f.png" />
 </div>
 </div>
 <p>В серых точках и будет рассчитано векторное поле <span class="math notranslate nohighlight">\(\mathbf{E}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Рассчитываем поле</span>
-<span class="n">E_fun</span> <span class="o">=</span> <span class="n">make_field</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">rs</span><span class="p">)</span>
-<span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span> <span class="o">=</span> <span class="n">E_fun</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">make_vector_field</span><span class="p">(</span><span class="n">qtopos</span><span class="p">)</span>
+<span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Например, (Ex; Ey) в левой нижней точке:&quot;</span><span class="p">,</span>
       <span class="p">(</span><span class="n">Ex</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Ey</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
 </pre></div>
@@ -621,12 +636,10 @@ document.write(`
 <span class="p">)</span>
 <span class="c1"># Сами заряды</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд +1&quot;</span>
+    <span class="o">*</span><span class="n">qtopos</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд $+$&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд -1&quot;</span>
+    <span class="o">*</span><span class="n">qtopos</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд $-$&quot;</span>
 <span class="p">)</span>
 <span class="c1"># И для красоты</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
@@ -637,7 +650,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0b4514f97578fabcfd327c5cf49f7b35174b9cf36f2dce88d0f1e581a5ddfafa.png" src="../_images/0b4514f97578fabcfd327c5cf49f7b35174b9cf36f2dce88d0f1e581a5ddfafa.png" />
+<img alt="../_images/3160ea2c675b7fddb59e24e33bcf6618b13caaeda131501b2f503ef19d669f41.png" src="../_images/3160ea2c675b7fddb59e24e33bcf6618b13caaeda131501b2f503ef19d669f41.png" />
 </div>
 </div>
 <p>Получили вполне непохую картину - силовые линии поля выходят из положительного заряда и входят в заряд отрицательный.</p>
@@ -656,8 +669,12 @@ document.write(`
 <span class="c1"># Разместим 4 заряда в форме креста:</span>
 <span class="c1"># - отрицательные заряды - по вертикали;</span>
 <span class="c1"># - положительные - по горизонтали</span>
-<span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">qtopos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -668,8 +685,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Создадим расчётную сетку, разбив оси x и y на 50 точек</span>
 <span class="n">mesh</span> <span class="o">=</span> <span class="n">create_mesh</span><span class="p">(</span><span class="n">x_minmax</span><span class="p">,</span> <span class="n">y_minmax</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Считаем поле в узлах сетки</span>
-<span class="n">E_fun</span> <span class="o">=</span> <span class="n">make_field</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">rs</span><span class="p">)</span>
-<span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span> <span class="o">=</span> <span class="n">E_fun</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">make_vector_field</span><span class="p">(</span><span class="n">qtopos</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -677,37 +693,183 @@ document.write(`
 <p>Строим график:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">mx</span><span class="p">,</span> <span class="n">my</span> <span class="o">=</span> <span class="n">mesh</span>
-<span class="c1"># Для переменной величины силовых линий,</span>
-<span class="c1"># пропорциональной величине поля</span>
-<span class="n">E_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Ex</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Ey</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">linewidth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">E_mag</span><span class="p">)</span> <span class="o">/</span> <span class="mi">15</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_vectorfield_2d</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span>
+                        <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cbar_label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">figax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+    <span class="n">mx</span><span class="p">,</span> <span class="n">my</span> <span class="o">=</span> <span class="n">mesh</span>
+    <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span> <span class="o">=</span> <span class="n">field</span>
+    <span class="k">if</span> <span class="s2">&quot;cmap&quot;</span> <span class="ow">in</span> <span class="n">kw</span><span class="p">:</span>
+        <span class="n">stream</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">lines</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">cbar_label</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+
+<span class="c1"># Для визуализации величины поля сделаем цвет линий</span>
+<span class="c1"># пропорциональным ей</span>
+<span class="n">field</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span> <span class="o">=</span> <span class="n">field</span>
+<span class="n">color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Ex</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Ey</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 <span class="c1"># Силовые линии</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span>
-    <span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span>
-    <span class="n">density</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_vectorfield_2d</span><span class="p">(</span>
+    <span class="n">mesh</span><span class="p">,</span>
+    <span class="n">field</span><span class="p">,</span>
+    <span class="n">density</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">,</span>
+    <span class="n">cbar_label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\ln{\| \mathbf</span><span class="si">{E}</span><span class="s2"> \|}$&quot;</span>
 <span class="p">)</span>
 <span class="c1"># Сами заряды</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">rs</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rs</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд -1&quot;</span>
+    <span class="n">qtopos</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">qtopos</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд $-$&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">rs</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rs</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд +1&quot;</span>
+    <span class="n">qtopos</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">qtopos</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд $+$&quot;</span>
 <span class="p">)</span>
 <span class="c1"># И для красоты</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span>
-<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a453592065f17dbfe24040e0bd7244cc005e65d4966658367843b3b2b611a3b1.png" src="../_images/a453592065f17dbfe24040e0bd7244cc005e65d4966658367843b3b2b611a3b1.png" />
+<img alt="../_images/09252954556ef8eb39d8c18d5ea56a47a8d6fd7a5d37da77d05d228eb20c3c84.png" src="../_images/09252954556ef8eb39d8c18d5ea56a47a8d6fd7a5d37da77d05d228eb20c3c84.png" />
 </div>
+</div>
+<p>Сведём созданный функциональный код воедино и поместим его в файл <em><a class="reference external" href="http://vectorfield.py">vectorfield.py</a></em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">lina</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">epsilon_0</span>
+
+
+<span class="n">K</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">epsilon_0</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">make_vector_field</span><span class="p">(</span><span class="n">qtopos</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Возвращает функцию поля `E(mesh)`.</span>
+<span class="sd">    </span>
+<span class="sd">    * `qtopos` - массив размера `n` на `3`, где в</span>
+<span class="sd">      каждая из `n` строк имеет вид</span>
+<span class="sd">      `(qi, xi, yi)`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qs</span> <span class="o">=</span> <span class="n">qtopos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">rs</span> <span class="o">=</span> <span class="n">qtopos</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">field</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>
+        <span class="n">mx</span><span class="p">,</span> <span class="n">my</span> <span class="o">=</span> <span class="n">mesh</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">mx</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">my</span><span class="o">.</span><span class="n">flatten</span><span class="p">()])</span>
+        <span class="k">return</span> <span class="n">K</span><span class="o">*</span><span class="n">_superposition</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">mesh</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">field</span>
+
+
+<span class="c1"># Функции, имена которых начинаются с нижнего подчёркивания,</span>
+<span class="c1"># предназначены для использования только внутри модуля,</span>
+<span class="c1"># в котором они объявлены, но не вне его -</span>
+<span class="c1"># это своего рода приватные функции</span>
+<span class="k">def</span> <span class="nf">_superposition</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span>
+        <span class="n">_calc_partial_field</span><span class="p">(</span><span class="n">qi</span><span class="p">,</span> <span class="n">ri</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">qi</span><span class="p">,</span> <span class="n">ri</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">rs</span><span class="p">)</span>
+    <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_calc_partial_field</span><span class="p">(</span><span class="n">qi</span><span class="p">,</span> <span class="n">ri</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="n">dr</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">ri</span>
+    <span class="k">return</span> <span class="n">qi</span><span class="o">*</span><span class="n">dr</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">lina</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span>
+
+
+<span class="k">def</span> <span class="nf">create_mesh</span><span class="p">(</span><span class="n">x_minmax</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">y_minmax</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">n_xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Равномерно расположить расчётные точки на осях.</span>
+<span class="sd">    </span>
+<span class="sd">    * `x_minmax` и `y_minmax` - границы области</span>
+<span class="sd">      по соответствующим осям.</span>
+<span class="sd">    * `n_xy` - число точек по соответствующим осям.</span>
+
+<span class="sd">    Возвращает расчётную сетку, созданную как `np.meshgrid`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">x_minmax</span><span class="p">,</span> <span class="n">n_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">y_minmax</span><span class="p">,</span> <span class="n">n_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">plot_mesh_2d</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Визуализировать двумерную расчётную сетку.</span>
+<span class="sd">    </span>
+<span class="sd">    * `mesh` - расчётная сетка.</span>
+<span class="sd">    * `figax` - кортеж вида `(figure, axis)`.</span>
+<span class="sd">      По умолчанию `None`.</span>
+<span class="sd">    </span>
+<span class="sd">    Возвращает кортеж `(figure, axis)`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">figax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">figax</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">mesh</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, м&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+
+<span class="k">def</span> <span class="nf">plot_vectorfield_2d</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span>
+                        <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cbar_label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Визуализировать векторное поле `field`.</span>
+<span class="sd">    </span>
+<span class="sd">    * `mesh` - двумерная расчётная сетка.</span>
+<span class="sd">    * `field` - двумерное векторное поле.</span>
+<span class="sd">    * `figax` - кортеж вида `(figure, axis)`.</span>
+<span class="sd">    * `cbar_label` - название цветовой шкалы, если она есть.</span>
+
+<span class="sd">    Возвращает кортеж вида `(figure, axis)`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">figax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">figax</span>
+    <span class="n">mx</span><span class="p">,</span> <span class="n">my</span> <span class="o">=</span> <span class="n">mesh</span>
+    <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span> <span class="o">=</span> <span class="n">field</span>
+    <span class="k">if</span> <span class="s2">&quot;cmap&quot;</span> <span class="ow">in</span> <span class="n">kw</span> <span class="ow">and</span> <span class="n">cbar_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stream</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">lines</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">cbar_label</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+
+<span class="c1"># Дополнительно опишем функцию отрисовки зарядов</span>
+<span class="k">def</span> <span class="nf">plot_charges</span><span class="p">(</span><span class="n">qtopos</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Отобразить заряды.</span>
+<span class="sd">    </span>
+<span class="sd">    * `qtopos` - словарь, ключом которого является</span>
+<span class="sd">      величина заряда `qi`, а значением -</span>
+<span class="sd">      координата заряда `(xi, yi)`.</span>
+<span class="sd">    * `figax` - кортеж вида `(figure, axis)`.</span>
+
+<span class="sd">    Возвращает кортеж вида `(figure, axis)`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">figax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">figax</span>
+    <span class="n">kw_positive</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">kw_negative</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд $+$&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_positive</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Заряд $-$&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_negative</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">qi</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="n">qtopos</span><span class="p">:</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="n">kw_positive</span> <span class="k">if</span> <span class="n">qi</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">kw_negative</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+</pre></div>
 </div>
 </section>
 </section>
@@ -750,6 +912,24 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../numerical_physics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Численные методы в физике с Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="multipole_expansion.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Мультипольное разложение в теории электромагнитного поля</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>

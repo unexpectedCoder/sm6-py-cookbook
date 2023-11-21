@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'mathematics/ch3-meshing';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Генерация псевдослучайных чисел" href="../random.html" />
+    <link rel="next" title="Дискретно-событийное моделирование" href="../discrete-event.html" />
     <link rel="prev" title="Решение обыкновенных дифференциальных уравнений (ОДУ)" href="ch2-ode.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -160,26 +160,37 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch1-basics.html">Основы построения графиков</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch2-improved-matplotlib.html">Особенности matplotlib</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch3-3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numpy_basics.html">Основы библиотеки NumPy для работы с массивами чисел</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/creating.html">Создание массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/replicating_joining_mutating.html">Копирование, объединение и изменение массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/indexing.html">Индексация массивов</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ch1-rooting.html">Поиск корней уравнений</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Построение расчётных сеток</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/iterators.html">Итераторы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/generators.html">Генераторы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/des.html">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numerical_physics.html">Численные методы в физике с Python</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/vector_fields_visual.html">Визуализация векторного поля</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/multipole_expansion.html">Мультипольное разложение в теории электромагнитного поля</a></li>
 </ul>
 </li>
 </ul>
@@ -548,7 +559,7 @@ z(x, y) = \sin{x} \cos{y}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d69a5e46190020b6a01c201ef6f3849b7c9ccf4f894a09bca057ce73eb415c32.png" src="../_images/d69a5e46190020b6a01c201ef6f3849b7c9ccf4f894a09bca057ce73eb415c32.png" />
+<img alt="../_images/366b4c95eb1a586f9368d90e948ba65e7a3e36d89a7c1f178bd88709ec2ffd4d.png" src="../_images/366b4c95eb1a586f9368d90e948ba65e7a3e36d89a7c1f178bd88709ec2ffd4d.png" />
 </div>
 </div>
 <p>Все точки имеют одинаковый (синий) цвет, соответствующий минимальному значению функцию, но функция <a class="reference internal" href="#equation-eqn-func">(4)</a> является тригонометрической и периодической - в массиве <code class="docutils literal notranslate"><span class="pre">z</span></code> лежат различные значения, следовательно, и цвета точек должны быть различными. Это обусловлено тем, что <code class="docutils literal notranslate"><span class="pre">ax.scatter(...)</span></code> вызывается как бы <em>атомарно</em>, т.е. с единицами данных, а не с целыми массивами данных.</p>
@@ -659,7 +670,7 @@ z(x, y) = \sin{x} \cos{y}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0feb484fc9f30ec5d3dcb725bbfbd3bacd6a165708b8686dd0b9cce0c9228d14.png" src="../_images/0feb484fc9f30ec5d3dcb725bbfbd3bacd6a165708b8686dd0b9cce0c9228d14.png" />
+<img alt="../_images/084cd0c8b6dba7832ddcc5f7f4551f254331c81c6c76763783e738beb6019bef.png" src="../_images/084cd0c8b6dba7832ddcc5f7f4551f254331c81c6c76763783e738beb6019bef.png" />
 </div>
 </div>
 <p>Или заполненный контурный график (и более плотная сетка):</p>
@@ -679,7 +690,7 @@ z(x, y) = \sin{x} \cos{y}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9f713dd92baf4c8eb68ce503c826eaf720a297eb0866a7744f96d994ecb600c9.png" src="../_images/9f713dd92baf4c8eb68ce503c826eaf720a297eb0866a7744f96d994ecb600c9.png" />
+<img alt="../_images/573f343536e20a395e9aa3fca1d28c4bc7cc213d248b62f3d7333ff8b2c15c6c.png" src="../_images/573f343536e20a395e9aa3fca1d28c4bc7cc213d248b62f3d7333ff8b2c15c6c.png" />
 </div>
 </div>
 </section>
@@ -725,7 +736,7 @@ z(x, y) = \sin{x} \cos{y}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/85a17df195d07fd2ca4f04a5f51648983d0ba4ce57349ba88d544929d9cf970f.png" src="../_images/85a17df195d07fd2ca4f04a5f51648983d0ba4ce57349ba88d544929d9cf970f.png" />
+<img alt="../_images/976ef90d6eec6eb4720764c781ffd3cfa31c8ea43aaa940fe565623685bc81fa.png" src="../_images/976ef90d6eec6eb4720764c781ffd3cfa31c8ea43aaa940fe565623685bc81fa.png" />
 </div>
 </div>
 </section>
@@ -878,11 +889,11 @@ z(x, y) = \sin{x} \cos{y}.
       </div>
     </a>
     <a class="right-next"
-       href="../random.html"
+       href="../discrete-event.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Генерация псевдослучайных чисел</p>
+        <p class="prev-next-title">Дискретно-событийное моделирование</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

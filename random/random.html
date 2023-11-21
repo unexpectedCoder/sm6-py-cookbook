@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'random/random';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Дискретно-событийное моделирование" href="../discrete-event.html" />
+    <link rel="next" title="Визуализация данных" href="../plotting.html" />
     <link rel="prev" title="Генерация псевдослучайных чисел" href="../random.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -160,26 +160,37 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch1-basics.html">Основы построения графиков</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch2-improved-matplotlib.html">Особенности matplotlib</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plotting/ch3-3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numpy_basics.html">Основы библиотеки NumPy для работы с массивами чисел</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/creating.html">Создание массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/replicating_joining_mutating.html">Копирование, объединение и изменение массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/indexing.html">Индексация массивов</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Использование генераторов псевдослучайных чисел</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/iterators.html">Итераторы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/generators.html">Генераторы</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../discrete-event/des.html">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numerical_physics.html">Численные методы в физике с Python</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/vector_fields_visual.html">Визуализация векторного поля</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/multipole_expansion.html">Мультипольное разложение в теории электромагнитного поля</a></li>
 </ul>
 </li>
 </ul>
@@ -393,8 +404,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>Использование генераторов псевдослучайных чисел<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="random-basics">
+<span id="id1"></span><h1>Использование генераторов псевдослучайных чисел<a class="headerlink" href="#random-basics" title="Permalink to this heading">#</a></h1>
 <p>Начнём рассмотрение вопроса с помощью стандартного модуля <a class="reference external" href="https://docs.python.org/3/library/random.html"><code class="docutils literal notranslate"><span class="pre">random</span></code></a>.
 Абсолютно всю информацию о нём вы найдёте в официальной документации.</p>
 <section id="id2">
@@ -416,11 +427,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8802117807529882
-0.3999100583035877
-0.08696992971174966
-0.33571424549333473
-0.270124757168527
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.08199845155224306
+0.6812247669695745
+0.48073500720662954
+0.9817714011423325
+0.7542191159965514
 </pre></div>
 </div>
 </div>
@@ -439,11 +450,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.551792976292058
-0.3176400866867991
-0.5925965884502573
-0.9440364856932867
-0.6224867793955536
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0607474392465992
+0.21320921477548116
+0.3312040712563141
+0.6358879264176441
+0.10851765182027684
 </pre></div>
 </div>
 </div>
@@ -725,7 +736,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/adf03a36e4ec785b1389cd13ef10bd3121871d8faef6101d096e149392c17f6f.png" src="../_images/adf03a36e4ec785b1389cd13ef10bd3121871d8faef6101d096e149392c17f6f.png" />
+<img alt="../_images/323bb13ebf0688f4e3c297e055000556524b26b8946ee5adb8a9206005281537.png" src="../_images/323bb13ebf0688f4e3c297e055000556524b26b8946ee5adb8a9206005281537.png" />
 </div>
 </div>
 <p>Увеличим число точек в 20 раз:</p>
@@ -752,7 +763,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/091a34c74c6323188c3b80e465d0541ded000b6b9d6a2b560c3dcf53cfcd3780.png" src="../_images/091a34c74c6323188c3b80e465d0541ded000b6b9d6a2b560c3dcf53cfcd3780.png" />
+<img alt="../_images/0522055be45d9800364bd461698a3ed26d96de3ccdf90363efb4640401849922.png" src="../_images/0522055be45d9800364bd461698a3ed26d96de3ccdf90363efb4640401849922.png" />
 </div>
 </div>
 <p>Как видите, при увеличении количества ПСЧ гистограммы принимают всё более чёткие очертания конкретного распределения.</p>
@@ -800,7 +811,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3717b8a175a4dca9d142cbc2d69e1257a719bfd0922a1021f52f95a872bd9a20.png" src="../_images/3717b8a175a4dca9d142cbc2d69e1257a719bfd0922a1021f52f95a872bd9a20.png" />
+<img alt="../_images/2b4462e87edab81113fb3367f498211676d2c6c82e6403a7a03f6400c1683e59.png" src="../_images/2b4462e87edab81113fb3367f498211676d2c6c82e6403a7a03f6400c1683e59.png" />
 </div>
 </div>
 <p>Мы сразу создали массив из 10000 элементов, указав параметр <code class="docutils literal notranslate"><span class="pre">size=10000</span></code>.
@@ -824,7 +835,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cc22a464b071e27e140cfbd8301238d4a53e5d90fc49a24415cc27160f7094f0.png" src="../_images/cc22a464b071e27e140cfbd8301238d4a53e5d90fc49a24415cc27160f7094f0.png" />
+<img alt="../_images/a04834c6ab5f06377aa549f352306b781454b42bb3dcfa8d16a4d3d7adad750d.png" src="../_images/a04834c6ab5f06377aa549f352306b781454b42bb3dcfa8d16a4d3d7adad750d.png" />
 </div>
 </div>
 <p>Случайную матрицу можно создать, передав в качестве <code class="docutils literal notranslate"><span class="pre">size</span></code> несколько значений:</p>
@@ -934,11 +945,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../discrete-event.html"
+       href="../plotting.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Дискретно-событийное моделирование</p>
+        <p class="prev-next-title">Визуализация данных</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
