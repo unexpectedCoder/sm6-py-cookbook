@@ -1,0 +1,48 @@
+# Настраиваем шрифт
+
+# - обычный
+font.family:    serif
+font.size:      12.0
+font.serif:     Times New Roman
+
+# - в математических выражениях                                                     
+mathtext.fontset:   stix
+mathtext.bf:        serif:bold
+mathtext.bfit:      serif:italic:bold
+mathtext.it:        serif:italic
+mathtext.rm:        serif
+
+# Настраиваем оси
+
+# - 2D
+axes.linewidth: 1.0
+axes.grid:      True
+axes.labelsize: large
+
+# - 3D
+axes3d.xaxis.panecolor: (1, 1, 1, 0.5)
+axes3d.yaxis.panecolor: (1, 1, 1, 0.5)
+axes3d.zaxis.panecolor: (1, 1, 1, 0.5)
+
+# Числовые метки осей
+xtick.major.size:   4.0
+xtick.major.width:  1.0
+ytick.major.size:    4.0
+ytick.major.width:   1.0
+
+# Сетка
+grid.linestyle: :
+
+# Легенда
+legend.fancybox:    False
+legend.fontsize:    medium
+
+# Слегка подстраиваем различные типы графиков
+image.origin: lower
+hist.bins: auto
+scatter.marker: .
+
+# Параметры сохранения по умолчанию
+savefig.dpi:         300
+savefig.format:      tiff
+savefig.bbox:        tight
