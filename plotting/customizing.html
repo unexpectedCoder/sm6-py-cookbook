@@ -1,0 +1,1272 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Оформление графиков в Matplotlib &#8212; SM6 Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'plotting/customizing';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Визуализация трёхмерных данных с использованием matplotlib" href="3d-matplotlib.html" />
+    <link rel="prev" title="Особенности matplotlib" href="improved-matplotlib.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Python-справочник кафедры СМ6 МГТУ им. Н.Э. Баумана
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numpy_basics.html">Основы библиотеки NumPy для работы с массивами чисел</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/creating.html">Создание массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/replicating_joining_mutating.html">Копирование, объединение и изменение массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/indexing.html">Индексация массивов</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Оформление графиков в Matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/iterators.html">Итераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/generators.html">Генераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/des.html">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numerical_physics.html">Численные методы в физике с Python</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/vector_fields_visual.html">Визуализация векторного поля</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/multipole_expansion.html">Мультипольное разложение в теории электромагнитного поля</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook/issues/new?title=Issue%20on%20page%20%2Fplotting/customizing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/plotting/customizing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Оформление графиков в Matplotlib</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Использование готовых стилей</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Глобальная настройка стиля</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plt-style-use">Функция <code class="docutils literal notranslate"><span class="pre">plt.style.use</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-rcparams">Изменение глобальной переменной <code class="docutils literal notranslate"><span class="pre">matplotlib.rcParams</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Файл собственных настроек стиля</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Комбинация стилей</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Стиль из интернета</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">См. также</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="matplotlib">
+<h1>Оформление графиков в Matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this heading">#</a></h1>
+<p>Рассмотрим различные способы изменения оформления графиков.
+Важно уметь это делать, чтобы с лёгкостью удовлетворять требованиям различных редакций и стандартов на оформление текстовых работ, например, требованиям кафедры СМ6 МГТУ им. Н.Э. Баумана.</p>
+<p>В конце раздела рассматривается создание файла с собственными стилевыми настройками matplotlib.
+Сформированный стиль вполне удовлетворяет требованиям кафедры СМ6, поэтому студенты СМ6 могут использовать этот файл в своих работах (домашних, курсовых и прочих).</p>
+<p>Для начала выполним некоторую рутину:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Будем строить тригонометрические функции:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+<span class="n">sin_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">cos_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h2>Использование готовых стилей<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Построим график, оформленный в стиле “по умолчанию”:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sin_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\sin</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cos_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\cos</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Аргумент $x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5ac039bbbe9756a5765551b96734d75c5f3e3a4cc5f5e326b6659d50df606345.png" src="../_images/5ac039bbbe9756a5765551b96734d75c5f3e3a4cc5f5e326b6659d50df606345.png" />
+</div>
+</div>
+<p>В Matplotlib имеется <a class="reference external" href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html">целый ряд встроенных стилей графиков</a>.
+Назначить их можно, например, используя менеджер контекста <code class="docutils literal notranslate"><span class="pre">with</span></code> и функцию <a class="reference external" href="https://matplotlib.org/stable/api/style_api.html"><code class="docutils literal notranslate"><span class="pre">pyplot.style.context</span></code></a> с указанием названия стиля:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;ggplot&quot;</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sin_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\sin</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cos_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\cos</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Аргумент $x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7a81dce567f83cc5f1777fa03975e30dafabdaddad3c8910c77d5705b325086c.png" src="../_images/7a81dce567f83cc5f1777fa03975e30dafabdaddad3c8910c77d5705b325086c.png" />
+</div>
+</div>
+<p>Также внутри менеджера контекста с заданным стилем matplotlib можно вызвать собственную функцию построения графика.
+Сведём построение наших синусов-косинусов в отдельную функцию, как делали в разделе <a class="reference internal" href="improved-matplotlib.html"><span class="doc">Особенности matplotlib</span></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">figax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">sin_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">cos_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span> <span class="k">if</span> <span class="n">figax</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">figax</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sin_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\sin</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cos_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\cos</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+<span class="c1"># И вызовем её в стилевом контексте</span>
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;bmh&quot;</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Аргумент $x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9c2730c60bbc3c9a86b0b3cd3f7684ccfa8326adb26e9e7f4cd3027292ebd89d.png" src="../_images/9c2730c60bbc3c9a86b0b3cd3f7684ccfa8326adb26e9e7f4cd3027292ebd89d.png" />
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Заметьте, что меняется оформление как обычного текста, так и математических выражений, обрамлённых долларами <code class="docutils literal notranslate"><span class="pre">$...$</span></code>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Или в тёмном стиле</span>
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;dark_background&quot;</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="c1"># И можем изменить полученный график, например,</span>
+    <span class="c1"># добавив график новой функции</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\tanh</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Аргумент $x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a9aa9a8a1da42e47abe6b221e832e89fb432caee2f12ddf96596560d9b566a74.png" src="../_images/a9aa9a8a1da42e47abe6b221e832e89fb432caee2f12ddf96596560d9b566a74.png" />
+</div>
+</div>
+<p>Использовать стилевой контекст просто и удобно.
+Однако есть и подход назначения <em>глобального стиля</em> для графиков matplotlib.</p>
+</section>
+<section id="id2">
+<h2>Глобальная настройка стиля<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Данный подход менее универсален, чем подход стилевого контекста, однако его удобнее применять в работах, в которых вы изначально имеете чёткие требования к оформлению.</p>
+<section id="plt-style-use">
+<h3>Функция <code class="docutils literal notranslate"><span class="pre">plt.style.use</span></code><a class="headerlink" href="#plt-style-use" title="Permalink to this heading">#</a></h3>
+<p>Глобальный стиль можно задать так:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># В начале файла с кодом</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;grayscale&quot;</span><span class="p">)</span>
+
+<span class="c1"># И просто строим график без всякого контекста</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d38dc71ce578d29c307ae0a26176422bec0743722f20913f3be7369d3db78b08.png" src="../_images/d38dc71ce578d29c307ae0a26176422bec0743722f20913f3be7369d3db78b08.png" />
+</div>
+</div>
+</section>
+<section id="matplotlib-rcparams">
+<h3>Изменение глобальной переменной <code class="docutils literal notranslate"><span class="pre">matplotlib.rcParams</span></code><a class="headerlink" href="#matplotlib-rcparams" title="Permalink to this heading">#</a></h3>
+<p>Для начала вернём стиль по умолчанию:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Matplotlib хранит настройки стилей в специальных текстовых файлах с расширением <code class="docutils literal notranslate"><span class="pre">.mplstyle</span></code>.
+При импортировании библиотеки происходит считывание файла с настройками по умолчанию и сохранение этих настроек в глобальном Python-словаре <a class="reference external" href="https://matplotlib.org/stable/users/explain/customizing.html"><code class="docutils literal notranslate"><span class="pre">matplotlib.rcParams</span></code></a> (по ссылке найдёте описание всех настраиваемых параметров).
+Вот, для примера, его содержимое:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RcParams({&#39;_internal.classic_mode&#39;: False,
+          &#39;agg.path.chunksize&#39;: 0,
+          &#39;animation.bitrate&#39;: -1,
+          &#39;animation.codec&#39;: &#39;h264&#39;,
+          &#39;animation.convert_args&#39;: [&#39;-layers&#39;, &#39;OptimizePlus&#39;],
+          &#39;animation.convert_path&#39;: &#39;convert&#39;,
+          &#39;animation.embed_limit&#39;: 20.0,
+          &#39;animation.ffmpeg_args&#39;: [],
+          &#39;animation.ffmpeg_path&#39;: &#39;ffmpeg&#39;,
+          &#39;animation.frame_format&#39;: &#39;png&#39;,
+          &#39;animation.html&#39;: &#39;none&#39;,
+          &#39;animation.writer&#39;: &#39;ffmpeg&#39;,
+          &#39;axes.autolimit_mode&#39;: &#39;data&#39;,
+          &#39;axes.axisbelow&#39;: &#39;line&#39;,
+          &#39;axes.edgecolor&#39;: &#39;black&#39;,
+          &#39;axes.facecolor&#39;: &#39;white&#39;,
+          &#39;axes.formatter.limits&#39;: [-5, 6],
+          &#39;axes.formatter.min_exponent&#39;: 0,
+          &#39;axes.formatter.offset_threshold&#39;: 4,
+          &#39;axes.formatter.use_locale&#39;: False,
+          &#39;axes.formatter.use_mathtext&#39;: False,
+          &#39;axes.formatter.useoffset&#39;: True,
+          &#39;axes.grid&#39;: False,
+          &#39;axes.grid.axis&#39;: &#39;both&#39;,
+          &#39;axes.grid.which&#39;: &#39;major&#39;,
+          &#39;axes.labelcolor&#39;: &#39;black&#39;,
+          &#39;axes.labelpad&#39;: 4.0,
+          &#39;axes.labelsize&#39;: &#39;medium&#39;,
+          &#39;axes.labelweight&#39;: &#39;normal&#39;,
+          &#39;axes.linewidth&#39;: 0.8,
+          &#39;axes.prop_cycle&#39;: cycler(&#39;color&#39;, [&#39;#1f77b4&#39;, &#39;#ff7f0e&#39;, &#39;#2ca02c&#39;, &#39;#d62728&#39;, &#39;#9467bd&#39;, &#39;#8c564b&#39;, &#39;#e377c2&#39;, &#39;#7f7f7f&#39;, &#39;#bcbd22&#39;, &#39;#17becf&#39;]),
+          &#39;axes.spines.bottom&#39;: True,
+          &#39;axes.spines.left&#39;: True,
+          &#39;axes.spines.right&#39;: True,
+          &#39;axes.spines.top&#39;: True,
+          &#39;axes.titlecolor&#39;: &#39;auto&#39;,
+          &#39;axes.titlelocation&#39;: &#39;center&#39;,
+          &#39;axes.titlepad&#39;: 6.0,
+          &#39;axes.titlesize&#39;: &#39;large&#39;,
+          &#39;axes.titleweight&#39;: &#39;normal&#39;,
+          &#39;axes.titley&#39;: None,
+          &#39;axes.unicode_minus&#39;: True,
+          &#39;axes.xmargin&#39;: 0.05,
+          &#39;axes.ymargin&#39;: 0.05,
+          &#39;axes.zmargin&#39;: 0.05,
+          &#39;axes3d.grid&#39;: True,
+          &#39;axes3d.xaxis.panecolor&#39;: (0.95, 0.95, 0.95, 0.5),
+          &#39;axes3d.yaxis.panecolor&#39;: (0.9, 0.9, 0.9, 0.5),
+          &#39;axes3d.zaxis.panecolor&#39;: (0.925, 0.925, 0.925, 0.5),
+          &#39;backend&#39;: &#39;module://matplotlib_inline.backend_inline&#39;,
+          &#39;backend_fallback&#39;: True,
+          &#39;boxplot.bootstrap&#39;: None,
+          &#39;boxplot.boxprops.color&#39;: &#39;black&#39;,
+          &#39;boxplot.boxprops.linestyle&#39;: &#39;-&#39;,
+          &#39;boxplot.boxprops.linewidth&#39;: 1.0,
+          &#39;boxplot.capprops.color&#39;: &#39;black&#39;,
+          &#39;boxplot.capprops.linestyle&#39;: &#39;-&#39;,
+          &#39;boxplot.capprops.linewidth&#39;: 1.0,
+          &#39;boxplot.flierprops.color&#39;: &#39;black&#39;,
+          &#39;boxplot.flierprops.linestyle&#39;: &#39;none&#39;,
+          &#39;boxplot.flierprops.linewidth&#39;: 1.0,
+          &#39;boxplot.flierprops.marker&#39;: &#39;o&#39;,
+          &#39;boxplot.flierprops.markeredgecolor&#39;: &#39;black&#39;,
+          &#39;boxplot.flierprops.markeredgewidth&#39;: 1.0,
+          &#39;boxplot.flierprops.markerfacecolor&#39;: &#39;none&#39;,
+          &#39;boxplot.flierprops.markersize&#39;: 6.0,
+          &#39;boxplot.meanline&#39;: False,
+          &#39;boxplot.meanprops.color&#39;: &#39;C2&#39;,
+          &#39;boxplot.meanprops.linestyle&#39;: &#39;--&#39;,
+          &#39;boxplot.meanprops.linewidth&#39;: 1.0,
+          &#39;boxplot.meanprops.marker&#39;: &#39;^&#39;,
+          &#39;boxplot.meanprops.markeredgecolor&#39;: &#39;C2&#39;,
+          &#39;boxplot.meanprops.markerfacecolor&#39;: &#39;C2&#39;,
+          &#39;boxplot.meanprops.markersize&#39;: 6.0,
+          &#39;boxplot.medianprops.color&#39;: &#39;C1&#39;,
+          &#39;boxplot.medianprops.linestyle&#39;: &#39;-&#39;,
+          &#39;boxplot.medianprops.linewidth&#39;: 1.0,
+          &#39;boxplot.notch&#39;: False,
+          &#39;boxplot.patchartist&#39;: False,
+          &#39;boxplot.showbox&#39;: True,
+          &#39;boxplot.showcaps&#39;: True,
+          &#39;boxplot.showfliers&#39;: True,
+          &#39;boxplot.showmeans&#39;: False,
+          &#39;boxplot.vertical&#39;: True,
+          &#39;boxplot.whiskerprops.color&#39;: &#39;black&#39;,
+          &#39;boxplot.whiskerprops.linestyle&#39;: &#39;-&#39;,
+          &#39;boxplot.whiskerprops.linewidth&#39;: 1.0,
+          &#39;boxplot.whiskers&#39;: 1.5,
+          &#39;contour.algorithm&#39;: &#39;mpl2014&#39;,
+          &#39;contour.corner_mask&#39;: True,
+          &#39;contour.linewidth&#39;: None,
+          &#39;contour.negative_linestyle&#39;: &#39;dashed&#39;,
+          &#39;date.autoformatter.day&#39;: &#39;%Y-%m-%d&#39;,
+          &#39;date.autoformatter.hour&#39;: &#39;%m-%d %H&#39;,
+          &#39;date.autoformatter.microsecond&#39;: &#39;%M:%S.%f&#39;,
+          &#39;date.autoformatter.minute&#39;: &#39;%d %H:%M&#39;,
+          &#39;date.autoformatter.month&#39;: &#39;%Y-%m&#39;,
+          &#39;date.autoformatter.second&#39;: &#39;%H:%M:%S&#39;,
+          &#39;date.autoformatter.year&#39;: &#39;%Y&#39;,
+          &#39;date.converter&#39;: &#39;auto&#39;,
+          &#39;date.epoch&#39;: &#39;1970-01-01T00:00:00&#39;,
+          &#39;date.interval_multiples&#39;: True,
+          &#39;docstring.hardcopy&#39;: False,
+          &#39;errorbar.capsize&#39;: 0.0,
+          &#39;figure.autolayout&#39;: False,
+          &#39;figure.constrained_layout.h_pad&#39;: 0.04167,
+          &#39;figure.constrained_layout.hspace&#39;: 0.02,
+          &#39;figure.constrained_layout.use&#39;: False,
+          &#39;figure.constrained_layout.w_pad&#39;: 0.04167,
+          &#39;figure.constrained_layout.wspace&#39;: 0.02,
+          &#39;figure.dpi&#39;: 100.0,
+          &#39;figure.edgecolor&#39;: &#39;white&#39;,
+          &#39;figure.facecolor&#39;: &#39;white&#39;,
+          &#39;figure.figsize&#39;: [6.4, 4.8],
+          &#39;figure.frameon&#39;: True,
+          &#39;figure.hooks&#39;: [],
+          &#39;figure.labelsize&#39;: &#39;large&#39;,
+          &#39;figure.labelweight&#39;: &#39;normal&#39;,
+          &#39;figure.max_open_warning&#39;: 20,
+          &#39;figure.raise_window&#39;: True,
+          &#39;figure.subplot.bottom&#39;: 0.11,
+          &#39;figure.subplot.hspace&#39;: 0.2,
+          &#39;figure.subplot.left&#39;: 0.125,
+          &#39;figure.subplot.right&#39;: 0.9,
+          &#39;figure.subplot.top&#39;: 0.88,
+          &#39;figure.subplot.wspace&#39;: 0.2,
+          &#39;figure.titlesize&#39;: &#39;large&#39;,
+          &#39;figure.titleweight&#39;: &#39;normal&#39;,
+          &#39;font.cursive&#39;: [&#39;Apple Chancery&#39;,
+                           &#39;Textile&#39;,
+                           &#39;Zapf Chancery&#39;,
+                           &#39;Sand&#39;,
+                           &#39;Script MT&#39;,
+                           &#39;Felipa&#39;,
+                           &#39;Comic Neue&#39;,
+                           &#39;Comic Sans MS&#39;,
+                           &#39;cursive&#39;],
+          &#39;font.family&#39;: [&#39;sans-serif&#39;],
+          &#39;font.fantasy&#39;: [&#39;Chicago&#39;,
+                           &#39;Charcoal&#39;,
+                           &#39;Impact&#39;,
+                           &#39;Western&#39;,
+                           &#39;Humor Sans&#39;,
+                           &#39;xkcd&#39;,
+                           &#39;fantasy&#39;],
+          &#39;font.monospace&#39;: [&#39;DejaVu Sans Mono&#39;,
+                             &#39;Bitstream Vera Sans Mono&#39;,
+                             &#39;Computer Modern Typewriter&#39;,
+                             &#39;Andale Mono&#39;,
+                             &#39;Nimbus Mono L&#39;,
+                             &#39;Courier New&#39;,
+                             &#39;Courier&#39;,
+                             &#39;Fixed&#39;,
+                             &#39;Terminal&#39;,
+                             &#39;monospace&#39;],
+          &#39;font.sans-serif&#39;: [&#39;DejaVu Sans&#39;,
+                              &#39;Bitstream Vera Sans&#39;,
+                              &#39;Computer Modern Sans Serif&#39;,
+                              &#39;Lucida Grande&#39;,
+                              &#39;Verdana&#39;,
+                              &#39;Geneva&#39;,
+                              &#39;Lucid&#39;,
+                              &#39;Arial&#39;,
+                              &#39;Helvetica&#39;,
+                              &#39;Avant Garde&#39;,
+                              &#39;sans-serif&#39;],
+          &#39;font.serif&#39;: [&#39;DejaVu Serif&#39;,
+                         &#39;Bitstream Vera Serif&#39;,
+                         &#39;Computer Modern Roman&#39;,
+                         &#39;New Century Schoolbook&#39;,
+                         &#39;Century Schoolbook L&#39;,
+                         &#39;Utopia&#39;,
+                         &#39;ITC Bookman&#39;,
+                         &#39;Bookman&#39;,
+                         &#39;Nimbus Roman No9 L&#39;,
+                         &#39;Times New Roman&#39;,
+                         &#39;Times&#39;,
+                         &#39;Palatino&#39;,
+                         &#39;Charter&#39;,
+                         &#39;serif&#39;],
+          &#39;font.size&#39;: 10.0,
+          &#39;font.stretch&#39;: &#39;normal&#39;,
+          &#39;font.style&#39;: &#39;normal&#39;,
+          &#39;font.variant&#39;: &#39;normal&#39;,
+          &#39;font.weight&#39;: &#39;normal&#39;,
+          &#39;grid.alpha&#39;: 1.0,
+          &#39;grid.color&#39;: &#39;#b0b0b0&#39;,
+          &#39;grid.linestyle&#39;: &#39;-&#39;,
+          &#39;grid.linewidth&#39;: 0.8,
+          &#39;hatch.color&#39;: &#39;black&#39;,
+          &#39;hatch.linewidth&#39;: 1.0,
+          &#39;hist.bins&#39;: 10,
+          &#39;image.aspect&#39;: &#39;equal&#39;,
+          &#39;image.cmap&#39;: &#39;viridis&#39;,
+          &#39;image.composite_image&#39;: True,
+          &#39;image.interpolation&#39;: &#39;antialiased&#39;,
+          &#39;image.lut&#39;: 256,
+          &#39;image.origin&#39;: &#39;upper&#39;,
+          &#39;image.resample&#39;: True,
+          &#39;interactive&#39;: True,
+          &#39;keymap.back&#39;: [&#39;left&#39;, &#39;c&#39;, &#39;backspace&#39;, &#39;MouseButton.BACK&#39;],
+          &#39;keymap.copy&#39;: [&#39;ctrl+c&#39;, &#39;cmd+c&#39;],
+          &#39;keymap.forward&#39;: [&#39;right&#39;, &#39;v&#39;, &#39;MouseButton.FORWARD&#39;],
+          &#39;keymap.fullscreen&#39;: [&#39;f&#39;, &#39;ctrl+f&#39;],
+          &#39;keymap.grid&#39;: [&#39;g&#39;],
+          &#39;keymap.grid_minor&#39;: [&#39;G&#39;],
+          &#39;keymap.help&#39;: [&#39;f1&#39;],
+          &#39;keymap.home&#39;: [&#39;h&#39;, &#39;r&#39;, &#39;home&#39;],
+          &#39;keymap.pan&#39;: [&#39;p&#39;],
+          &#39;keymap.quit&#39;: [&#39;ctrl+w&#39;, &#39;cmd+w&#39;, &#39;q&#39;],
+          &#39;keymap.quit_all&#39;: [],
+          &#39;keymap.save&#39;: [&#39;s&#39;, &#39;ctrl+s&#39;],
+          &#39;keymap.xscale&#39;: [&#39;k&#39;, &#39;L&#39;],
+          &#39;keymap.yscale&#39;: [&#39;l&#39;],
+          &#39;keymap.zoom&#39;: [&#39;o&#39;],
+          &#39;legend.borderaxespad&#39;: 0.5,
+          &#39;legend.borderpad&#39;: 0.4,
+          &#39;legend.columnspacing&#39;: 2.0,
+          &#39;legend.edgecolor&#39;: &#39;0.8&#39;,
+          &#39;legend.facecolor&#39;: &#39;inherit&#39;,
+          &#39;legend.fancybox&#39;: True,
+          &#39;legend.fontsize&#39;: &#39;medium&#39;,
+          &#39;legend.framealpha&#39;: 0.8,
+          &#39;legend.frameon&#39;: True,
+          &#39;legend.handleheight&#39;: 0.7,
+          &#39;legend.handlelength&#39;: 2.0,
+          &#39;legend.handletextpad&#39;: 0.8,
+          &#39;legend.labelcolor&#39;: &#39;None&#39;,
+          &#39;legend.labelspacing&#39;: 0.5,
+          &#39;legend.loc&#39;: &#39;best&#39;,
+          &#39;legend.markerscale&#39;: 1.0,
+          &#39;legend.numpoints&#39;: 1,
+          &#39;legend.scatterpoints&#39;: 1,
+          &#39;legend.shadow&#39;: False,
+          &#39;legend.title_fontsize&#39;: None,
+          &#39;lines.antialiased&#39;: True,
+          &#39;lines.color&#39;: &#39;C0&#39;,
+          &#39;lines.dash_capstyle&#39;: &lt;CapStyle.butt: &#39;butt&#39;&gt;,
+          &#39;lines.dash_joinstyle&#39;: &lt;JoinStyle.round: &#39;round&#39;&gt;,
+          &#39;lines.dashdot_pattern&#39;: [6.4, 1.6, 1.0, 1.6],
+          &#39;lines.dashed_pattern&#39;: [3.7, 1.6],
+          &#39;lines.dotted_pattern&#39;: [1.0, 1.65],
+          &#39;lines.linestyle&#39;: &#39;-&#39;,
+          &#39;lines.linewidth&#39;: 1.5,
+          &#39;lines.marker&#39;: &#39;None&#39;,
+          &#39;lines.markeredgecolor&#39;: &#39;auto&#39;,
+          &#39;lines.markeredgewidth&#39;: 1.0,
+          &#39;lines.markerfacecolor&#39;: &#39;auto&#39;,
+          &#39;lines.markersize&#39;: 6.0,
+          &#39;lines.scale_dashes&#39;: True,
+          &#39;lines.solid_capstyle&#39;: &lt;CapStyle.projecting: &#39;projecting&#39;&gt;,
+          &#39;lines.solid_joinstyle&#39;: &lt;JoinStyle.round: &#39;round&#39;&gt;,
+          &#39;macosx.window_mode&#39;: &#39;system&#39;,
+          &#39;markers.fillstyle&#39;: &#39;full&#39;,
+          &#39;mathtext.bf&#39;: &#39;sans:bold&#39;,
+          &#39;mathtext.bfit&#39;: &#39;sans:italic:bold&#39;,
+          &#39;mathtext.cal&#39;: &#39;cursive&#39;,
+          &#39;mathtext.default&#39;: &#39;it&#39;,
+          &#39;mathtext.fallback&#39;: &#39;cm&#39;,
+          &#39;mathtext.fontset&#39;: &#39;dejavusans&#39;,
+          &#39;mathtext.it&#39;: &#39;sans:italic&#39;,
+          &#39;mathtext.rm&#39;: &#39;sans&#39;,
+          &#39;mathtext.sf&#39;: &#39;sans&#39;,
+          &#39;mathtext.tt&#39;: &#39;monospace&#39;,
+          &#39;patch.antialiased&#39;: True,
+          &#39;patch.edgecolor&#39;: &#39;black&#39;,
+          &#39;patch.facecolor&#39;: &#39;C0&#39;,
+          &#39;patch.force_edgecolor&#39;: False,
+          &#39;patch.linewidth&#39;: 1.0,
+          &#39;path.effects&#39;: [],
+          &#39;path.simplify&#39;: True,
+          &#39;path.simplify_threshold&#39;: 0.111111111111,
+          &#39;path.sketch&#39;: None,
+          &#39;path.snap&#39;: True,
+          &#39;pcolor.shading&#39;: &#39;auto&#39;,
+          &#39;pcolormesh.snap&#39;: True,
+          &#39;pdf.compression&#39;: 6,
+          &#39;pdf.fonttype&#39;: 3,
+          &#39;pdf.inheritcolor&#39;: False,
+          &#39;pdf.use14corefonts&#39;: False,
+          &#39;pgf.preamble&#39;: &#39;&#39;,
+          &#39;pgf.rcfonts&#39;: True,
+          &#39;pgf.texsystem&#39;: &#39;xelatex&#39;,
+          &#39;polaraxes.grid&#39;: True,
+          &#39;ps.distiller.res&#39;: 6000,
+          &#39;ps.fonttype&#39;: 3,
+          &#39;ps.papersize&#39;: &#39;letter&#39;,
+          &#39;ps.useafm&#39;: False,
+          &#39;ps.usedistiller&#39;: None,
+          &#39;savefig.bbox&#39;: None,
+          &#39;savefig.directory&#39;: &#39;~&#39;,
+          &#39;savefig.dpi&#39;: &#39;figure&#39;,
+          &#39;savefig.edgecolor&#39;: &#39;auto&#39;,
+          &#39;savefig.facecolor&#39;: &#39;auto&#39;,
+          &#39;savefig.format&#39;: &#39;png&#39;,
+          &#39;savefig.orientation&#39;: &#39;portrait&#39;,
+          &#39;savefig.pad_inches&#39;: 0.1,
+          &#39;savefig.transparent&#39;: False,
+          &#39;scatter.edgecolors&#39;: &#39;face&#39;,
+          &#39;scatter.marker&#39;: &#39;o&#39;,
+          &#39;svg.fonttype&#39;: &#39;path&#39;,
+          &#39;svg.hashsalt&#39;: None,
+          &#39;svg.image_inline&#39;: True,
+          &#39;text.antialiased&#39;: True,
+          &#39;text.color&#39;: &#39;black&#39;,
+          &#39;text.hinting&#39;: &#39;force_autohint&#39;,
+          &#39;text.hinting_factor&#39;: 8,
+          &#39;text.kerning_factor&#39;: 0,
+          &#39;text.latex.preamble&#39;: &#39;&#39;,
+          &#39;text.parse_math&#39;: True,
+          &#39;text.usetex&#39;: False,
+          &#39;timezone&#39;: &#39;UTC&#39;,
+          &#39;tk.window_focus&#39;: False,
+          &#39;toolbar&#39;: &#39;toolbar2&#39;,
+          &#39;webagg.address&#39;: &#39;127.0.0.1&#39;,
+          &#39;webagg.open_in_browser&#39;: True,
+          &#39;webagg.port&#39;: 8988,
+          &#39;webagg.port_retries&#39;: 50,
+          &#39;xaxis.labellocation&#39;: &#39;center&#39;,
+          &#39;xtick.alignment&#39;: &#39;center&#39;,
+          &#39;xtick.bottom&#39;: True,
+          &#39;xtick.color&#39;: &#39;black&#39;,
+          &#39;xtick.direction&#39;: &#39;out&#39;,
+          &#39;xtick.labelbottom&#39;: True,
+          &#39;xtick.labelcolor&#39;: &#39;inherit&#39;,
+          &#39;xtick.labelsize&#39;: &#39;medium&#39;,
+          &#39;xtick.labeltop&#39;: False,
+          &#39;xtick.major.bottom&#39;: True,
+          &#39;xtick.major.pad&#39;: 3.5,
+          &#39;xtick.major.size&#39;: 3.5,
+          &#39;xtick.major.top&#39;: True,
+          &#39;xtick.major.width&#39;: 0.8,
+          &#39;xtick.minor.bottom&#39;: True,
+          &#39;xtick.minor.ndivs&#39;: &#39;auto&#39;,
+          &#39;xtick.minor.pad&#39;: 3.4,
+          &#39;xtick.minor.size&#39;: 2.0,
+          &#39;xtick.minor.top&#39;: True,
+          &#39;xtick.minor.visible&#39;: False,
+          &#39;xtick.minor.width&#39;: 0.6,
+          &#39;xtick.top&#39;: False,
+          &#39;yaxis.labellocation&#39;: &#39;center&#39;,
+          &#39;ytick.alignment&#39;: &#39;center_baseline&#39;,
+          &#39;ytick.color&#39;: &#39;black&#39;,
+          &#39;ytick.direction&#39;: &#39;out&#39;,
+          &#39;ytick.labelcolor&#39;: &#39;inherit&#39;,
+          &#39;ytick.labelleft&#39;: True,
+          &#39;ytick.labelright&#39;: False,
+          &#39;ytick.labelsize&#39;: &#39;medium&#39;,
+          &#39;ytick.left&#39;: True,
+          &#39;ytick.major.left&#39;: True,
+          &#39;ytick.major.pad&#39;: 3.5,
+          &#39;ytick.major.right&#39;: True,
+          &#39;ytick.major.size&#39;: 3.5,
+          &#39;ytick.major.width&#39;: 0.8,
+          &#39;ytick.minor.left&#39;: True,
+          &#39;ytick.minor.ndivs&#39;: &#39;auto&#39;,
+          &#39;ytick.minor.pad&#39;: 3.4,
+          &#39;ytick.minor.right&#39;: True,
+          &#39;ytick.minor.size&#39;: 2.0,
+          &#39;ytick.minor.visible&#39;: False,
+          &#39;ytick.minor.width&#39;: 0.6,
+          &#39;ytick.right&#39;: False})
+</pre></div>
+</div>
+</div>
+</div>
+<p>Количество настраиваемых параметров впечатляет.
+Но к концу раздела мы сформируем собственный файл настроек, и вы убедитесь, насколько легко это на самом деле.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Это обычный словарь, а значит, можно читать данные</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.edgecolor&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;black&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Можно изменять данные в этом словаре.
+Это изменит стиль графиков глобальным образом (рубрика “<em>Вредные советы</em>”):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Сделаем оси ядовито-зелёного цвета</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.edgecolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;#40fd14&quot;</span>
+<span class="c1"># И утолстим их</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.linewidth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="c1"># А ещё сделаем фиолетовые числовые метки на осях</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;xtick.color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;purple&quot;</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;ytick.color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;purple&quot;</span>
+<span class="c1"># И розовую сетку</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;grid.color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pink&quot;</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;grid.linewidth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># Ну и жёлтый фон - куда же без него)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.facecolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span>
+
+<span class="c1"># И просто построим график</span>
+<span class="n">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f362c78df519c9563262d54a9a8282f03b412cc483031ebaa7b21641bccebbbb.png" src="../_images/f362c78df519c9563262d54a9a8282f03b412cc483031ebaa7b21641bccebbbb.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Реакция любого вашего читателя (даже самого преданного)…</p>
+<p><img alt="Бедный читатель..." src="../_images/cat_bruh.gif" /></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Кстати, вы изменили поведение любого стиля, т.к. изменили глобальную переменную <code class="docutils literal notranslate"><span class="pre">mpl.rcParams</span></code>.
+Это нехорошо.
+Нужно бы вернуть всё, как было.
+К счастью, сделать это в программе гораздо проще, чем в жизни:</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Если и делать такое, то строго так</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParamsDefault</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Разумеется, не стоит <em>так</em> оформлять свои графики.
+Также не стоит менять оформление через изменение <code class="docutils literal notranslate"><span class="pre">mpl.rcParams</span></code> - это крайне неудобно в реальных проектах.
+Выход есть - использовать собственный файл настроек.</p>
+</section>
+</section>
+<section id="id3">
+<h2>Файл собственных настроек стиля<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>Назовём наш файл с настройками <code class="docutils literal notranslate"><span class="pre">sciart.mplstyle</span></code>.
+Это обычный текстовый файл, который определённым образом интерпретируется (считывается) пакетом matplotlib.
+Выглядит он просто:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># &lt;- этот символ означает комментарий, как и в Python</span>
+
+<span class="c1"># Настраиваем шрифт</span>
+
+<span class="c1"># - обычный</span>
+<span class="n">font</span><span class="o">.</span><span class="n">family</span><span class="p">:</span>    <span class="n">serif</span>
+<span class="n">font</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>      <span class="mf">12.0</span>
+<span class="n">font</span><span class="o">.</span><span class="n">serif</span><span class="p">:</span>     <span class="n">Times</span> <span class="n">New</span> <span class="n">Roman</span>
+
+<span class="c1"># - в математических выражениях                                                     </span>
+<span class="n">mathtext</span><span class="o">.</span><span class="n">fontset</span><span class="p">:</span>   <span class="n">stix</span>
+<span class="n">mathtext</span><span class="o">.</span><span class="n">bf</span><span class="p">:</span>        <span class="n">serif</span><span class="p">:</span><span class="n">bold</span>
+<span class="n">mathtext</span><span class="o">.</span><span class="n">bfit</span><span class="p">:</span>      <span class="n">serif</span><span class="p">:</span><span class="n">italic</span><span class="p">:</span><span class="n">bold</span>
+<span class="n">mathtext</span><span class="o">.</span><span class="n">it</span><span class="p">:</span>        <span class="n">serif</span><span class="p">:</span><span class="n">italic</span>
+<span class="n">mathtext</span><span class="o">.</span><span class="n">rm</span><span class="p">:</span>        <span class="n">serif</span>
+
+<span class="c1"># Настраиваем оси</span>
+
+<span class="c1"># - 2D</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">linewidth</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">grid</span><span class="p">:</span>      <span class="kc">True</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">labelsize</span><span class="p">:</span> <span class="n">large</span>
+
+<span class="c1"># - 3D</span>
+<span class="n">axes3d</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">panecolor</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes3d</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">panecolor</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes3d</span><span class="o">.</span><span class="n">zaxis</span><span class="o">.</span><span class="n">panecolor</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Числовые метки осей</span>
+<span class="n">xtick</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>   <span class="mf">4.0</span>
+<span class="n">xtick</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>  <span class="mf">1.0</span>
+<span class="n">ytick</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>    <span class="mf">4.0</span>
+<span class="n">ytick</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>   <span class="mf">1.0</span>
+
+<span class="c1"># Сетка</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">linestyle</span><span class="p">:</span> <span class="p">:</span>
+
+<span class="c1"># Легенда</span>
+<span class="n">legend</span><span class="o">.</span><span class="n">fancybox</span><span class="p">:</span>    <span class="kc">False</span>
+<span class="n">legend</span><span class="o">.</span><span class="n">fontsize</span><span class="p">:</span>    <span class="n">medium</span>
+
+<span class="c1"># Слегка подстраиваем различные типы графиков</span>
+<span class="n">image</span><span class="o">.</span><span class="n">origin</span><span class="p">:</span> <span class="n">lower</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">bins</span><span class="p">:</span> <span class="n">auto</span>
+<span class="n">scatter</span><span class="o">.</span><span class="n">marker</span><span class="p">:</span> <span class="o">.</span>
+
+<span class="c1"># Параметры сохранения по умолчанию</span>
+<span class="n">savefig</span><span class="o">.</span><span class="n">dpi</span><span class="p">:</span>         <span class="mi">300</span>
+<span class="n">savefig</span><span class="o">.</span><span class="n">format</span><span class="p">:</span>      <span class="n">tiff</span>
+<span class="n">savefig</span><span class="o">.</span><span class="n">bbox</span><span class="p">:</span>        <span class="n">tight</span>
+</pre></div>
+</div>
+<p>Настроек гораздо больше, указали мы далеко не все.
+Однако неуказанные настройки будут взяты из <code class="docutils literal notranslate"><span class="pre">mpl.rcParams</span></code>.</p>
+<p>Добавьте этот файл в свой проект и с лёгкостью получайте кастомное оформление либо через контекстный стиль, либо через глобальную настройку:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Используем контекст</span>
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;sciart.mplstyle&quot;</span><span class="p">):</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Аргумент $x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/23c14891271e727a11f7f6449d7219456c1712daf22d976f698f64e1a9cb9cbf.png" src="../_images/23c14891271e727a11f7f6449d7219456c1712daf22d976f698f64e1a9cb9cbf.png" />
+</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Важно, чтобы используемый вами шрифт (в данном случае Times New Roman) был системным.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Или через глобальную установку</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;sciart.mplstyle&quot;</span><span class="p">)</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Аргумент $x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/23c14891271e727a11f7f6449d7219456c1712daf22d976f698f64e1a9cb9cbf.png" src="../_images/23c14891271e727a11f7f6449d7219456c1712daf22d976f698f64e1a9cb9cbf.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>Комбинация стилей<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>А что, если в качестве стиля указать несколько различных стилей?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">([</span><span class="s2">&quot;dark_background&quot;</span><span class="p">,</span> <span class="s2">&quot;sciart.mplstyle&quot;</span><span class="p">]):</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Аргумент $x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/920069c302ade29e82cf10ad2bf153c5160d39c6f7fb48bef08bff21698a043a.png" src="../_images/920069c302ade29e82cf10ad2bf153c5160d39c6f7fb48bef08bff21698a043a.png" />
+</div>
+</div>
+<p>Чудесным образом мы получили оформление <code class="docutils literal notranslate"><span class="pre">&quot;dark_background&quot;</span></code>, некоторые настройки которого перезаписаны нашим собственным стилем <code class="docutils literal notranslate"><span class="pre">&quot;sciart.mplstyle&quot;</span></code>.</p>
+<p>Но и это ещё не всё.
+Что насчёт чтения настроек стиля прямиком из репозитория в интернете?</p>
+</section>
+<section id="id5">
+<h2>Стиль из интернета<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>Для того, чтобы получить стиль из любого файла <code class="docutils literal notranslate"><span class="pre">.mplstyle</span></code>, находящегося где-то в сети, достаточно вместо имени стиля (типа <code class="docutils literal notranslate"><span class="pre">&quot;ggplot&quot;</span></code>)  или пути к файлу с настройками (типа <code class="docutils literal notranslate"><span class="pre">&quot;sciart.mplstyle&quot;</span></code>) указать его URL:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Например, так</span>
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle&quot;</span><span class="p">):</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_sincos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Аргумент $x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b487fec371b470eaefac0aca02ac50b0773c6b99ed1acdd09f97933b0013278b.png" src="../_images/b487fec371b470eaefac0aca02ac50b0773c6b99ed1acdd09f97933b0013278b.png" />
+</div>
+</div>
+<p>Настолько Matplotlib функционален.</p>
+</section>
+<section id="id6">
+<h2>См. также<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html">Список стандартных стилей Matplotlib.</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/users/explain/customizing.html">Всё о кастомизации Matplotlib…</a></p></li>
+<li><p><a class="reference external" href="https://python-charts.com/matplotlib/styles/">И даже больше.</a></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./plotting"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="improved-matplotlib.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Особенности matplotlib</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3d-matplotlib.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Визуализация трёхмерных данных с использованием matplotlib</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Использование готовых стилей</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Глобальная настройка стиля</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plt-style-use">Функция <code class="docutils literal notranslate"><span class="pre">plt.style.use</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-rcparams">Изменение глобальной переменной <code class="docutils literal notranslate"><span class="pre">matplotlib.rcParams</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Файл собственных настроек стиля</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Комбинация стилей</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Стиль из интернета</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">См. также</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vadim Fedulov
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
