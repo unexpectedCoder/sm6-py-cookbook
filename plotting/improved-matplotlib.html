@@ -392,12 +392,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Цвет линии, её стиль и другие параметры</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Пределы и масштабы осей</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Построение двух графиков в одних осях. Легенда</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Стили графиков</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Создание собственного стиля графиков</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Вертикальные, горизонтальные и наклонные линии</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Несколько осей на одном поле</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Вертикальные, горизонтальные и наклонные линии</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Несколько осей на одном поле</a></li>
 </ul>
             </nav>
         </div>
@@ -428,11 +424,11 @@ f(x) = x^3
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">cube_of</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cube_of</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -440,20 +436,20 @@ f(x) = x^3
 </section>
 <section id="id2">
 <h2>Подписи графика и его осей, отображение сетки<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<p>Отобразить названия осей можно с помощью методов <code class="docutils literal notranslate"><span class="pre">set_xlabel(...)</span></code> и <code class="docutils literal notranslate"><span class="pre">set_ylabel(...)</span></code> класса <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code>.
-При этом действует математический синтаксис “$…$”, благодаря чему возможно отображать всевозможные математические выражения.
-Аналогичным способом пишется заголовок графика - метод <code class="docutils literal notranslate"><span class="pre">set_title(...)</span></code>.</p>
-<p>Включить или отключить отбражение сетки можно с помощью метода <code class="docutils literal notranslate"><span class="pre">grid(...)</span></code> того же класса <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Не забываем импортировать matplotlib.pyplot</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
+<span class="c1"># Создали объекты окна fig и осей ax</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># Строим график типа plot</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1"># Подписываем оси, пишем заголовок</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Значение функции $f(x) = x^3$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Пример графика $f(x)$&quot;</span><span class="p">)</span>
+<span class="c1"># Отображаем сетку</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -461,6 +457,13 @@ f(x) = x^3
 <div class="cell_output docutils container">
 <img alt="../_images/d08842f0ecde543d764e6d4b09a5431807e4278e4a77210f424ddd312fa8be89.png" src="../_images/d08842f0ecde543d764e6d4b09a5431807e4278e4a77210f424ddd312fa8be89.png" />
 </div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Обратите внимание на текст, обрамлённый <code class="docutils literal notranslate"><span class="pre">$...$</span></code>.
+Текст между <code class="docutils literal notranslate"><span class="pre">$</span></code> интепретируется как математическое выражение.
+Синтаксис (и возможности), как в текстовом процессоре <span class="math notranslate nohighlight">\(\LaTeX\)</span>.
+Примеры математических выражений можно найти <a class="reference external" href="https://www.overleaf.com/learn/latex/Mathematical_expressions">здесь</a>.</p>
 </div>
 <p>Можно настроить отображение и через единный метод <code class="docutils literal notranslate"><span class="pre">plt.axis.set</span></code>, передав ему соответствующие именованные аргументы:</p>
 <div class="cell docutils container">
@@ -531,6 +534,8 @@ f(x) = x^3
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># lw - linewidth</span>
+<span class="c1"># alpha - уровень прозрачности</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;k:&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -546,7 +551,8 @@ f(x) = x^3
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Вы можете задавать любой цвет шестнадцатиричным кодом вот так <code class="docutils literal notranslate"><span class="pre">c=&quot;#cd5c5c&quot;</span></code>.</p>
+<p>Вы можете задавать любой цвет шестнадцатиричным кодом.
+Пример: <code class="docutils literal notranslate"><span class="pre">c=&quot;#cd5c5c&quot;</span></code>.</p>
 </div>
 <p>Многие именованные параметры линий работают и для линий сетки. Вот, например, чёрная сетка в точку:</p>
 <div class="cell docutils container">
@@ -564,11 +570,10 @@ f(x) = x^3
 </section>
 <section id="id4">
 <h2>Пределы и масштабы осей<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://matplotlib.org/">matplotlib</a> по умолчанию настраивает оси автоматически на основе входных данных.
+<p>Matplotlib по умолчанию настраивает оси автоматически на основе входных данных.
 В большинстве случаев этого достаточно.
 Но иногда возникает необходимость назначить пределы осей вручную, например, когда эти пределы должны быть одинаковы на разных графиках.</p>
-<p>Переназначить пределы осей можно через тот же метод <code class="docutils literal notranslate"><span class="pre">plt.axis.set(...)</span></code>
-(или посредством отдельных методов <code class="docutils literal notranslate"><span class="pre">set_xlim(...)</span></code> и <code class="docutils literal notranslate"><span class="pre">set_ylim(...)</span></code> объекта класса <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code>):</p>
+<p>Переназначить пределы осей можно через тот же метод <code class="docutils literal notranslate"><span class="pre">plt.axis.set</span></code> или посредством отдельных методов <code class="docutils literal notranslate"><span class="pre">set_xlim</span></code> и <code class="docutils literal notranslate"><span class="pre">set_ylim</span></code> объекта класса <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -584,7 +589,7 @@ f(x) = x^3
 <p>Можно заметить, что на всех ранее построенных графиках масштабы осей <em>x</em> и <em>y</em> неодинаковы.
 Это искажает пропорции графика (следовательно, и любые углы), что в ряде случаев негативно сказывается на информативности графика.
 В качестве примера можно привести изображение траектории полёта летательного аппарата в некоторой плоскости.</p>
-<p>Сделать масштаб осей одинаковым вручную может быть затруднительно, поскольку масштаб зависит от размеров окна, геометрической длины осей. В <a class="reference external" href="https://matplotlib.org/">matplotlib</a> реализована возможность построения в одинаковом масштабе по осям: <code class="docutils literal notranslate"><span class="pre">plt.axis.set_aspect(&quot;equal&quot;)</span></code> или <code class="docutils literal notranslate"><span class="pre">set(aspect=&quot;equal&quot;)</span></code>. В таком случае геометрия линий не будет искажена.
+<p>Сделать масштаб осей одинаковым вручную может быть затруднительно, поскольку масштаб зависит от размеров окна и длины осей. В Matplotlib реализована возможность построения в одинаковом масштабе по осям: <code class="docutils literal notranslate"><span class="pre">plt.axis.set_aspect(&quot;equal&quot;)</span></code> или <code class="docutils literal notranslate"><span class="pre">set(aspect=&quot;equal&quot;)</span></code>. В таком случае геометрия линий не будет искажена.
 При этом, в интерактивном режиме растягивая окно графика, мы будем получать так же одинаковые масштабы осей.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -601,7 +606,7 @@ f(x) = x^3
 </section>
 <section id="id5">
 <h2>Построение двух графиков в одних осях. Легенда<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
-<p>Построим в одном поле график кубической параболы <a class="reference internal" href="#equation-func-x3-eq">(1)</a>,
+<p>Построим в одном поле (окне) график кубической параболы <a class="reference internal" href="#equation-func-x3-eq">(1)</a>,
 а также графики её производных: <span class="math notranslate nohighlight">\(f'(x) = 3 x^2\)</span> и <span class="math notranslate nohighlight">\(f''(x) = 6 x\)</span>.</p>
 <p>Опишем функции производных и рассчитаем данные в тех же рассчётных точках <code class="docutils literal notranslate"><span class="pre">x</span></code>:</p>
 <div class="cell docutils container">
@@ -622,8 +627,13 @@ f(x) = x^3
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># В одних и тех же осях ax</span>
+<span class="c1"># строим три графика</span>
+<span class="c1"># - 1</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1"># - 2</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der</span><span class="p">)</span>
+<span class="c1"># - 3</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
     <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span>
@@ -640,9 +650,9 @@ f(x) = x^3
 </div>
 <p>Но как показать, где конкретно график функции, а где графики её производных?</p>
 <p>Для этого предназначена легенда (legend) графика:
-метод <code class="docutils literal notranslate"><span class="pre">plt.axis.legend(...)</span></code>.
-Чтобы легенда отобразила содержательную информацию, необходимо в каждом методе <code class="docutils literal notranslate"><span class="pre">plt.axis.plot(...)</span></code> инициализировать поле <code class="docutils literal notranslate"><span class="pre">label</span></code> (метка, ярлык).
-Текст этого поля <code class="docutils literal notranslate"><span class="pre">label</span></code> будет отображён в легенде графика.</p>
+метод <code class="docutils literal notranslate"><span class="pre">plt.axis.legend</span></code>.
+Чтобы легенда отобразила содержательную информацию, необходимо в каждом методе <code class="docutils literal notranslate"><span class="pre">plt.axis.plot</span></code> инициализировать поле <code class="docutils literal notranslate"><span class="pre">label</span></code> (метка, ярлык).
+Текст, переданный через данный параметр, будет отображён в легенде графика.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>В тексте меток также возможно писать математические выражения <code class="docutils literal notranslate"><span class="pre">&quot;\$...\$&quot;</span></code>.</p>
@@ -660,8 +670,9 @@ f(x) = x^3
     <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Функция $f(x) = x^3$ и её производные&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-<span class="c1"># Отобразим легенду.</span>
-<span class="c1"># По умолчанию будет выбрано наилучшее расположение легенды.</span>
+<span class="c1"># Отобразим легенду:</span>
+<span class="c1"># по умолчанию будет выбрано наилучшее расположение легенды,</span>
+<span class="c1"># но его можно назначить и вручную</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -699,38 +710,14 @@ f(x) = x^3
 Вы помещаете туда построенные цветные графики.
 Но у вас не оказалось цветного принтера, а печать цветного отчёта со множеством картинок и графиков в копирке может влететь в копеечку.
 Печать же чёрно-белого варианта работы может привести к такому результату:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y_der</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Производная $f&#39;(x)$&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y_der2</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Производная $f&#39;&#39;(x)$&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span>
-    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Функция $f(x) = x^3$ и её производные&quot;</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="../_images/a960772b1f0145dacca3d9815edea1461d2225b52b529983df9a3c5832dad071.png" src="../_images/a960772b1f0145dacca3d9815edea1461d2225b52b529983df9a3c5832dad071.png" />
 </div>
 </div>
 <p>Различие между графиками размыто.
 Различить графики можно по стилю линий или их толщине.
-По умолчанию <a class="reference external" href="https://matplotlib.org/">matplotlib</a> ничего со стилем и толщиной линий не делает.</p>
+По умолчанию Matplotlib ничего со стилем и толщиной линий не делает.</p>
 <p>Рекомендация следующая.
 Если вы планируете печать или публикацию своей работы в оттенках серого, то стройте все графики в чёрном цвете, разделяя их стилями и/или толщинами линий, например, так:</p>
 <div class="cell docutils container">
@@ -763,164 +750,14 @@ f(x) = x^3
 <img alt="../_images/65ba1265f26e38b4b63a0f8110b28540e5512ffa04a21c9a17a30fff26be38f4.png" src="../_images/65ba1265f26e38b4b63a0f8110b28540e5512ffa04a21c9a17a30fff26be38f4.png" />
 </div>
 </div>
+<p>Либо используйте такие цвета (а matplotlib по умолчанию именно такие и использует), которые заметно отличаются друг от друга в сером варианте.</p>
+<p>В разделе <a class="reference internal" href="customizing.html"><span class="doc">Оформление графиков в Matplotlib</span></a> рассмотрим различные стили оформления графиков и создадим собственный стиль, который вы сможете использовать при оформлении своих работ.</p>
 </section>
 <section id="id6">
-<h2>Стили графиков<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
-<p>В <a class="reference external" href="https://matplotlib.org/">matplotlib</a> имеется возможность настройки стилей графиков.
-Делается это, как вариант, построением графиков в определённом стилевом контексте <code class="docutils literal notranslate"><span class="pre">plt.style.context(&lt;style_name&gt;)</span></code> с использованием оператора контекста <code class="docutils literal notranslate"><span class="pre">with</span></code> языка Python 3.</p>
-<p>Список готовых стилей можно найти <a class="reference external" href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html">здесь</a>.</p>
-<p>Построим график в стиле <em>bmh</em>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;bmh&quot;</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Производная $f&#39;(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Производная $f&#39;&#39;(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-        <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Функция $f(x) = x^3$ и её производные&quot;</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/8fbf4c5bfc41113823702279fb6307f441bfdc817b1b1eaf9898d98328da60ff.png" src="../_images/8fbf4c5bfc41113823702279fb6307f441bfdc817b1b1eaf9898d98328da60ff.png" />
-</div>
-</div>
-<p>Стиль помимо прочего определяет собственные последовательности цветов линий, фона, сетки, легенды, шрифтов и т.д.</p>
-<p>Те же графики на тёмном фоне (полезно для презентаций в тёмных тонах или при публикациях на сайтах с тёмным окружением):</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;dark_background&quot;</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Производная $f&#39;(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Производная $f&#39;&#39;(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-        <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Функция $f(x) = x^3$ и её производные&quot;</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/441829f3d215fc1e9fff69f36e1ad2716989fcdf084240aca18c6495ed5e84ba.png" src="../_images/441829f3d215fc1e9fff69f36e1ad2716989fcdf084240aca18c6495ed5e84ba.png" />
-</div>
-</div>
-<p>Для построения графиков для публикаций в оттенках серого вместо ручного переопределения цветов линий полезно использовать контекст <em>grayscale</em>, но при этом помнить о сложности различия оттенков и преимущественном различии графиков по стилю и/или толщине линий:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">&quot;grayscale&quot;</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Функция $f(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Производная $f&#39;(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Производная $f&#39;&#39;(x)$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-        <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Функция $f(x) = x^3$ и её производные&quot;</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/cd27741bfa91fa913b076229600ac568fcaa1aac531e9a8c53f9c24533b97bed.png" src="../_images/cd27741bfa91fa913b076229600ac568fcaa1aac531e9a8c53f9c24533b97bed.png" />
-</div>
-</div>
-<section id="id7">
-<h3>Создание собственного стиля графиков<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
-<p>Рассмотрим, как можно настроить свой собственный стиль графиков.</p>
-<p>Настройка стиля производится через изменение словаря <a class="reference external" href="https://matplotlib.org/stable/tutorials/introductory/customizing.html"><code class="docutils literal notranslate"><span class="pre">rcParams</span></code></a>, являющегося глобальной переменной библиотеки <a class="reference external" href="https://matplotlib.org/">matplotlib</a>.</p>
-<p>Основные требования к нашему стилю следующие:</p>
-<ul class="simple">
-<li><p>семейство шрифта - serif (шрифт с засечками);</p></li>
-<li><p>размер шрифта - 11pt;</p></li>
-<li><p>использование <span class="math notranslate nohighlight">\(\LaTeX\)</span>’а для отображения формул;</p></li>
-<li><p>цвет линий по умолчанию - чёрный;</p></li>
-<li><p>сетка - точечная серая, по умолчанию не отображается;</p></li>
-<li><p>цвет осей - серый;</p></li>
-<li><p>и др. настройки ниже.</p></li>
-</ul>
-<p>Чтобы не создавать словарь с нуля, будем отталкиваться от словаря стиля по умолчанию:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># cycler нужен для создания циклического перестановщика стилей</span>
-<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
-<span class="c1"># Имортируем саму библиотеку, а не pyplot.</span>
-<span class="c1"># Именно в mpl ней лежит rcParams.</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-
-<span class="c1"># Копируем настройки по умолчанию</span>
-<span class="n">custom_style</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="c1"># Изменяем настройки</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
-
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;font.family&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;serif&quot;</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;font.size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">11</span>
-
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;mathtext.fontset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;cm&quot;</span>
-
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;axes.prop_cycle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span>
-    <span class="n">cycler</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;-.&quot;</span><span class="p">])</span>
-<span class="p">)</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;axes.linewidth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;axes.edgecolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;#c0c0c0&quot;</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;xtick.major.size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;xtick.major.width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;xtick.color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;#c0c0c0&quot;</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;xtick.labelcolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;k&quot;</span>
-
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;ytick.major.size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;ytick.major.width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;ytick.color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;#c0c0c0&quot;</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;ytick.labelcolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;k&quot;</span>
-
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;grid.linestyle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;grid.color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;#c0c0c0&quot;</span>
-
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;legend.framealpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">custom_style</span><span class="p">[</span><span class="s2">&quot;legend.edgecolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Теперь у нас есть собственные настройки. Мы можем хранить их как глобальную переменную нашей программы и в нужный момент построить в этом стиле любой график вот так:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">rc_context</span><span class="p">(</span><span class="n">custom_style</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$f(x) = x^3$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$f&#39;(x) = 3 x^2$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_der2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$f&#39;&#39;(x) = 6 x$&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-        <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$, $y&#39;$, $y&#39;&#39;$&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Пример собственного стиля&quot;</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/2378dfab961e359e3d30a7df99efed6362f8f6897cb93002c621f365fd628044.png" src="../_images/2378dfab961e359e3d30a7df99efed6362f8f6897cb93002c621f365fd628044.png" />
-</div>
-</div>
-</section>
-</section>
-<section id="id8">
-<h2>Вертикальные, горизонтальные и наклонные линии<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
-<p>Методы <code class="docutils literal notranslate"><span class="pre">axline(...)</span></code>, <code class="docutils literal notranslate"><span class="pre">axvline(...)</span></code> и <code class="docutils literal notranslate"><span class="pre">axhline(...)</span></code> класса <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code> предназначены для изображения бесконечных наклонных, вертикальных и горизонтальных прямых соответственно.
+<h2>Вертикальные, горизонтальные и наклонные линии<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>Методы осей <code class="docutils literal notranslate"><span class="pre">axline</span></code>, <code class="docutils literal notranslate"><span class="pre">axvline</span></code> и <code class="docutils literal notranslate"><span class="pre">axhline</span></code> класса <code class="docutils literal notranslate"><span class="pre">plt.axis</span></code> предназначены для изображения бесконечных наклонных, вертикальных и горизонтальных прямых соответственно.
 <em>Бесконечность</em> в данном случае означает, что прямые проходят через всё поле построения графика, в т.ч. после масштабирования последнего.</p>
-<p>Рассмотрим график гиперболы</p>
+<p>Рассмотрим график такой гиперболы:</p>
 <div class="math notranslate nohighlight">
 \[f(x) = \cfrac{1}{x - 2} - 3.\]</div>
 <div class="cell docutils container">
@@ -968,7 +805,7 @@ f(x) = x^3
 <div class="math notranslate nohighlight">
 \[f_{\rm tan}(x) = 1 - x.\]</div>
 <p>Эта прямая пройдёт через две точки: <span class="math notranslate nohighlight">\((3, -2)\)</span> и <span class="math notranslate nohighlight">\((2, -1 )\)</span>.
-Прямая по двум точкам строится методом <code class="docutils literal notranslate"><span class="pre">plt.axis.axline(...)</span></code> так:</p>
+Прямая по двум точкам строится методом <code class="docutils literal notranslate"><span class="pre">axline</span></code> так:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -998,7 +835,9 @@ f(x) = x^3
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="c1"># Касательная</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
-<span class="c1"># Точка касания</span>
+<span class="c1"># Точка касания:</span>
+<span class="c1"># ls=&quot;&quot; - не соединять точки данных;</span>
+<span class="c1"># marker=&quot;o&quot; - изображать точки данных кружком</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;pink&quot;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
@@ -1012,53 +851,11 @@ f(x) = x^3
 <img alt="../_images/9877904e129f5ade87fb43f4208708e8bc429ceab0fe5e92d12bbfad78c2de80.png" src="../_images/9877904e129f5ade87fb43f4208708e8bc429ceab0fe5e92d12bbfad78c2de80.png" />
 </div>
 </div>
-<p>Или в собственном стиле с добавлением легенды и одинаковым масштабом по осям:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">rc_context</span><span class="p">(</span><span class="n">custom_style</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xh</span><span class="p">,</span> <span class="n">yh</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Гипербола&quot;</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span>
-        <span class="mi">2</span><span class="p">,</span>
-        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Вертикальная асимптота&quot;</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
-        <span class="o">-</span><span class="mi">3</span><span class="p">,</span>
-        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Горизонтальная асимптота&quot;</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axline</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
-        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Касательная&quot;</span>
-    <span class="p">)</span>
-    
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-        <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;pink&quot;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Точка касания&quot;</span>
-    <span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-        <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$f(x) = \frac</span><span class="si">{1}</span><span class="s2">{x - 2} - 3$&quot;</span><span class="p">,</span>
-        <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/d9cf5c264163ccfcbaba60af87f0145a95c1c60398033a71c2b9657e16a8a5f7.png" src="../_images/d9cf5c264163ccfcbaba60af87f0145a95c1c60398033a71c2b9657e16a8a5f7.png" />
-</div>
-</div>
 </section>
-<section id="id9">
-<h2>Несколько осей на одном поле<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
-<p>Рассмотрим, как в одном окне построить несколько графиков. Для этого сформулируем новую задачу.</p>
+<section id="id7">
+<h2>Несколько осей на одном поле<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<p>Рассмотрим, как в одном окне построить несколько графики в нескольких осях.
+Для этого сформулируем новую задачу.</p>
 <p>Пусть задана функция движения материальной точки вида</p>
 <div class="math notranslate nohighlight">
 \[x(t) = t^2 + t \sin{t} + \cfrac{1}{t + 1}.\]</div>
@@ -1081,7 +878,7 @@ f(x) = x^3
 </div>
 </div>
 </div>
-<p>Подробнее рассмотрим метод <code class="docutils literal notranslate"><span class="pre">plt.sublots(...)</span></code>.
+<p>Подробнее рассмотрим метод <code class="docutils literal notranslate"><span class="pre">plt.sublots</span></code>.
 Как раз с его помощью можно решить поставленную задачу, создав несколько <em>субграфиков</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1131,8 +928,8 @@ f(x) = x^3
 Второй вариант в данном случае - более хорошее решение.
 Видно, что данные на осях <em>x</em> обоих графиков одинаковы и в физическом, и в численном отношении -
 это время <span class="math notranslate nohighlight">\(t\)</span>.</p>
-<p>Сделать оси <em>x</em> общими можно передачей в метод <code class="docutils literal notranslate"><span class="pre">plt.subplots(...)</span></code> аргумента <code class="docutils literal notranslate"><span class="pre">sharex=True</span></code>.
-Также уберём метку <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> в <code class="docutils literal notranslate"><span class="pre">ax_top.set(...)</span></code>.</p>
+<p>Сделать оси <em>x</em> общими можно передачей в метод <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> аргумента <code class="docutils literal notranslate"><span class="pre">sharex=True</span></code>.
+Также уберём метку <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> в <code class="docutils literal notranslate"><span class="pre">ax_top.set</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax_top</span><span class="p">,</span> <span class="n">ax_bottom</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1149,29 +946,31 @@ f(x) = x^3
 <img alt="../_images/e9f619b9924ae39f78344d34c0f128a035d25d4844b4b802315ea9714e207bf9.png" src="../_images/e9f619b9924ae39f78344d34c0f128a035d25d4844b4b802315ea9714e207bf9.png" />
 </div>
 </div>
-<p>Теперь графики выглядят более органично. И мы всё ещё можем использовать стилевой контекст. Заодно добавим названия (title) каждого графика:</p>
+<p>Теперь графики выглядят более органично.
+Добавим названия (title) каждого графика:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">rc_context</span><span class="p">(</span><span class="n">custom_style</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax_top</span><span class="p">,</span> <span class="n">ax_bottom</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax_top</span><span class="p">,</span> <span class="n">ax_bottom</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">ax_top</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-    <span class="n">ax_top</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Координата точки&quot;</span>
-    <span class="p">)</span>
+<span class="n">ax_top</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">ax_top</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$x$, м&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Координата точки&quot;</span>
+<span class="p">)</span>
+<span class="n">ax_top</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 
-    <span class="n">ax_bottom</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-    <span class="n">ax_bottom</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-        <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$t$, с&quot;</span><span class="p">,</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$v$, м/с&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Скорость точки&quot;</span>
-    <span class="p">)</span>
+<span class="n">ax_bottom</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="n">ax_bottom</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$t$, с&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$v$, м/с&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Скорость точки&quot;</span>
+<span class="p">)</span>
+<span class="n">ax_bottom</span><span class="o">.</span><span class="n">grid</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/32a1f02ace9b5c23313b7faaed0af4b129f1de208177ca70673254296dc45d14.png" src="../_images/32a1f02ace9b5c23313b7faaed0af4b129f1de208177ca70673254296dc45d14.png" />
+<img alt="../_images/1fd0604facbbb06c24eefd440c5b11ea9724456774e8cefa5ff590e124fd123f.png" src="../_images/1fd0604facbbb06c24eefd440c5b11ea9724456774e8cefa5ff590e124fd123f.png" />
 </div>
 </div>
 </section>
@@ -1249,12 +1048,8 @@ f(x) = x^3
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Цвет линии, её стиль и другие параметры</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Пределы и масштабы осей</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Построение двух графиков в одних осях. Легенда</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Стили графиков</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Создание собственного стиля графиков</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Вертикальные, горизонтальные и наклонные линии</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Несколько осей на одном поле</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Вертикальные, горизонтальные и наклонные линии</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Несколько осей на одном поле</a></li>
 </ul>
   </nav></div>
 
