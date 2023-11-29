@@ -19,6 +19,7 @@ chapters:
   sections:
   - file: plotting/basics
   - file: plotting/improved-matplotlib
+  - file: plotting/plot_types
   - file: plotting/customizing
   - file: plotting/3d-matplotlib
 # Математика
