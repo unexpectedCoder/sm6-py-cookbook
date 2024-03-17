@@ -4,6 +4,10 @@
 format: jb-book
 root: intro
 chapters:
+# Основы основ
+- file: basics
+  sections:
+  - file: basics/scripting
 # Основы NumPy
 - file: numpy_basics
   sections:
