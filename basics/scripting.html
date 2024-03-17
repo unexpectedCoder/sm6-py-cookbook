@@ -1,0 +1,1399 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Написание сценариев &#8212; SM6 Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'basics/scripting';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Основы библиотеки NumPy для работы с массивами чисел" href="../numpy_basics.html" />
+    <link rel="prev" title="Основы использования Python" href="../basics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Python-справочник кафедры СМ6 МГТУ им. Н.Э. Баумана
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../basics.html">Основы использования Python</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Написание сценариев</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numpy_basics.html">Основы библиотеки NumPy для работы с массивами чисел</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/creating.html">Создание массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/replicating_joining_mutating.html">Копирование, объединение и изменение массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/indexing.html">Индексация массивов</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/plot_types.html">Разновидности графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/customizing.html">Оформление графиков в Matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/iterators.html">Итераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/generators.html">Генераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/des.html">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numerical_physics.html">Численные методы в физике с Python</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/vector_fields_visual.html">Визуализация векторного поля</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/multipole_expansion.html">Мультипольное разложение в теории электромагнитного поля</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook/issues/new?title=Issue%20on%20page%20%2Fbasics/scripting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/basics/scripting.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Написание сценариев</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Простейший сценарий</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Запуск скриптов посредством командной строки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Скрипт для решения квадратного уравнения</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Формулировка задачи и алгоритма её решения</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Программная реализация</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Рефакторинг</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Интерфейс</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Разрабатываем интерфейс командной строки</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sys">Использование пакета <code class="docutils literal notranslate"><span class="pre">sys</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argparse">Разрабатываем интерфейс с помощью <code class="docutils literal notranslate"><span class="pre">argparse</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Написание сценариев<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>Язык Python часто называется языком написания <em>сценариев</em>.</p>
+<p><em>Сценарий</em> — это отдельные последовательности действий для автоматического выполнения задачи, то есть для <em>автоматизации</em>.</p>
+<p><em>Автоматизация</em> в широком смысле подразумевает под собой применение технических средств, экономико-математических методов и систем управления, освобождающих человека частично или полностью от непосредственного участия в процессах получения, преобразования, передачи и использования энергии, материалов или информации.
+Проще говоря, автоматизация нужна для исключения человеческого фактора и минимизации выполнения человеком рутинных задач.
+Примером рутинных задач могут служить: оформление технического отчёта (домашнего задания, расчётно-пояснительной записки по курсовой работе и т.д.), в котором меняются только числовые данные, графики, но не основной текст; проведение численных расчётов, экспериментов и др.</p>
+<p>Язык Python очень прост в сравнении с другими распространёнными языками программирования.
+Он обладает простым и лаконичным синтаксисом, развитой стандартной библиотекой (то есть тем, что доступно “из коробки”) и богатым множеством сторонних библиотек (
+<a class="reference external" href="https://scipy.org/">SciPy</a>,
+<a class="reference external" href="https://numpy.org/doc/stable/index.html">NumPy</a>,
+<a class="reference external" href="https://matplotlib.org/stable/">Matplotlib</a>,
+<a class="reference external" href="https://pandas.pydata.org/">Pandas</a>,
+<a class="reference external" href="https://networkx.org/">NetworkX</a>
+и многие другие
+).</p>
+<p>Несмотря на то, что Python изначально являлся языком создания сценариев, в настоящее время Python 3 является полноценным языком программирования, с помощью которого можно написать фактически любую программу (кроме ядра операционной системы).</p>
+<p>Мы начнём знакомство с Python с простого — с написания несложных скриптов.</p>
+<section id="id2">
+<h2>Простейший сценарий<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Простейшей программой, с которой начинается чуть ли не каждый учебник по любому языку программирования, является вывод на экран приветственной фразы <a class="reference external" href="https://ru.wikipedia.org/wiki/Hello,_world!">“Hello, world!”</a>.
+В Python это делается одной строкой:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, world!
+</pre></div>
+</div>
+</div>
+</div>
+<p>Только и всего!</p>
+<p>Что содержит в себе этот код:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">print</span></code> — имя функции из стандартной библиотеки Python, обеспечивающей вывод данных в <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82%D0%BD%D1%8B%D0%B5_%D0%BF%D0%BE%D1%82%D0%BE%D0%BA%D0%B8">поток вывода</a>.
+В данном случае вывод осуществляется в консоль.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print(...)</span></code> — это <em>вызов</em> функции <code class="docutils literal notranslate"><span class="pre">print</span></code>.
+Круглые скобки в этом случае являются <em>оператором вызова</em>.</p></li>
+<li><p>“Hello, world!” — это строковый <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D0%BB_(%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0)"><em>литерал</em></a>.
+<em>Литерал</em> — это, простыми словами, что-либо встроенное в код.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>Запуск скриптов посредством командной строки<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>Как правило, код пишется в специализированном редакторе наподобие VS Code, PyCharm и др.
+Поэтому для запуска рассмотренной программы вам нужно:</p>
+<ol class="arabic">
+<li><p>Создать новую директорию. Например, так:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>hello
+</pre></div>
+</div>
+</li>
+<li><p>Перейти в эту директорию:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>hello
+</pre></div>
+</div>
+</li>
+<li><p>Открыть IDE или редактор кода в этой директории. VS Code, к примеру, в текущей директории можно открыть так:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>code<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+<li><p>Создать Python-файл (<code class="docutils literal notranslate"><span class="pre">.py</span></code>), назвав его, к примеру, <code class="docutils literal notranslate"><span class="pre">hello.py</span></code>. Сделать это можно как в открывшемся редакторе, так и в терминале:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>touch<span class="w"> </span>hello.py
+</pre></div>
+</div>
+</li>
+<li><p>Написать код в созданном файле <code class="docutils literal notranslate"><span class="pre">hello/hello.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Запустить программу либо средствами IDE, либо через терминал:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>hello.py
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>В ряде дистрибутивов GNU/Linux наряду с современным интерпретатором Python 3 может быть установлен интерпретатор Python 2 (старая версия языка).
+Поэтому вместо <code class="docutils literal notranslate"><span class="pre">python</span></code> в терминале может потребоваться указывать <code class="docutils literal notranslate"><span class="pre">python3</span></code>.</p>
+</div>
+</li>
+</ol>
+<p>В результате вы должны увидеть заветное приветствие.</p>
+<p>Рассмотрим более осмысленный скрипт, автоматизирующий поиск корней квадратного уравнения.</p>
+</section>
+<section id="id4">
+<h2>Скрипт для решения квадратного уравнения<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>В качестве учебного примера автоматизируем нахождение корней квадратного уравнения</p>
+<div class="math notranslate nohighlight">
+\[
+a x^2 + b x + c = 0.
+\]</div>
+<p>Программа на вход должна получать коэффициенты <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> и <span class="math notranslate nohighlight">\(c\)</span>, выдавая значения корней <span class="math notranslate nohighlight">\(x_1\)</span> и <span class="math notranslate nohighlight">\(x_2\)</span> при любом значении дискриминанта.</p>
+<p>На примере такой задачки мы рассмотрим не только, как написать необходимый для решения скрипт, но и как обеспечить удобство пользования нашей программкой.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Всегда, прежде чем приступать к программному решению поставленной задачи, следует описать задачу и методику её решения обычным человеческим языком и языком математики.
+И только после того, как вы убедились, что понимаете, <strong>что</strong> вы решаете, <strong>зачем</strong> и <strong>почему</strong>.
+То есть вы понимаете <strong>цель</strong> и поставленные <strong>задачи</strong>, что собой представляет <strong>решение</strong> (число, набор чисел, график зависимости чего-то от чего-либо и т.д.), а также <strong>сформировали алгоритм решения задачи</strong>.
+После этого вы сможете уверенно подойти к программной реализации.</p>
+</div>
+<p>Решение квадратного уравнения есть задача тривиальная для студентов.
+Тем не менее рассмотрим, как сказанное применить к такой простой задаче.</p>
+<section id="id5">
+<h3>Формулировка задачи и алгоритма её решения<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>Используя заданные значения коэффициентов <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(c\)</span>, найти корни <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span> квадратного уравнения</p>
+<div class="math notranslate nohighlight">
+\[
+a x^2 + b x + c = 0
+\]</div>
+<p>при любом значении дискриминанта <span class="math notranslate nohighlight">\(D = b^2 - 4 a c\)</span>, <span class="math notranslate nohighlight">\(D \in \mathbb{R}\)</span> и при условии <span class="math notranslate nohighlight">\(a \neq 0\)</span>.</p>
+<p>Задача сформулирована.
+Сформируем алгоритм её решения.</p>
+<ol class="arabic">
+<li><p>Проверить <span class="math notranslate nohighlight">\(a \neq 0\)</span>. Если <span class="math notranslate nohighlight">\(a = 0\)</span>, то завершить программу, так как она не для решения линейного уравнения.</p></li>
+<li><p>Рассчитать дискриминант <span class="math notranslate nohighlight">\(D = b^2 - 4 a c\)</span>.</p></li>
+<li><p>Определить число корней. При <span class="math notranslate nohighlight">\(D &gt; 0\)</span> — два вещественных корня; при <span class="math notranslate nohighlight">\(D = 0\)</span> — один вещественный корень; при <span class="math notranslate nohighlight">\(D &lt; 0\)</span> — два сопряжённых комплексных корня.</p></li>
+<li><p>Рассчитать значения корней:</p>
+<div class="math notranslate nohighlight">
+\[
+   x_{1, 2} = \frac{-b \pm \sqrt{D}}{2 a}.
+   \]</div>
+<p>При этом, в зависимости от знака <span class="math notranslate nohighlight">\(D\)</span> в программе необходимо учесть отрицательное число под корнем, чтобы избежать её краха (возникновения исключения).</p>
+</li>
+</ol>
+<p>Теперь можно приступать к написанию скрипта.</p>
+</section>
+<section id="id6">
+<h3>Программная реализация<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>При написании программ не пользуйтесь Jupyter Notebook.
+В нём достаточно сложно писать и поддерживать программы.
+Он заточен в основном для Data Science, где пишут небольшие скрипты для обработки данных.
+<strong>Для разработки программ рекомендуется использовать</strong> <a class="reference external" href="https://code.visualstudio.com/">VS Code</a>, <a class="reference external" href="https://www.jetbrains.com/ru-ru/pycharm/">PyCharm</a> и другие редакторы кода и <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F_%D1%81%D1%80%D0%B5%D0%B4%D0%B0_%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8">IDE</a> (Integrated Development Environment — интегрированная среда разработки).
+Далее предполагается, что используете что-либо, но не Jupyter Notebook.</p>
+<p>Создайте директорию проекта (программы).
+Её можно назвать, например, <code class="docutils literal notranslate"><span class="pre">quadric_equation</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>quadric_equation
+</pre></div>
+</div>
+<p>Данная директория должна являться рабочей.
+Перейдите в неё</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>quadric_equation
+</pre></div>
+</div>
+<p>и создайте файл скрипта Python:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>touch<span class="w"> </span>solve_quadric_eq.py
+</pre></div>
+</div>
+<p>Запустите редактор кода.
+Например, VS Code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>code<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Далее можете редактировать скрипт с помощью VS Code.</p>
+<p>Нам придётся использовать функцию расчёта квадратного корня из стандартной библиотеки.
+Что такое модули и пакеты в Python, вы можете почитать, например, <a class="reference external" href="https://docs.python.org/3/tutorial/modules.html">здесь</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Из пакета математики стандартной библиотеки</span>
+<span class="c1"># возьмём функцию sqrt извлечения квадратного корня.</span>
+<span class="c1"># Существует два пакета: math для математики с вещественными</span>
+<span class="c1"># числами и cmath для операций с комплексными числами.</span>
+<span class="c1"># Нам нужные обе.</span>
+<span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">csqrt</span> <span class="c1"># даём псевдоним, чтобы отличать от вещественного sqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+
+<span class="c1"># Задаём коэффициенты</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">13</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">36</span>
+
+<span class="c1"># Находим дискриминант</span>
+<span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+
+<span class="c1"># Находим корни</span>
+<span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">discriminant</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="o">-</span><span class="n">b</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Показываем результат</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = 4.0
+x2 = 9.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Проверим два оставшихся случая (<span class="math notranslate nohighlight">\(D = 0\)</span> и <span class="math notranslate nohighlight">\(D &lt; 0\)</span>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Задаём коэффициенты (D = 0)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="c1"># Находим дискриминант</span>
+<span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+
+<span class="c1"># Находим корни</span>
+<span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">discriminant</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="o">-</span><span class="n">b</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Показываем результат</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = 2.0
+x2 = 2.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Задаём коэффициенты (D &lt; 0)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Находим дискриминант</span>
+<span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+
+<span class="c1"># Находим корни</span>
+<span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">discriminant</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="o">-</span><span class="n">b</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Показываем результат</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = (-0.1-0.6244997998398398j)
+x2 = (-0.1+0.6244997998398398j)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Работает!
+Значит ли это, что задача решена?
+Безусловно.
+Вот только есть нюанс.
+Вы, наверняка, заметили, что для решения одной и той же задачи нам пришлось писать один и тот же код 3 раза.
+Это очень плохо, ведь это значит, что мы ничего не автоматизировали.
+Действительно, мы должны каждый раз менять код.
+Следовательно, мы рано или поздно ошибёмся.
+Непорядок!
+Данная задача проста, но таких простых задач вы, быть может, больше никогда не встретите.
+И в настоящих (“жизненных”) задачах кода будет гораздо больше и он будет сложнее.</p>
+<p>Возьмём ум в кулак и автоматизируем эту задачу — проведём <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%A0%D0%B5%D1%84%D0%B0%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3"><em>рефакторинг</em></a> кода!</p>
+</section>
+<section id="id7">
+<h3>Рефакторинг<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p><em>Рефакторинг</em> — это изменение (в лучшую сторону) внутренней структуры программы и/или её кода без изменения сути этой программы: программа имеет всё тот же <em>интерфейс</em> (“обёртку” для взаимодействия с пользователем) и решает ту же задачу.
+Рефакторинг необходим исключительно для удобства поддержания и развития программного продукта.</p>
+<p>Пока что наша программа никак не приспособлена для пользователя.
+Вспомните свой опыт использования компьютера.
+Как часто вам приходится лезть в код программы (например, Word’а или интернет-браузера)?
+Конечно, вы в него не лазили и просто не сможете это сделать (если вы не разработчик в соответствующей компании).
+Так почему наша программа должна предполагать наличие пользователя-Python-программиста?
+Причин для этого нет — мы же решаем квадратное уравнение.
+Вряд ли школьник 8 класса скажет нам спасибо за такую программу, ради которой ему нужно поучить информатику!</p>
+<p>Более того, нам самим не по душе такой подход.
+Переписывание кода — это труд.
+А переписывание его при изменении входных данных — это бесценный (то есть неоплачиваемый) труд.
+Исправим ситуацию!</p>
+<p>И начнём мы с того, что сведём код решения квадратного уравнения (расчёт дискриминанта в отдельную <em>функцию</em>).
+Назовём эту функцию <code class="docutils literal notranslate"><span class="pre">solve</span></code>.
+Пусть на вход она принимает коэффициенты квадратного уравнения, а на выходе выдаёт пару корней уравнения.
+Вот, что мы получим:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">discriminant</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="o">-</span><span class="n">b</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Теперь можно <em>вызвать</em> эту функцию так:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Задаём коэффициенты</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span>
+
+<span class="c1"># Вызываем решатель квадратного уравнения</span>
+<span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Или и вовсе в одну строку:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Или даже так:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Можно даже передать <em>аргументы функции</em> в разном порядке:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Мы сделали одну распространённую среди новичков ошибку.
+В функцию <code class="docutils literal notranslate"><span class="pre">solve</span></code> мы поместили вывод корней в консоль функцией <code class="docutils literal notranslate"><span class="pre">print</span></code>.
+Функция <code class="docutils literal notranslate"><span class="pre">print</span></code> является <em>функцией с побочным эффектом</em>.
+Она выводит текст на экран — это и есть побочный эффект.</p>
+<p>Есть ещё так называемые <em>чистые функции</em> (привет, IT-шовинизм), коими является подавляющее большинство.
+Они не меняют никакие данные в файлах, ничего не выводят на экран и не творят всякую “дичь”.
+Вместо этого они принимают на вход данные и возвращают результат своей работы.
+При этом результат одинаков для одних и тех же данных в любой день лунного календаря и не зависит от расположения звёзд на небе (если поблизости от вас нет чёрной дыры или какой-нибудь нейтронной звезды с мощным жёстким излучением).</p>
+<p>Так вот, мы нарушили важное правило (рекомендацию) в программировании — <strong>не стоит плодить функции с побочным эффектом</strong>.
+Это вредно по той причине, что побочные эффекты побочны именно тем, что они выходят за рамки программы.
+То есть потенциально их может увидеть и испытать на себе их (зачастую нехорошее) действие любой пользователь.</p>
+<p>И представьте, что выводить что-либо на экран запрещается.
+Выводить информацию можно в файл.
+Тогда вам опять же нужно лезть в код программы и менять код функции решения квадратного уравнения.
+И с какой стати вообще функция решения уравнения должна работать с файлами и вообще выводить что-либо куда-либо?
+Вот именно — она этого делать <strong>не должна</strong>!</p>
+</div>
+<p>“Очистим” нашу функцию!
+А именно, уберём принтинги и вернём корни:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="c1"># Находим дискриминант</span>
+    <span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="c1"># Находим корни</span>
+    <span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">discriminant</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="o">-</span><span class="n">b</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>И это далеко не предел совершенства.
+Функцию <code class="docutils literal notranslate"><span class="pre">solve</span></code> можно сделать более лаконичной:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple">
+<li><p>Мы вычислили дискриминант и сразу проверяем более сложное условие <span class="math notranslate nohighlight">\(D \ge 0\)</span>.
+Ведь и при <span class="math notranslate nohighlight">\(D = 0\)</span> мы возвращаем также два (одинаковых) корня.
+Тем самым мы убрали <code class="docutils literal notranslate"><span class="pre">elif</span></code>.</p></li>
+<li><p>В <em>теле</em> условия <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">discriminant</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code> мы поместили <em>оператор возврата значения</em> <code class="docutils literal notranslate"><span class="pre">return</span></code> без создания дополнительных переменных <code class="docutils literal notranslate"><span class="pre">x1</span></code> и <code class="docutils literal notranslate"><span class="pre">x2</span></code>.</p></li>
+<li><p>Поскольку в случае выполнения условия <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">discriminant</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code> будет выполнено его тело, то после оператора <code class="docutils literal notranslate"><span class="pre">return</span></code> будет осуществлён выход из функции <code class="docutils literal notranslate"><span class="pre">solve</span></code>.
+Это значит, что весь последующий код не будет выполнен.
+Тем самым мы можем убрать <code class="docutils literal notranslate"><span class="pre">else</span></code>, оставив лишь оператор <code class="docutils literal notranslate"><span class="pre">return</span></code> для случая комплексных корней, ведь эта часть кода будет выполнена, если не выполнится вышестоящее условие <code class="docutils literal notranslate"><span class="pre">if</span></code>.</p></li>
+</ol>
+<p>Теперь работа программы выглядит так:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Импорты опущены - они те же самые</span>
+
+<span class="n">solution</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Но теперь не выводится информация на экран.
+Ни и отлично!
+Мы сами сделаем это с лёгкостью:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-3.0, 1.0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Вывод не так информативен, как был прежде.
+Но и это легко исправить!</p>
+<p>Функция <code class="docutils literal notranslate"><span class="pre">solve</span></code> возвращает <em>кортеж</em> значений.
+<em>Кортеж</em> — это неизменяемый тип данных, способный хранить в себе несколько значений.
+Его неизменяемость заключается в том, что вы не можете изменить ни значение отдельного его элемента, ни длину самого кортежа.</p>
+<p>Зная, что переменная <code class="docutils literal notranslate"><span class="pre">solution</span></code> есть кортеж, мы можем делать следующие вещи:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Вариант №1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Вариант №1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">solution</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Вариант №2</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solution</span>   <span class="c1"># распаковка кортежа</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Вариант №2&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">solution</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Вариант №3</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>    <span class="c1"># та же распаковка</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Вариант №3&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">solution</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Вариант №1
+x1 = -3.0
+x2 = 1.0
+Вариант №2
+x1 = -3.0
+x2 = 1.0
+Вариант №3
+x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>В результате рефакторинга наша программа приобрела следующий вид:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">csqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+
+<span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># Коэффициенты</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span>
+<span class="c1"># Решение</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="c1"># Показ результатов</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Хорошо, код мы отредактировали.
+Но всё ещё не избавили пользователя от необходимости лезть в файл с кодом, чтобы изменить исходные данные.</p>
+<p>Чтобы это исправить, нам следует разработать <em>интерфейс</em> программы.
+Приступим!</p>
+</section>
+</section>
+<section id="id8">
+<h2>Интерфейс<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<p>Из повседневного опыта работы с компьютером вы знаете, что такое интерфейс.
+Большинство из вас (или даже все) привыкли к окнам в операционной системе Windows.
+Это и есть интерфейсы различных программ для вас как пользователя, а именно, графические интерфейсы.
+Такие интерфейсы довольно сложны в разработке и требуют понимания ряда нетривиальных концепций программирования (объектно-ориентированное программирование, паттерны разработки оконных приложений и т.д.).</p>
+<p>Довольно странно заморачиваться оконным интерфейсом для простых программ и программ, не предназначенных для настолько “искушённого” пользователя.
+В мире Linux правит бал терминал, в котором пользователь пишет различные строки с командами (командные строки).
+Что-то типа такого: “копировать файл1.txt в директорию важные_файлы/”.
+На самом деле такая командная строка выглядит так:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cp<span class="w"> </span>файл.txt<span class="w"> </span>важные_файлы/
+</pre></div>
+</div>
+<p>В мире GNU/Linux (да и мир Windows движется туда же) широко распространён <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81_%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%BD%D0%BE%D0%B9_%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B8"><em>интерфейс командной строки</em></a> (CLI — Command Line Interface).
+Причём большое количество программ имеют как графический, так и интерфейс командной строки (свобода выбора и удобство!).</p>
+<p>Для примера посмотрим на CLI стандартной программы <code class="docutils literal notranslate"><span class="pre">cp</span></code> GNU/Linux, предназначенной для копирования файлов.
+Для того, чтобы увидеть её интерфейс, в терминале вызовите <code class="docutils literal notranslate"><span class="pre">cp</span></code> с флагом показа справки <code class="docutils literal notranslate"><span class="pre">--help</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cp<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>Вы получите следующую информацию:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cp<span class="w"> </span>--help
+Usage:<span class="w"> </span>cp<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>-T<span class="o">]</span><span class="w"> </span>SOURCE<span class="w"> </span>DEST
+<span class="w">  </span>or:<span class="w">  </span>cp<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span>SOURCE...<span class="w"> </span>DIRECTORY
+<span class="w">  </span>or:<span class="w">  </span>cp<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span>-t<span class="w"> </span>DIRECTORY<span class="w"> </span>SOURCE...
+Copy<span class="w"> </span>SOURCE<span class="w"> </span>to<span class="w"> </span>DEST,<span class="w"> </span>or<span class="w"> </span>multiple<span class="w"> </span>SOURCE<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>DIRECTORY
+...
+</pre></div>
+</div>
+<p>Ту же информацию можно получить командой <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">cp</span></code>.
+Так что же нам говорит справка?
+Фактически, она полностью описывает то, как пользоваться этой программой.</p>
+<p>Что касается интерфейса.
+Он показан в секции <code class="docutils literal notranslate"><span class="pre">Usage</span></code>.
+Согласно описанию, программу <code class="docutils literal notranslate"><span class="pre">cp</span></code> можно использовать тремя способами:</p>
+<ol class="arabic simple">
+<li><p>Копировать один файл <code class="docutils literal notranslate"><span class="pre">SOURCE</span></code> в директорию или файл <code class="docutils literal notranslate"><span class="pre">DEST</span></code>.</p></li>
+<li><p>Копировать несколько файлов <code class="docutils literal notranslate"><span class="pre">SOURCE...</span></code> в директорию <code class="docutils literal notranslate"><span class="pre">DEST</span></code>.</p></li>
+<li><p>То же, что и в предыдущем пункте, но указание флага <code class="docutils literal notranslate"><span class="pre">-t</span></code> позволяет указать целевую директорию <code class="docutils literal notranslate"><span class="pre">DEST</span></code> перед указанием копируемых файлов <code class="docutils literal notranslate"><span class="pre">SOURCE...</span></code>.</p></li>
+</ol>
+<p>При этом во всех трёх случаях возможно указание необязательных (опциональных) <code class="docutils literal notranslate"><span class="pre">[OPTION]</span></code> параметров.</p>
+<p>Почитайте справку.
+Оказывается, такая незамысловатая программа как <code class="docutils literal notranslate"><span class="pre">cp</span></code> имеет довольно развитый и многофункциональный CLI.</p>
+<p>Можем ли мы сделать нечто подобное для нашего скрипта?
+Конечно!</p>
+<section id="id9">
+<h3>Разрабатываем интерфейс командной строки<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>Помните — любая работа начинается с постановки цели и формулирования соответствующей задачи.</p>
+<p>Наша <strong>цель</strong> — сделать работу с нашим решателем квадратного уравнения удобной.</p>
+<p><strong>Задача</strong> состоит в том, чтобы сделать CLI, позволяющий вызывать нашу программу, передавая ей коэффициенты квадратного уравнения:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>solve_quadric_eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>-3
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-3.0
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>.0
+</pre></div>
+</div>
+<p>Приступим.
+Стоит отметить, что в Python существует по меньшей мере четыре способа решения такой задачи.
+Рассмотрим пару из них.</p>
+<section id="sys">
+<h4>Использование пакета <code class="docutils literal notranslate"><span class="pre">sys</span></code><a class="headerlink" href="#sys" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Импортируем</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">csqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+
+<span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Получаем коэффициенты из командной строки</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="c1"># Решение</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="c1"># Вывод на экран</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Что получилось:</p>
+<ul class="simple">
+<li><p>Функция <code class="docutils literal notranslate"><span class="pre">solve</span></code> нисколько не изменилась.
+Иначе говоря, сама наша программа не изменилась.</p></li>
+<li><p>Мы подключили пакет для работы с <a class="reference external" href="https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D1%8B%D0%B9_%D0%B2%D1%8B%D0%B7%D0%BE%D0%B2"><em>системными вызовами</em></a> <code class="docutils literal notranslate"><span class="pre">sys</span></code>.
+С её помощью посредством <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> мы получили доступ к аргументам командной строки, которые сохранили в переменной <code class="docutils literal notranslate"><span class="pre">args</span></code>.
+<code class="docutils literal notranslate"><span class="pre">args</span></code> хранит список (именно list) аргументов:
+<code class="docutils literal notranslate"><span class="pre">args[0]</span></code> — имя вызванного скрипта (программы);
+<code class="docutils literal notranslate"><span class="pre">args[1]...[3]</span></code> — переданные параметры (коэффициенты).
+При этом каждый элемент имеет тип строки (<code class="docutils literal notranslate"><span class="pre">str</span></code>), поэтому необходимо их преобразование в числа с плавающей точкой <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p></li>
+<li><p>Далее программа работает, как и ранее.</p></li>
+</ul>
+<p>Теперь наш пользователь (школьник) может решить любое квадратное уравнение без изменения исходного кода.
+Ему достаточно скачать (откуда-нибудь) файл скрипта <code class="docutils literal notranslate"><span class="pre">solve_quadric_eq.py</span></code> и вызвать его через интерпретатор Python с указанием параметров через пробел <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2</span> <span class="pre">-3</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>solve_quadric_eq.py<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>-3
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-3.0
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>.0
+</pre></div>
+</div>
+<p>Более того, можно немного упростить вызов, если <strong>в самой первой строке скрипта</strong> указать специальный комментарий с указанием пути к интерпретатору Python</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
+</pre></div>
+</div>
+<p>и сделать файл этого скрипта <em>исполняемым</em>, например, следующей командой:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>solve_quadric_eq.py
+</pre></div>
+</div>
+<p>Теперь вызвать скрипт из командной строки можно так:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>-3
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Можно сделать вызов и такой командой <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">solve_quadric_eq</span> <span class="pre">1</span> <span class="pre">2</span> <span class="pre">-3</span></code>.
+Однако это требует некоторых дополнительных знаний, которые пока могут быть излишними, но вы обязательно их обретёте в процессе учёбы и практики программирования.</p>
+</div>
+<p>Полученная программа является вполне себе полноценным скриптом, автоматизирующим решение квадратных уравнений.
+Тем не менее скрипт имеет ряд недостатков:</p>
+<ol class="arabic simple">
+<li><p>Если пользователь по ошибке укажет более трёх чисел, то программа рухнет с ошибкой, мало что говорящей пользователю.
+Из-за этого он может не понять, что не так.
+И скорее всего подумает, что ошибка в самой программе, а не с его стороны.</p></li>
+<li><p>В принципе <span class="math notranslate nohighlight">\(a x^2 = 0\)</span> — это тоже квадратное уравнение.
+Как и <span class="math notranslate nohighlight">\(a x^2 + b x = 0\)</span> или <span class="math notranslate nohighlight">\(a x^2 + c = 0\)</span>.
+Поэтому коэффициенты <span class="math notranslate nohighlight">\(b\)</span> и <span class="math notranslate nohighlight">\(c\)</span> можно сделать нулевыми по умолчанию, чтобы не тратить время на их указание.</p></li>
+<li><p>Нашей программе не хватает пользовательской справки, чтобы пользователь быстро и легко узнал всё о её интерфейсе и возможностях.</p></li>
+</ol>
+<p>Уйти от этих недостатков с помощью <code class="docutils literal notranslate"><span class="pre">sys</span></code> довольно сложно.
+Но Python на то и Python, чтобы предложить несколько готовых решений.
+Рассмотрим стандартный пакет <a class="reference external" href="https://docs.python.org/3/library/argparse.html"><code class="docutils literal notranslate"><span class="pre">argparse</span></code></a>.</p>
+</section>
+</section>
+<section id="argparse">
+<h3>Разрабатываем интерфейс с помощью <code class="docutils literal notranslate"><span class="pre">argparse</span></code><a class="headerlink" href="#argparse" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
+
+<span class="c1"># Импортируем</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">csqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+
+<span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Получаем коэффициенты из командной строки</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="s2">&quot;solve_quadric_eq&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Let you solve any quadric equation a*x^2 + b*x + c = 0&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;a&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The first coefficient of the equation&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;b&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The second coefficient of the equation (default 0)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;c&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The third coefficient of the equation (default 0)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-B&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The second coefficient of the equation (default 0)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-C&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The third coefficient of the equation (default 0)&quot;</span>
+    <span class="p">)</span>
+    
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">B</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">B</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">C</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">C</span>
+    <span class="c1"># Решение</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="c1"># Вывод на экран</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Чего мы добились:</p>
+<ol class="arabic">
+<li><p>Теперь у нас есть справка по интерфейсу программы:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span>-h
+usage:<span class="w"> </span>solve_quadric_eq<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-B<span class="w"> </span>B<span class="o">]</span><span class="w"> </span><span class="o">[</span>-C<span class="w"> </span>C<span class="o">]</span><span class="w"> </span>a<span class="w"> </span><span class="o">[</span>b<span class="o">]</span><span class="w"> </span><span class="o">[</span>c<span class="o">]</span>
+
+Let<span class="w"> </span>you<span class="w"> </span>solve<span class="w"> </span>any<span class="w"> </span>quadric<span class="w"> </span>equation<span class="w"> </span>a*x^2<span class="w"> </span>+<span class="w"> </span>b*x<span class="w"> </span>+<span class="w"> </span><span class="nv">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+
+positional<span class="w"> </span>arguments:
+<span class="w">  </span>a<span class="w">           </span>The<span class="w"> </span>first<span class="w"> </span>coefficient<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>equation
+<span class="w">  </span>b<span class="w">           </span>The<span class="w"> </span>second<span class="w"> </span>coefficient<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>equation<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+<span class="w">  </span>c<span class="w">           </span>The<span class="w"> </span>third<span class="w"> </span>coefficient<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>equation<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+
+options:
+<span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">  </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>-B<span class="w"> </span>B<span class="w">        </span>The<span class="w"> </span>second<span class="w"> </span>coefficient<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>equation<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+<span class="w">  </span>-C<span class="w"> </span>C<span class="w">        </span>The<span class="w"> </span>third<span class="w"> </span>coefficient<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>equation<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Можно указать либо коэффициент <span class="math notranslate nohighlight">\(a\)</span>, либо два коэффициента <span class="math notranslate nohighlight">\(a\)</span> и <span class="math notranslate nohighlight">\(b\)</span>, либо все <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> и <span class="math notranslate nohighlight">\(c\)</span>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span><span class="m">1</span>
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.0
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.0
+$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-2.0
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.0
+$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>-1-1.4142135623730951j<span class="o">)</span>
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>-1+1.4142135623730951j<span class="o">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Можно указывать коэффициенты <span class="math notranslate nohighlight">\(b\)</span> и <span class="math notranslate nohighlight">\(c\)</span> в разном порядке:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq<span class="w"> </span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span><span class="m">2</span>
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-1.4142135623730951j
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>.4142135623730951j
+$<span class="w"> </span>./solve_quadric_eq<span class="w"> </span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span><span class="m">2</span><span class="w"> </span>-B<span class="w"> </span><span class="m">3</span>
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-2.0
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-1.0
+</pre></div>
+</div>
+</li>
+<li><p>Если хотите сохранить результат в файл, достаточно перенаправить поток вывода в нужный файл, например:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq<span class="w"> </span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span><span class="m">2</span><span class="w"> </span>-B<span class="w"> </span><span class="m">3</span><span class="w"> </span>&gt;<span class="w"> </span>answer.txt
+</pre></div>
+</div>
+<p>Внутри файла <code class="docutils literal notranslate"><span class="pre">answer.txt</span></code> вы увидите тот же вывод, что ранее был в консоли.</p>
+</li>
+<li><p>Понятные сообщения об ошибке пользователя:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">777</span>
+usage:<span class="w"> </span>solve_quadric_eq<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-B<span class="w"> </span>B<span class="o">]</span><span class="w"> </span><span class="o">[</span>-C<span class="w"> </span>C<span class="o">]</span><span class="w"> </span>a<span class="w"> </span><span class="o">[</span>b<span class="o">]</span><span class="w"> </span><span class="o">[</span>c<span class="o">]</span>
+solve_quadric_eq:<span class="w"> </span>error:<span class="w"> </span>unrecognized<span class="w"> </span>arguments:<span class="w"> </span><span class="m">777</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Вот теперь можно сказать: “Мы автоматизировали поиск корней квадратного уравнения с любыми коэффициентами!”</p>
+<p>Однако возможна и дальнейшая автоматизация.
+Например, можно реализовать чтение исходных данных скрипта (коэффициентов уравнения) из различных файлов.
+Работой с файлами займёмся в следующем разделе.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../basics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Основы использования Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../numpy_basics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Основы библиотеки NumPy для работы с массивами чисел</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Простейший сценарий</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Запуск скриптов посредством командной строки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Скрипт для решения квадратного уравнения</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Формулировка задачи и алгоритма её решения</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Программная реализация</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Рефакторинг</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Интерфейс</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Разрабатываем интерфейс командной строки</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sys">Использование пакета <code class="docutils literal notranslate"><span class="pre">sys</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argparse">Разрабатываем интерфейс с помощью <code class="docutils literal notranslate"><span class="pre">argparse</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vadim Fedulov
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
