@@ -1,0 +1,1282 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Работаем с файлами &#8212; SM6 Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'basics/working_with_files';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Основы библиотеки NumPy для работы с массивами чисел" href="../numpy_basics.html" />
+    <link rel="prev" title="Написание сценариев" href="scripting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Python-справочник кафедры СМ6 МГТУ им. Н.Э. Баумана
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../basics.html">Основы использования Python</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scripting.html">Написание сценариев</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Работаем с файлами</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numpy_basics.html">Основы библиотеки NumPy для работы с массивами чисел</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/creating.html">Создание массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/replicating_joining_mutating.html">Копирование, объединение и изменение массивов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numpy_basics/indexing.html">Индексация массивов</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../random.html">Генерация псевдослучайных чисел</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../random/random.html">Использование генераторов псевдослучайных чисел</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plotting.html">Визуализация данных</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/basics.html">Основы построения графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/improved-matplotlib.html">Особенности matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/plot_types.html">Разновидности графиков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/customizing.html">Оформление графиков в Matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/3d-matplotlib.html">Визуализация трёхмерных данных с использованием matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mathematics.html">Математика с Python</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch1-rooting.html">Поиск корней уравнений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch2-ode.html">Решение обыкновенных дифференциальных уравнений (ОДУ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/ch3-meshing.html">Построение расчётных сеток</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discrete-event.html">Дискретно-событийное моделирование</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/iterators.html">Итераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/generators.html">Генераторы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discrete-event/des.html">Дискретно-событийное моделирование</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numerical_physics.html">Численные методы в физике с Python</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/vector_fields_visual.html">Визуализация векторного поля</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_physics/multipole_expansion.html">Мультипольное разложение в теории электромагнитного поля</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/unexpectedCoder/sm6-py-cookbook/issues/new?title=Issue%20on%20page%20%2Fbasics/working_with_files.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/basics/working_with_files.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Работаем с файлами</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Распространённые типы файлов</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Работа с текстовыми файлами</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Улучшаем решатель квадратного уравнения</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yaml">Данные из файла YAML</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#json">Данные из файла JSON</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#csv">О файлах CSV</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Интерфейс пользователя</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Сохранение результата в файл</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Работаем с файлами<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>В предыдущем разделе мы автоматизировали решение квадратного уравнения и написали интерфейс пользователя.
+Но что, если нам нужно решить десяток (и более) квадратных уравнений?
+В этом нам поможет файл с исходными данными.
+Да, сейчас задача предельно просто, и файл будет хранить по три коэффициента каждого уравнения.
+Но в реальных задачах исходные данные могут иметь сложную структуру и большой объём.
+Задавать их как через командную строку, так и через графический интерфейс бывает просто невозможно.</p>
+<p>Давайте разберёмся, какие инструменты имеются в Python для работы с различными файлами.</p>
+<section id="id2">
+<h2>Распространённые типы файлов<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Файлы бывают:</p>
+<ul class="simple">
+<li><p><em>бинарными</em> — содержат биты (байты).
+Открыв бинарный файл в текстовом редакторе, вы увидите что-то <a class="reference external" href="https://en.wikipedia.org/wiki/Binary_file#/media/File:Wikipedia_favicon_hexdump.svg">такое</a>.
+Прочитать такой файл легко, но для получения хранимых данных нужно <strong>знать</strong> алгоритм их записи (хранимую структуру данных).
+Соответственно, для каждого такого файла нужно написать собственный <em>парсер</em>, который переведёт данные из файла в данные программы.
+В действительности любой файл является бинарным.
+В Python вы вряд ли будете часто напрямую работать с байтами в файлах, поскольку существуют более удобные форматы;</p></li>
+<li><p><em>текстовыми</em> — это бинарный файл, в котором байты <em>интерпретируются</em> текстовым редактором как коды символов.
+Какому конкретно символу отвечает последовательность байтов (и какова её длина) зависит от используемой <em>кодировки</em> (ASCII, UTF-8 и т.д.);</p></li>
+<li><p><em>исполняемыми</em> — бинарный файл, хранящий в себе машинный код программы.
+Вызывая такой файл на исполнение, вы, тем самым, вызываете программу;</p></li>
+<li><p><em>графическими</em> — бинарный файл, интерпретируемый как изображение;</p></li>
+<li><p><em>звуковыми</em> — бинарный файл, интерпретируемый как последовательность звуковых частот;</p></li>
+<li><p><em>архивными</em> и другими.</p></li>
+</ul>
+<p>При решении учебных задач вы будете сталкиваться в основном с текстовыми, графическими и архивными файлами.</p>
+<p>Часто встречающиеся в практике Python текстовые файлы: <code class="docutils literal notranslate"><span class="pre">txt</span></code>, <code class="docutils literal notranslate"><span class="pre">csv</span></code>, <code class="docutils literal notranslate"><span class="pre">yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">json</span></code>.
+Есть также возможность чтения и записи данных в таблицы Excel.</p>
+<p>С графическими файлами вы столкнётесь при работе с библиотекой Matplotlib и ей подобными.
+Вы сможете сохранять различные графики в файлы <code class="docutils literal notranslate"><span class="pre">png</span></code>, <code class="docutils literal notranslate"><span class="pre">jpg</span></code>, <code class="docutils literal notranslate"><span class="pre">tiff</span></code> и другие.</p>
+<p>В архивные файлы вы сможете сохранять многомерные массивы NumPy (архивы <code class="docutils literal notranslate"><span class="pre">npz</span></code>).</p>
+<p>В этом разделе познакомимся с тем, как в Python работать с текстовыми файлами.</p>
+</section>
+<section id="id3">
+<h2>Работа с текстовыми файлами<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>Пусть у нас есть файл <code class="docutils literal notranslate"><span class="pre">some_text.txt</span></code> со следующим содержанием:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello, world, from text file!
+Numbers 1 2 3
+Another line
+Строка на русском хоба!
+そして日本語で？？
+</pre></div>
+</div>
+<p>Прочитаем его!
+Для этого:</p>
+<ol class="arabic simple">
+<li><p>Откроем файл:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;some_text.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Прочитаем содержимое в переменную <code class="docutils literal notranslate"><span class="pre">content</span></code>:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Закроем файл:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Посмотрим, что мы прочитали из файла:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, world, from text file!
+Numbers 1 2 3
+Another line
+Строка на русском хоба!
+そして日本語で？？
+</pre></div>
+</div>
+</div>
+</div>
+<p>Вот так незамысловато!</p>
+<p>Но при работе с открытым файлом может случиться ошибка, из-за которой программа аварийно прекратит работу.
+При этом строка <code class="docutils literal notranslate"><span class="pre">f.close()</span></code> выполнена не будет, и файл останется открытым для операционной системы.
+Это нехорошо, поскольку может помешать корректной работе с этим файлом из той де или любой другой программы.
+Чтобы это избежать, используют <a class="reference external" href="https://pythonworld.ru/osnovy/with-as-menedzhery-konteksta.html"><em>менеджер контекста</em></a> <code class="docutils literal notranslate"><span class="pre">with</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;some_text.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, world, from text file!
+Numbers 1 2 3
+Another line
+Строка на русском хоба!
+そして日本語で？？
+</pre></div>
+</div>
+</div>
+</div>
+<p>Его польза заключается в том, что файл открыт лишь внутри тела <code class="docutils literal notranslate"><span class="pre">with</span></code>.
+При выходе из менеджера контекста, <strong>в том числе аварийном</strong>, файл будет автоматически закрыт.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Если вы пока не можете понять, как устроен этот менеджер, не переживайте.
+Это значит лишь, что вам пока не хватает опыта программирования.</p>
+</div>
+<p>Функция <code class="docutils literal notranslate"><span class="pre">open</span></code> помимо имени файла (или пути к нему) принимает множество других параметров.
+Одним из важнейших является <em>режим работы с файлом</em>.
+Режим может быть следующим:</p>
+<ul class="simple">
+<li><p>чтение <code class="docutils literal notranslate"><span class="pre">r</span></code>;</p></li>
+<li><p>запись <code class="docutils literal notranslate"><span class="pre">w</span></code> (если файл существует, то он будет перезаписан; если не существует, то будет создан);</p></li>
+<li><p>запись в конец файла <code class="docutils literal notranslate"><span class="pre">a</span></code> (если файл существует, то запись будет производиться в его конец;если файл не существует, то будет создан).</p></li>
+</ul>
+<p>Режимы можно смешивать, открывая файл, например, для чтения и записи в конец <code class="docutils literal notranslate"><span class="pre">ra</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Подробнее о режимах работы с файлами можете почитать <a class="reference external" href="https://www.programiz.com/python-programming/methods/built-in/open">здесь</a>.</p>
+</div>
+<p>В рассмотренном случае тот же результат мы получим, если откроем файл только для чтения:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;some_text.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, world, from text file!
+Numbers 1 2 3
+Another line
+Строка на русском хоба!
+そして日本語で？？
+</pre></div>
+</div>
+</div>
+</div>
+<p>Выше было отмечено, что текстовый (да и любой) файл является бинарным.
+Можем ли мы прочитать текстовый файл как бинарный?
+Конечно!
+Вот как:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;some_text.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">bin_content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bin_content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;Hello, world, from text file!\nNumbers 1 2 3\nAnother line\n\xd0\xa1\xd1\x82\xd1\x80\xd0\xbe\xd0\xba\xd0\xb0 \xd0\xbd\xd0\xb0 \xd1\x80\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0\xbe\xd0\xbc \xd1\x85\xd0\xbe\xd0\xb1\xd0\xb0!\n\xe3\x81\x9d\xe3\x81\x97\xe3\x81\xa6\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e\xe3\x81\xa7\xef\xbc\x9f\xef\xbc\x9f&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>В функции <code class="docutils literal notranslate"><span class="pre">open</span></code> мы указали <em>режим работы с файлом</em>: <code class="docutils literal notranslate"><span class="pre">r</span></code> означает “чтение”, <code class="docutils literal notranslate"><span class="pre">b</span></code> — “бинарный режим”.
+Заметьте, что изменился результат.
+Теперь в переменной <code class="docutils literal notranslate"><span class="pre">bin_content</span></code> содержится <a class="reference external" href="https://pythonworld.ru/tipy-dannyx-v-python/bajty-bytes-i-bytearray.html"><em>байт-строка</em></a>.</p>
+<p>Байт-строку мы можем создать и сам.
+Вот пример:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">byte_str</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xd0\x91\xd0\xb0\xd0\xb9\xd1\x82\xd1\x8b</span><span class="s2">!&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Здесь <code class="docutils literal notranslate"><span class="pre">\xd0</span></code>, например, есть (шестнадцатеричное) обозначение байта <code class="docutils literal notranslate"><span class="pre">D0</span></code>.
+Аналогично с остальными 9 байтами.
+“И что?” — спросите вы.
+А то, что мы можем интерпретировать эти байты, как нам вздумается.
+Предположим, что в <code class="docutils literal notranslate"><span class="pre">byte_str</span></code> на самом деле содержится какое-то слово, записанное в кодировке UTF-8.
+Тогда мы можем получить что-то привычное для нас, если <em>декодируем</em> байт-строку, указав кодировку:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">byte_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Байты!&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ого!
+Мы угадали!
+Оказывается так b”\xd0\x91\xd0\xb0\xd0\xb9\xd1\x82\xd1\x8b!” выглядит последовательность байтов, кодирующих фразу <code class="docutils literal notranslate"><span class="pre">Байты!</span></code>.
+И заметьте, что букв 5, а байтов 10, то есть каждый символ закодирован двумя байтами.
+Чтобы понять, почему это так, стоит знать о том, что <a class="reference external" href="https://habr.com/ru/articles/478636/">как кодируются символы</a>.</p>
+<p>Но ту же байт-строку <code class="docutils literal notranslate"><span class="pre">byte_str</span></code> мы можем декодировать и с другой кодировкой, например:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">byte_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;cp1251&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Р‘Р°Р№С‚С‹!&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Получили “кракозябры”…
+Но получили же!
+Никакой ошибки не было, просто мы интерпретировали те же байты по-другому.</p>
+<p>Мы можем не только декодировать, но и <em>кодировать</em> строки:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Привет всем!&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;\xd0\x9f\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82 \xd0\xb2\xd1\x81\xd0\xb5\xd0\xbc!&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Короче говоря, вы уже можете с лёгкостью написать скрипт по переводу текста из одной известной кодировки в другую (но не делайте, ведь уже есть готовые инструменты в любом уважающем себя редакторе).</p>
+<p>К чему был разговор о кодировках?
+Функции <code class="docutils literal notranslate"><span class="pre">open</span></code> можно передать кодировку текстового файла, чтобы не получить белиберду (или чтобы получить):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;some_text.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;cp1251&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, world, from text file!
+Numbers 1 2 3
+Another line
+РЎС‚СЂРѕРєР° РЅР° СЂСѓСЃСЃРєРѕРј С…РѕР±Р°!
+гЃќгЃ—гЃ¦ж—Ґжњ¬иЄћгЃ§пјџпјџ
+</pre></div>
+</div>
+</div>
+</div>
+<p>Мы нарочно открыли файл с указанием не той кодировки (его кодировка по умолчанию в моём редакторе UTF-8).
+И что мы видим?
+Английский текст прочитался как ни в чём не бывало.
+А вот русский и японский нет…
+Дело в том, что ряд кодировок (среди них CP1251 и UTF-8) совместимы с базовой кодировкой ASCII, поддерживающей только латиницу, цифры и основные знаки пунктуации.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ASCII была разработана в США для англоязычных компьютерщиков на заре компьютерной эры.</p>
+</div>
+<p>Укажем правильную кодировку:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;some_text.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, world, from text file!
+Numbers 1 2 3
+Another line
+Строка на русском хоба!
+そして日本語で？？
+</pre></div>
+</div>
+</div>
+</div>
+<p>Вот теперь всё прочиталось верно.
+Сила UTF-8 как раз и заключается в поддержке огромного количества символов языков, фактически, всего мира.
+Платой за это является больший “вес” строки (число используемых байт).
+ASCII, к примеру, является однобайтовой кодировкой (один байт на один символ), но позволяет кодировать всего 256 символов.</p>
+</section>
+<section id="id4">
+<h2>Улучшаем решатель квадратного уравнения<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>Вспомним, как выглядит наш код на данный момент (без интерфейса):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">csqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+
+<span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Нехитро.
+Пока не будем делать интерфейс пользователя.
+Начнём с добавления функции чтения коэффициентов из текстового файла:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">abc</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Важно сказать, что эта функция крайне не хороша.
+В ней есть предположение о структуре данных в файле, а также нам приходится считывать текст, разбивать его (в предположении, что три числа разделены пробелами) и преобразовывать текст в <code class="docutils literal notranslate"><span class="pre">float</span></code>.
+Всё это чревато ошибками.
+Для примера, разделяйте числа в файле запятыми.
+Программа скажет вам “пока” и рухнет.</p>
+<p>Ну и запустим корректный пример:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;abc.txt&quot;</span><span class="p">)</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Работает, но как отмечено выше — крайне ненадёжно.
+Текстовые файлы ввиду своей универсальности плохо подходят для использования в качестве файлов данных.
+Слишком много с ними возни, связанной с проверкой корректности, преобразованиями типов данных и прочим.
+Гораздо лучше подходят файлы JSON и YAML.
+Посмотрим на них.</p>
+<section id="yaml">
+<h3>Данные из файла YAML<a class="headerlink" href="#yaml" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://blog.skillfactory.ru/glossary/yaml/">YAML</a> — это специальный язык для структурированной записи информации, обладающий простым синтаксисом.</p>
+<p>Вот как с его помощью можно записать наши исходные данные в файле <code class="docutils literal notranslate"><span class="pre">abc.yml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">b</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">c</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-3</span>
+</pre></div>
+</div>
+<p>Для работы с <code class="docutils literal notranslate"><span class="pre">yml</span></code>-файлами в стандартной библиотеке имеется пакет <code class="docutils literal notranslate"><span class="pre">yaml</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yaml</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>И теперь мы можем переписать функцию <code class="docutils literal notranslate"><span class="pre">from_file</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">abc</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">abc</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">abc</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">abc</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Проверяем:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;abc.yml&quot;</span><span class="p">)</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Теперь нам не нужно заботиться о структуре файла данных.
+Достаточно знать только, какие именно данные там хранятся.
+А узнать это легко, просто посмотрев глазами содержимое файла.</p>
+</section>
+<section id="json">
+<h3>Данные из файла JSON<a class="headerlink" href="#json" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://skillbox.ru/media/code/json-chto-eto-za-format-i-kak-s-nim-rabotat/">JSON</a> — стандартный текстовый формат для хранения и передачи структурированных данных.
+Он основан на синтаксисе объекта в языке программирования JavaScript, но нисколько к нему не привязан.</p>
+<p>JSON сильно напоминает стандартные словари Python.</p>
+<p>Вок так мы можем записать наши коэффициенты в <code class="docutils literal notranslate"><span class="pre">json</span></code>-файле:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;a&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;b&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;c&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Коэффициенты отличаются от коэффициентов в файле YAML.</p>
+</div>
+<p>Для работы с JSON в стандартной библиотеке есть пакет <code class="docutils literal notranslate"><span class="pre">json</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>В остальном код тот же:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>И работает аналогично:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;abc.json&quot;</span><span class="p">)</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1 = (1-1.4142135623730951j)
+x2 = (1+1.4142135623730951j)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Давайте разделим функции чтения данных из файлов различных форматов: <code class="docutils literal notranslate"><span class="pre">from_yaml</span></code> для файлов YAML и <code class="docutils literal notranslate"><span class="pre">from_json</span></code> для файлов JSON.
+При этом эти функции будут вызываться из <em>функции верхнего уровня</em> <code class="docutils literal notranslate"><span class="pre">from_file</span></code> в зависимости от расширения заданного файла.
+Выглядит это так:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.yml&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">from_yaml</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">from_json</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="c1"># else - вызываем стандартное исключение (ошибку)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;unused file format&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Теперь можно работать так:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;abc.json&quot;</span><span class="p">)</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Данные брались из JSON&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;abc.yml&quot;</span><span class="p">)</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Данные брались из YAML&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Данные брались из JSON
+x1 = (1-1.4142135623730951j)
+x2 = (1+1.4142135623730951j)
+Данные брались из YAML
+x1 = -3.0
+x2 = 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Функция чтения файла данных вызывалась одна (<code class="docutils literal notranslate"><span class="pre">from_file</span></code>).
+И именно в ней реализовано поведение, зависящее от формата файла данных.
+Удобно, понятно и надёжно.</p>
+</section>
+<section id="csv">
+<h3>О файлах CSV<a class="headerlink" href="#csv" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://blog.skillfactory.ru/glossary/csv-format/">CSV</a> — это текстовый формат для представления табличных данных.
+Строка таблицы соответствует строке текста, которая содержит поля, разделенные запятыми.
+Тип файлов предназначен для передачи объемных текстовых данных между различными программами и сервисами.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Аббревиатура CSV расшифровывается как Comma Separated Values (значения, разделённые запятой).</p>
+</div>
+<p>В стандартной библиотеке найдётся пакет <code class="docutils literal notranslate"><span class="pre">csv</span></code> для работы и с такими файлами.
+Однако по сравнению с YAML и JSON в CSV по умолчанию все строки — это именно строки, то есть текст.
+И числа нужно преобразовывать в коде “вручную”.
+Наверняка, есть решения этой проблемы.
+Поищите в интернете.
+Пока же отметим, что табличные данные не настолько универсальны, как формат YAML или JSON, с помощью которых можно описывать данные любой иерархии.</p>
+<p>В вычислительных программах довольно часто приходится сталкиваться с таблицами.
+Однако вместо того, чтобы использовать модуль <code class="docutils literal notranslate"><span class="pre">csv</span></code>, лучше рассмотреть библиотеку <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>, реализующую, по сути, весь функционал Excel, но в Python.
+Pandas, среди прочего, может работать и с файлами CSV.</p>
+<p>На данный момент полная программа выглядит так:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">csqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+
+<span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">discriminant</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">b</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">discriminant</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+        <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">csqrt</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">discriminant</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.yml&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">from_yaml</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">from_json</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="c1"># else - вызываем стандартное исключение (ошибку)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;unused file format&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;abc.yml&quot;</span><span class="p">)</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Данные брались из YAML&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;abc.json&quot;</span><span class="p">)</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Данные брались из JSON&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Осталось сделать пользовательский интерфейс, позволяющий вводить данные как через командную строку, так и через указание файла данных (YAML или JSON).</p>
+</section>
+<section id="id5">
+<h3>Интерфейс пользователя<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>Пусть флаг <code class="docutils literal notranslate"><span class="pre">-l</span></code> или <code class="docutils literal notranslate"><span class="pre">--line</span></code> отвечает за задание коэффициентов через командную строку, а флаг <code class="docutils literal notranslate"><span class="pre">-f</span></code> или <code class="docutils literal notranslate"><span class="pre">--from-file</span></code> — за чтение данных из заданного файла.
+Тогда интерфейс можно описать так:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="s2">&quot;solve_quadric_eq&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Let you solve any quadric equation a*x^2 + b*x + c = 0&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-l&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--line&quot;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;line&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Input coefficients using command line&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-a&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The `a` coefficient (default 1)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-b&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The `b` coefficient (default 0)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The `c` coefficient (default 0)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--from-file&quot;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;file_path&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Read coefficients from the data file (JSON or YAML)&quot;</span>
+    <span class="p">)</span>
+    
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">from_file</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s2">&quot;line&quot;</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">a</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">b</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">c</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;unknown command line format&quot;</span><span class="p">)</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 =&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 =&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Таким образом, сделали следующий интерфейс:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span>-h
+usage:<span class="w"> </span>solve_quadric_eq<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span><span class="o">[</span>LINE<span class="o">]]</span><span class="w"> </span><span class="o">[</span>-a<span class="w"> </span>A<span class="o">]</span><span class="w"> </span><span class="o">[</span>-b<span class="w"> </span>B<span class="o">]</span><span class="w"> </span><span class="o">[</span>-c<span class="w"> </span>C<span class="o">]</span><span class="w"> </span><span class="o">[</span>-f<span class="w"> </span>FILE_PATH<span class="o">]</span>
+
+Let<span class="w"> </span>you<span class="w"> </span>solve<span class="w"> </span>any<span class="w"> </span>quadric<span class="w"> </span>equation<span class="w"> </span>a*x^2<span class="w"> </span>+<span class="w"> </span>b*x<span class="w"> </span>+<span class="w"> </span><span class="nv">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+
+options:
+<span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>-l<span class="w"> </span><span class="o">[</span>LINE<span class="o">]</span>,<span class="w"> </span>--line<span class="w"> </span><span class="o">[</span>LINE<span class="o">]</span>
+<span class="w">                        </span>Input<span class="w"> </span>coefficients<span class="w"> </span>using<span class="w"> </span><span class="nb">command</span><span class="w"> </span>line
+<span class="w">  </span>-a<span class="w"> </span>A<span class="w">                  </span>The<span class="w"> </span><span class="sb">`</span>a<span class="sb">`</span><span class="w"> </span>coefficient<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">1</span><span class="o">)</span>
+<span class="w">  </span>-b<span class="w"> </span>B<span class="w">                  </span>The<span class="w"> </span><span class="sb">`</span>b<span class="sb">`</span><span class="w"> </span>coefficient<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+<span class="w">  </span>-c<span class="w"> </span>C<span class="w">                  </span>The<span class="w"> </span><span class="sb">`</span>c<span class="sb">`</span><span class="w"> </span>coefficient<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+<span class="w">  </span>-f<span class="w"> </span>FILE_PATH,<span class="w"> </span>--from-file<span class="w"> </span>FILE_PATH
+<span class="w">                        </span>Read<span class="w"> </span>coefficients<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>data<span class="w"> </span>file<span class="w"> </span><span class="o">(</span>JSON<span class="w"> </span>or<span class="w"> </span>YAML<span class="o">)</span>
+</pre></div>
+</div>
+<p>Теперь можно вызывать наш решатель и передавать ему данные из файла YAML или JSON:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span>-f<span class="w"> </span>abc.yml<span class="w"> </span>
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-3.0
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>.0
+$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span>-f<span class="w"> </span>abc.json<span class="w"> </span>
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>-1.4142135623730951j<span class="o">)</span>
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>+1.4142135623730951j<span class="o">)</span>
+</pre></div>
+</div>
+<p>Или через аргументы командной строки:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span>-l<span class="w"> </span>-a<span class="w"> </span><span class="m">1</span><span class="w"> </span>-b<span class="w"> </span><span class="m">2</span><span class="w"> </span>-c<span class="w"> </span>-3
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-3.0
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>.0
+$<span class="w"> </span>./solve_quadric_eq.py<span class="w"> </span>-l<span class="w"> </span>-a<span class="w"> </span><span class="m">1</span><span class="w"> </span>-b<span class="w"> </span>-2<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span>
+<span class="nv">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>-1.4142135623730951j<span class="o">)</span>
+<span class="nv">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>+1.4142135623730951j<span class="o">)</span>
+</pre></div>
+</div>
+<p>Но файлы можно не только читать.
+В них можно и записывать информацию.</p>
+</section>
+<section id="id6">
+<h3>Сохранение результата в файл<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>Просто замените последние два вызова <code class="docutils literal notranslate"><span class="pre">print</span></code> на что-либо из следующего:</p>
+<ul class="simple">
+<li><p>запись в простой текстовый файл:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;roots.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x1 = </span><span class="si">{</span><span class="n">x1</span><span class="si">}</span><span class="se">\n</span><span class="s2">x2 = </span><span class="si">{</span><span class="n">x2</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>сохранение в YAML файл:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;roots.yml&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="n">yaml</span><span class="o">.</span><span class="n">safe_dump</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span> <span class="n">x1</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">:</span> <span class="n">x2</span><span class="p">},</span>
+        <span class="n">output</span><span class="p">,</span>
+        <span class="n">allow_unicode</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>сохранение в файл JSON:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;roots.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span> <span class="n">x1</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">:</span> <span class="n">x2</span><span class="p">},</span>
+        <span class="n">output</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>В результате вы получите файлы соответствующих форматов, в которых сохранены корни <code class="docutils literal notranslate"><span class="pre">x1</span></code> и <code class="docutils literal notranslate"><span class="pre">x2</span></code>.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="scripting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Написание сценариев</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../numpy_basics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Основы библиотеки NumPy для работы с массивами чисел</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Распространённые типы файлов</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Работа с текстовыми файлами</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Улучшаем решатель квадратного уравнения</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yaml">Данные из файла YAML</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#json">Данные из файла JSON</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#csv">О файлах CSV</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Интерфейс пользователя</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Сохранение результата в файл</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vadim Fedulov
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
