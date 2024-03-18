@@ -1,0 +1,5 @@
+Hello, world, from text file!
+Numbers 1 2 3
+Another line
+Строка на русском хоба!
+そして日本語で？？

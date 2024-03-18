@@ -8,6 +8,7 @@ chapters:
 - file: basics
   sections:
   - file: basics/scripting
+  - file: basics/working_with_files
 # Основы NumPy
 - file: numpy_basics
   sections:
