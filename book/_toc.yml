@@ -5,6 +5,9 @@ format: jb-book
 root: intro
 chapters:
 # Основы основ
+- file: basics_comp_sim
+  sections:
+  - file: basics_comp_sim/basics
 - file: basics
   sections:
   - file: basics/scripting
