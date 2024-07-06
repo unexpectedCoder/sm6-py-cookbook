@@ -16,6 +16,7 @@ chapters:
 - file: numpy_basics
   sections:
   - file: numpy_basics/creating
+  - file: numpy_basics/basic_operations
   - file: numpy_basics/replicating_joining_mutating
   - file: numpy_basics/indexing
 # Рандом
